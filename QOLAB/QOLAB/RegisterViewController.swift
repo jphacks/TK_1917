@@ -16,6 +16,7 @@ class RegisterViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSWorkspace.shared.open(URL(string: "https://www.google.com/")!)
 
         // Do any additional setup after loading the view.
     }
