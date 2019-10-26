@@ -42,8 +42,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let loginViewController = storyboard.instantiateController(withIdentifier: "login")
         let joinLabViewController = storyboard.instantiateController(withIdentifier: "joinLab")
         loginPopOver.contentViewController = (loginViewController as! NSViewController)
+        loginPopOver.behavior = NSPopover.Behavior.transient
         joinLabPopOver.contentViewController = (joinLabViewController as! NSViewController)
-        
+        joinLabPopOver.behavior = NSPopover.Behavior.transient
         
     }
     
