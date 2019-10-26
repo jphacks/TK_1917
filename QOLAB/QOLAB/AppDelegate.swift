@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import CoreWLAN
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -254,6 +255,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func login() {
         
+    }
+    
+    @objc func wifi() {
+        print("wifi", CWWiFiClient.init().interface()?.ssid() ?? String())
     }
     
     @objc func quit(){
