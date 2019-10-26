@@ -9,6 +9,11 @@
 import Foundation
 
 struct UserActivityRequest: Codable {
+    var activityName: String
+    var data: ActivityData
+}
+
+struct ActivityData: Codable {
     var appName: String
     var typeCount: Int
 }

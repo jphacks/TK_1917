@@ -155,6 +155,7 @@ struct APIClient {
         let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
             if (error == nil) {
                 do {
+                    print(String(data: data!, encoding: .utf8))
                     let res = try decoder.decode(UserActivityResponse.self, from: data!)
                     completion(res)
                 } catch {

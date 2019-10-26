@@ -11,7 +11,7 @@ import Cocoa
 import CoreWLAN
 
 class Sensing{
-    let TIMER_NORMAL_SEC = 3.0
+    let TIMER_NORMAL_SEC = 5.0
     let TIMER_SITTING_SEC = 10.0
     // 座りすぎアラートが作動する文字数のしきい値
     let KEYNUM_THRESHOLD = 5
@@ -131,7 +131,9 @@ class Sensing{
     
     @objc func loggerStart() {
         print(Sensing.appName, Sensing.keyCount)
-        
+        let paramDto = UserActivityRequest(activityName: "napp_activity", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
+        APIClient.postActivity(activity: paramDto) {_ in }
+                
     }
 
     /* タイマー関数 */

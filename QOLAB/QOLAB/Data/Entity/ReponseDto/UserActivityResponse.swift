@@ -9,6 +9,6 @@
 import Foundation
 
 struct UserActivityResponse: Codable {
-    var appName: String
-    var typeCount: Int
+    var activityName: String
+    var data: ActivityData
 }
