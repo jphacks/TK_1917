@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF156F162363E5B300ABAC9E /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF156F152363E5B300ABAC9E /* RegisterViewController.xib */; };
+		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
+		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
+		EF156F1C2363E87800ABAC9E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF156F1B2363E87800ABAC9E /* LoginViewController.xib */; };
 		EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF52D7B32363DA4200892586 /* AppDelegate.swift */; };
 		EF52D7B62363DA4200892586 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF52D7B52363DA4200892586 /* ViewController.swift */; };
 		EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF52D7B72363DA4500892586 /* Assets.xcassets */; };
@@ -14,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF156F152363E5B300ABAC9E /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EF156F1B2363E87800ABAC9E /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		EF52D7B02363DA4200892586 /* QOLAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QOLAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF52D7B32363DA4200892586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF52D7B52363DA4200892586 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +67,10 @@
 				EF52D7B92363DA4500892586 /* Main.storyboard */,
 				EF52D7BC2363DA4500892586 /* Info.plist */,
 				EF52D7BD2363DA4500892586 /* QOLAB.entitlements */,
+				EF156F152363E5B300ABAC9E /* RegisterViewController.xib */,
+				EF156F172363E71600ABAC9E /* RegisterViewController.swift */,
+				EF156F192363E85D00ABAC9E /* LoginViewController.swift */,
+				EF156F1B2363E87800ABAC9E /* LoginViewController.xib */,
 			);
 			path = QOLAB;
 			sourceTree = "<group>";
@@ -121,7 +133,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF156F1C2363E87800ABAC9E /* LoginViewController.xib in Resources */,
 				EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */,
+				EF156F162363E5B300ABAC9E /* RegisterViewController.xib in Resources */,
 				EF52D7BB2363DA4500892586 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +147,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */,
+				EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,
 			);
@@ -278,6 +294,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = jphacks.QOLAB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -297,6 +314,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = jphacks.QOLAB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
