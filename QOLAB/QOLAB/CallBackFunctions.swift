@@ -40,10 +40,7 @@ class CallBackFunctions
                 print("Can't Create File!")
             }
         }
-        let fh = FileHandle.init(forWritingAtPath: fileName)
-        fh?.seekToEndOfFile()
         let timeStamp = "Connected - " + Date().description(with: Locale.current) +  "\t\(device)" + "\n"
-        fh?.write(timeStamp.data(using: .utf8)!)
     }
     
     static let Handle_DeviceRemovalCallback: IOHIDDeviceCallback = { context, result, sender, device in
@@ -72,10 +69,7 @@ class CallBackFunctions
                     print("Can't Create File!")
                 }
             }
-            let fh = FileHandle.init(forWritingAtPath: fileName)
-            fh?.seekToEndOfFile()
             let timeStamp = "Disconnected - " + Date().description(with: Locale.current) +  "\t\(device)" + "\n"
-            fh?.write(timeStamp.data(using: .utf8)!)
     }
      
     static let Handle_IOHIDInputValueCallback: IOHIDValueCallback = { context, result, sender, device in
@@ -124,12 +118,9 @@ class CallBackFunctions
                 print("Can't Create File")
             }
         }
-        let fh = FileHandle.init(forWritingAtPath: fileName)
-        fh?.seekToEndOfFile()
         if test
         {
             let timeStamp = "\n" + Date().description(with: Locale.current) + "\n"
-            fh?.write(timeStamp.data(using: .utf8)!)
         }
 Outside:if pressed == 1
         {
@@ -140,27 +131,26 @@ Outside:if pressed == 1
             }
             if scancode >= 224 && scancode <= 231
             {
-                fh?.write( (mySelf.keyMap[scancode]![0] + "(").data(using: .utf8)!)
                 break Outside
             }
             if CallBackFunctions.CAPSLOCK
             {
-                fh?.write(mySelf.keyMap[scancode]![1].data(using: .utf8)!)
+                if scancode >= 0 && scancode <= 100 {
+                    let d = AppDelegate()
+                    d.keyCountUp(key: mySelf.keyMap[scancode]![1])
+                    d.keyCountUpForSitting(key: mySelf.keyMap[scancode]![1])
+                }
             }
             else
             {
-                fh?.write(mySelf.keyMap[scancode]![0].data(using: .utf8)!)
-                let d = AppDelegate()
-                d.keyCountUp(key: mySelf.keyMap[scancode]![0])
+                if scancode >= 0 && scancode <= 100 {
+                    print("else:", scancode)
+                    let d = AppDelegate()
+                    d.keyCountUp(key: mySelf.keyMap[scancode]![0])
+                    d.keyCountUpForSitting(key: mySelf.keyMap[scancode]![0])
+                }
             }
             
-        }
-        else
-        {
-            if scancode >= 224 && scancode <= 231
-            {
-                fh?.write(")".data(using: .utf8)!)
-            }
         }
     }
 }
