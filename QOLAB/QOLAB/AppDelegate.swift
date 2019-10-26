@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
     let registerPopOver = NSPopover()
+    var isStopped = false
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Insert code here to initialize your application
@@ -98,7 +99,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        RunLoop.current.run()
         OperationQueue().addOperation({ () -> Void in
             let d = Keylogger()
-            while(true) {
+            while(!self.isStopped) {
                 d.start()
             }
 
@@ -107,6 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func stop() {
+        self.isStopped = true
         let d = Keylogger()
         d.stop()
     }
