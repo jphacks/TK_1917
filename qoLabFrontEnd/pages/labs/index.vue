@@ -24,7 +24,7 @@
       >
         create
       </v-btn>
-      <h1>Create Lab by LabCode</h1>
+      <h1>Join Lab by LabCode</h1>
       <v-text-field
         v-model="labCode"
         :disabled="isCreateLoading || canCreate"
@@ -44,7 +44,7 @@
       <p class="headline">labcode: {{ lab.labCode }}</p>
 
       <nuxt-link :to="`/labs/${lab._id}`">
-        <v-btn>{{ lab.name }}に入る</v-btn>
+        <v-btn>{{ lab.name }}の設定をする</v-btn>
       </nuxt-link>
 
       <v-btn :loading="isLeaveLoading" @click="leaveLab">
