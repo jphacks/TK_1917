@@ -58,7 +58,7 @@ class LoginViewController: NSViewController {
                     APIClient.fetchUserInfo() {
                             (res) in
                             DispatchQueue.main.sync {
-//                                print(UserInfoDao().getUserInfo())
+                                
                             }
                         }
                 } else {
@@ -84,6 +84,7 @@ class LoginViewController: NSViewController {
     
     @IBAction func closePopover(_ sender: Any) {
         self.appDelegate.closeLoginPopover(sender)
+        self.appDelegate.initStatusBar()
     }
 
 

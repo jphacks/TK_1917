@@ -64,6 +64,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 withTitle: "計測停止",
                 action: #selector(AppDelegate.stop),
                 keyEquivalent: "s")
+            statusBarMenu.addItem(
+                withTitle: "ログアウト",
+                action: #selector(AppDelegate.logout(_:)),
+                keyEquivalent: "w")
         }
         
         statusBarMenu.addItem(
@@ -78,6 +82,48 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         loginPopOver.contentViewController = (loginViewController as! NSViewController)
         registerPopOver.contentViewController = (registerViewController as! NSViewController)
         
+    }
+    
+    func initStatusBar() {
+        let statusBar = NSStatusBar.system
+        statusBarItem = statusBar.statusItem(
+            withLength: NSStatusItem.squareLength)
+        statusBarItem.button?.image = NSImage.init(named: "iconW")
+        let statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
+        
+        statusBarItem.menu = statusBarMenu
+        
+        let userInfo = UserInfoDao().getUserInfo()
+        
+        if userInfo == nil {
+            statusBarMenu.addItem(
+                withTitle: "新規登録",
+                action: #selector(AppDelegate.openRegisterPage(_:)),
+                keyEquivalent: "")
+
+            statusBarMenu.addItem(
+                withTitle: "ログイン",
+                action: #selector(AppDelegate.toggleLoginPopover(_:)),
+                keyEquivalent: "")
+        } else {
+            statusBarMenu.addItem(
+                withTitle: "計測開始",
+                action: #selector(AppDelegate.start),
+                keyEquivalent: "s")
+            statusBarMenu.addItem(
+                withTitle: "計測停止",
+                action: #selector(AppDelegate.stop),
+                keyEquivalent: "s")
+            statusBarMenu.addItem(
+                withTitle: "ログアウト",
+                action: #selector(AppDelegate.logout(_:)),
+                keyEquivalent: "w")
+        }
+        
+        statusBarMenu.addItem(
+            withTitle: "終了",
+            action: #selector(AppDelegate.quit),
+            keyEquivalent: "q")
     }
     
     @objc func toggleLoginPopover(_ sender: Any){
@@ -101,6 +147,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let button = statusBarItem.button{
             loginPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
+    }
+    
+    @objc func logout(_ sender: Any) {
+        UserDefaults().removeObject(forKey: UserInfoDao.USER_INFO)
+        initStatusBar()
     }
 
     public func closeLoginPopover(_ sender: Any){
