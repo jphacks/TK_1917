@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let loginPopOver = NSPopover()
     let joinLabPopOver = NSPopover()
     let sensing = Sensing()
+    var isSensingStarted = false
 
     
     override init(){
@@ -65,14 +66,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 action: #selector(AppDelegate.toggleLoginPopover(_:)),
                 keyEquivalent: "l")
         } else {
-            statusBarMenu.addItem(
-                withTitle: "計測開始",
-                action: #selector(AppDelegate.start),
-                keyEquivalent: "s")
-            statusBarMenu.addItem(
-                withTitle: "計測停止",
-                action: #selector(AppDelegate.stop),
-                keyEquivalent: "t")
+            if isSensingStarted == true {
+                statusBarMenu.addItem(
+                    withTitle: "🔵 計測中...",
+                    action: nil,
+                    keyEquivalent: "")
+                statusBarMenu.addItem(NSMenuItem.separator())
+                statusBarMenu.addItem(
+                    withTitle: "計測停止",
+                    action: #selector(AppDelegate.stop),
+                    keyEquivalent: "t")
+            } else {
+                statusBarMenu.addItem(
+                    withTitle: "🔴 停止中",
+                    action: nil,
+                    keyEquivalent: "")
+                statusBarMenu.addItem(NSMenuItem.separator())
+                statusBarMenu.addItem(
+                    withTitle: "計測開始",
+                    action: #selector(AppDelegate.start),
+                    keyEquivalent: "s")
+            }
+
+
             if labInfo?.name == nil {
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
@@ -144,6 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func logout(_ sender: Any) {
+        stop()
         UserDefaults().removeObject(forKey: UserInfoDao.USER_INFO)
         initStatusBar()
     }
@@ -161,10 +178,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func start () {
+        self.isSensingStarted = true
+        initStatusBar()
         self.sensing.start()
     }
     
     @objc func stop() {
+        self.isSensingStarted = false
+        initStatusBar()
         self.sensing.stop()
     }
     
