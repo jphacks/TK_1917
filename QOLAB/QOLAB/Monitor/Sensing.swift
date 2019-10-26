@@ -62,15 +62,19 @@ class Sensing{
         
         startTime = Date()
 
+        NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { event in
+            // not called
+            print(event.characters!)
+        }
     //        RunLoop.current.run()
-        let d = Keylogger()
-        OperationQueue().addOperation({ () -> Void in
-
-            while(!self.isStopped) {
-                d.start()
-            }
-
-        })
+//        let d = Keylogger()
+//        OperationQueue().addOperation({ () -> Void in
+//
+//            while(!self.isStopped) {
+//                d.start()
+//            }
+//
+//        })
     }
     
     @objc func timerCounter() {

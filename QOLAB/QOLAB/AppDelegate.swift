@@ -24,7 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Insert code here to initialize your application
-        
         initStatusBar()
         
         let storyboard = NSStoryboard.init(name: "Auth", bundle: nil)
