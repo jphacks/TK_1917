@@ -76,7 +76,7 @@ struct APIClient {
         request.httpMethod = "POST"
         // set the header(s)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
+   
 
         do{
             request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(userInfo)), options: [])

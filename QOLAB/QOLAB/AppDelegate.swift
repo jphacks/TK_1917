@@ -26,9 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var keyCountForSitting = 0
     static var appName = ""
     var arrayFlag: [Bool] = [false, false, false, false, false]
+    var wifiDict:Dictionary<String, String> = [:]
     /* タイマー変数 */
     var timerNormal = Timer()
     var timerSitting = Timer()
+    var stopWatchTimer = Timer()
+    var startTime = Date()
     
     override init(){
         print("Appdelegete init!!")
@@ -185,6 +188,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     userInfo: nil,
                     repeats: true
         )
+        
+        self.stopWatchTimer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(self.timerCounter),
+            userInfo: nil,
+            repeats: true
+        )
+        
+        startTime = Date()
 
 //        RunLoop.current.run()
         let d = Keylogger()
@@ -209,6 +222,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        if (self.count > 10) {
 //            timer.invalidate()
 //        }
+    }
+    
+    @objc func timerCounter() {
+        // タイマー開始からのインターバル時間 単位は秒
+        let currentTime = Date().timeIntervalSince(startTime)
+        
+        // fmod() 余りを計算
+        let minute = (Int)(fmod((currentTime/60), 60))
+        // currentTime/60 の余り
+        let second = (Int)(fmod(currentTime, 60))
+        // floor 切り捨て、小数点以下を取り出して *100
+        let msec = (Int)((currentTime - floor(currentTime))*100)
+        print(currentTime, minute, second, msec)
+        let ssid = CWWiFiClient.init().interface()?.ssid() ?? String()
+        
+        if ssid != "" {
+            wifiDict[ssid] = String(Int(currentTime))
+        }
+//        // %02d： ２桁表示、0で埋める
+//        let sMinute = String(format:"%02d", minute)
+//        let sSecond = String(format:"%02d", second)
+//        let sMsec = String(format:"%02d", msec)
+        
+//        timerMinute.text = sMinute
+//        timerSecond.text = sSecond
+//        timerMSec.text = sMsec
+        
     }
     
     @objc func keyCountUp(key: String) {
@@ -251,6 +291,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.isStopped = true
         let d = Keylogger()
         d.stop()
+        
+        timerSitting.invalidate()
+        timerNormal.invalidate()
+        stopWatchTimer.invalidate()
+        
+        print(wifiDict ?? "aaaa")
     }
     
     @objc func login() {
@@ -264,10 +310,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func quit(){
         //アプリケーションの終了
         NSApplication.shared.terminate(self)
+        timerSitting.invalidate()
+        timerNormal.invalidate()
+        stopWatchTimer.invalidate()
+        
+        print(wifiDict ?? "aaaa")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        timerSitting.invalidate()
+        timerNormal.invalidate()
+        stopWatchTimer.invalidate()
     }
 
 }
