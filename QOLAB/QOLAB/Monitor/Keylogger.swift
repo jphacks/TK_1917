@@ -116,7 +116,7 @@ class Keylogger
             let timeStamp = Date().description(with: Locale.current) +  "\t\(self.appName)" + "\n"
             fh?.write(timeStamp.data(using: .utf8)!)
             print("activatedApp: ", self.appName)
-            AppDelegate.appName = self.appName
+            Sensing.appName = self.appName
         }
     }
 

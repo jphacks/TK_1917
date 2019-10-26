@@ -12,26 +12,11 @@ import CoreWLAN
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    let TIMER_NORMAL_SEC = 3.0
-    let TIMER_SITTING_SEC = 10.0
-    // 座りすぎアラートが作動する文字数のしきい値
-    let KEYNUM_THRESHOLD = 5
-
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
     let joinLabPopOver = NSPopover()
-    var isStopped = false
-    var count = 1
-    static var keyCount = 0
-    static var keyCountForSitting = 0
-    static var appName = ""
-    var arrayFlag: [Bool] = [false, false, false, false, false]
-    var wifiDict:Dictionary<String, String> = [:]
-    /* タイマー変数 */
-    var timerNormal = Timer()
-    var timerSitting = Timer()
-    var stopWatchTimer = Timer()
-    var startTime = Date()
+    let sensing = Sensing()
+
     
     override init(){
         print("Appdelegete init!!")
@@ -171,156 +156,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func start () {
-        /* タイマー実行 */
-        self.timerNormal = Timer.scheduledTimer(
-                    timeInterval: TIMER_NORMAL_SEC,//実行する時間
-                    target: self,
-                    selector: #selector(self.CountDown),//実行関数
-                    userInfo: nil,
-                    repeats: true
-        )
-        
-        /* タイマー実行 */
-        self.timerSitting = Timer.scheduledTimer(
-                    timeInterval: TIMER_SITTING_SEC,//実行する時間
-                    target: self,
-                    selector: #selector(self.checkLongSitting),//実行関数
-                    userInfo: nil,
-                    repeats: true
-        )
-        
-        self.stopWatchTimer = Timer.scheduledTimer(
-            timeInterval: 1.0,
-            target: self,
-            selector: #selector(self.timerCounter),
-            userInfo: nil,
-            repeats: true
-        )
-        
-        startTime = Date()
-
-//        RunLoop.current.run()
-        let d = Keylogger()
-        OperationQueue().addOperation({ () -> Void in
-    
-            while(!self.isStopped) {
-                d.start()
-            }
-
-        })
-    }
-    
-    /* タイマー関数 */
-    @objc func CountDown() {
-        self.count += 1
-        print("count:", count)
-        self.loggerStart()
-        // keyCountをリセット
-        AppDelegate.keyCount = 0
-//        /* 10秒かカウントしたらタイマーストップ */
-//        if (self.count > 10) {
-//            timer.invalidate()
-//        }
-    }
-    
-    @objc func timerCounter() {
-        // タイマー開始からのインターバル時間 単位は秒
-        let currentTime = Date().timeIntervalSince(startTime)
-        
-        // fmod() 余りを計算
-        let minute = (Int)(fmod((currentTime/60), 60))
-        // currentTime/60 の余り
-        let second = (Int)(fmod(currentTime, 60))
-        // floor 切り捨て、小数点以下を取り出して *100
-        let msec = (Int)((currentTime - floor(currentTime))*100)
-        
-//        print(currentTime, minute, second, msec)
-        let ssid = CWWiFiClient.init().interface()?.ssid() ?? String()
-        
-        if ssid != "" {
-            wifiDict[ssid] = String(Int(currentTime))
-        }
-//        // %02d： ２桁表示、0で埋める
-//        let sMinute = String(format:"%02d", minute)
-//        let sSecond = String(format:"%02d", second)
-//        let sMsec = String(format:"%02d", msec)
-        
-//        timerMinute.text = sMinute
-//        timerSecond.text = sSecond
-//        timerMSec.text = sMsec
-        
-    }
-    
-    @objc func keyCountUp(key: String) {
-        print("keyCountUp:", key, AppDelegate.keyCount)
-        AppDelegate.keyCount += 1
-    }
-    
-    @objc func keyCountUpForSitting(key: String) {
-        AppDelegate.keyCountForSitting += 1
-    }
-    
-    @objc func loggerStart() {
-        print(AppDelegate.appName, AppDelegate.keyCount)
-    }
-
-    /* タイマー関数 */
-    @objc func checkLongSitting() {
-        print("checkLongSitting: ", AppDelegate.keyCountForSitting)
-        if (AppDelegate.keyCountForSitting > KEYNUM_THRESHOLD) {
-            print("detect: threshold over")
-            arrayFlag.removeLast()
-            arrayFlag.insert(true, at: 0)
-        } else {
-            arrayFlag.removeLast()
-            arrayFlag.insert(false, at: 0)
-        }
-        let orderedSet = NSOrderedSet(array: arrayFlag)
-        let uniqueValues = orderedSet.array as! [Bool]
-        
-        // 全てtrueだった場合 座りすぎ
-        if (uniqueValues[0] && uniqueValues.count == 1) {
-            print("座りすぎです！！！！！！")
-        }
-        // keyCountForSittingをリセット
-        AppDelegate.keyCountForSitting = 0
+        self.sensing.start()
     }
     
     @objc func stop() {
-        self.isStopped = true
-        let d = Keylogger()
-        d.stop()
-        
-        timerSitting.invalidate()
-        timerNormal.invalidate()
-        stopWatchTimer.invalidate()
-        
-        print(wifiDict)
+        self.sensing.stop()
     }
     
     @objc func login() {
         
     }
     
-    @objc func wifi() {
-        print("wifi", CWWiFiClient.init().interface()?.ssid() ?? String())
-    }
     
     @objc func quit(){
+        self.sensing.quit()
         //アプリケーションの終了
         NSApplication.shared.terminate(self)
-        timerSitting.invalidate()
-        timerNormal.invalidate()
-        stopWatchTimer.invalidate()
-        
-        print(wifiDict)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-        timerSitting.invalidate()
-        timerNormal.invalidate()
-        stopWatchTimer.invalidate()
     }
 
 }
