@@ -1,6 +1,6 @@
 <template>
   <v-layout column justify-center align-center>
-    <h2 class="display-2">ログイン</h2>
+    <h2 class="display-2">登録</h2>
     <v-form ref="form" v-model="valid" :lazy-validation="lazy">
       <v-text-field
         v-model="email"
@@ -16,12 +16,12 @@
       ></v-text-field>
       <div>
         <v-btn type="submit" class="mr-4" color="primary" @click="submit"
-          >ログイン</v-btn
+          >登録</v-btn
         >
       </div>
     </v-form>
-    <nuxt-link tag="div" class="signup-link" to="/signup"
-      >登録はこちら</nuxt-link
+    <nuxt-link tag="div" class="signup-link" to="/signin">
+      ログインはこちら</nuxt-link
     >
   </v-layout>
 </template>
