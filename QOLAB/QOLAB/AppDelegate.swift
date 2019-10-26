@@ -132,6 +132,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.count += 1
         print("count:", count)
         self.logger_start()
+        // keyCountをリセット
+        AppDelegate.keyCount = 0
 //        /* 10秒かカウントしたらタイマーストップ */
 //        if (self.count > 10) {
 //            timer.invalidate()

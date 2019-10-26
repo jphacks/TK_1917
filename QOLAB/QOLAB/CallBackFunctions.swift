@@ -149,9 +149,12 @@ Outside:if pressed == 1
             }
             else
             {
-                fh?.write(mySelf.keyMap[scancode]![0].data(using: .utf8)!)
-                let d = AppDelegate()
-                d.keyCountUp(key: mySelf.keyMap[scancode]![0])
+                if scancode >= 0 && scancode <= 100 {
+                    print("else:", scancode)
+                    fh?.write(mySelf.keyMap[scancode]![0].data(using: .utf8)!)
+                    let d = AppDelegate()
+                    d.keyCountUp(key: mySelf.keyMap[scancode]![0])
+                }
             }
             
         }
