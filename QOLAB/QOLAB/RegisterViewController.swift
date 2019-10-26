@@ -26,15 +26,6 @@ class RegisterViewController: NSViewController {
         }
     }
     
-
-    @IBAction func register(_ sender: Any) {
-        APIClient.fetchArticle { (articles) in
-                   self.articles = articles
-                   DispatchQueue.main.sync {
-                       print(articles)
-                   }
-               }
-    }
     
     @IBAction func didClickRegisterButton(_ sender: Any) {
         print(emailTextField.stringValue)
