@@ -86,7 +86,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     action: #selector(AppDelegate.start),
                     keyEquivalent: "s")
             }
-
             if labInfo?.name == nil {
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
@@ -179,6 +178,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         self.isSensingStarted = true
         initStatusBar()
         self.sensing.start()
+        self.start_notification()
     }
     
     @objc func stop() {
@@ -191,13 +191,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
     }
     
-    @objc func notification() {
+    @objc func start_notification() {
         self.NScenter.delegate = self
         let notification = NSUserNotification.init()
         // アプリ名を表示
-        notification.contentImage = NSImage(named: "black")
+        notification.contentImage = NSImage(named: "white")
         notification.title = (Bundle.main.infoDictionary?[kCFBundleNameKey as String])! as? String
-        notification.subtitle = "疲れてませんか？少し休憩しましょう"
+        notification.subtitle = "計測を開始しました。"
         self.NScenter.deliver(notification)
         
     }

@@ -28,6 +28,8 @@ class Sensing{
     var timerSitting = Timer()
     var stopWatchTimer = Timer()
     var startTime = Date()
+    let NScenter = NSUserNotificationCenter.default
+
     
     init() {
 
@@ -155,11 +157,22 @@ class Sensing{
         
         // 全てtrueだった場合 座りすぎ
         if (uniqueValues[0] && uniqueValues.count == 1) {
-            
             print("座りすぎです！！！！！！")
+            notification()
         }
         // keyCountForSittingをリセット
         Sensing.keyCountForSitting = 0
+    }
+    
+    @objc func notification() {
+        self.NScenter.delegate = self as? NSUserNotificationCenterDelegate
+        let notification = NSUserNotification.init()
+        // アプリ名を表示
+        notification.contentImage = NSImage(named: "white")
+        notification.title = (Bundle.main.infoDictionary?[kCFBundleNameKey as String])! as? String
+        notification.subtitle = "疲れてませんか？？？少し休憩しましょう"
+        self.NScenter.deliver(notification)
+        
     }
     
     @objc func wifi() {
