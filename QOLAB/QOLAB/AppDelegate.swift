@@ -22,6 +22,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         print("Appdelegete init!!")
     }
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let options = NSDictionary(
+            object: kCFBooleanTrue,
+            forKey: kAXTrustedCheckOptionPrompt.takeUnretainedValue() as NSString
+        ) as CFDictionary
+
+        AXIsProcessTrustedWithOptions(options)
 
         // Insert code here to initialize your application
         initStatusBar()
