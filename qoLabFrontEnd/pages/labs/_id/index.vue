@@ -2,25 +2,66 @@
   <v-layout column justify-center class="container">
     <h2 class="display-2 label">研究室の管理</h2>
     <div v-for="room in rooms" :key="room._id" class="list">
-      <div class="room-label">{{ room.name }}</div>
-      <v-select :items="monipis" label="モニパイ" solo></v-select>
+      <div>
+        <div class="room-label">{{ room.name }}</div>
+        <p>現在のモニパイID: {{ room.monipiId }}</p>
+      </div>
+      <v-select
+        item-text="monipiCode"
+        item-value="_id"
+        :items="monipis"
+        label="モニパイ"
+        solo
+        @change="e => submit(room._id, e)"
+      ></v-select>
+      <v-btn
+        class="submit-btn"
+        color="primary"
+        @click="submit(room._id, monipi._Id)"
+        >更新する</v-btn
+      >
     </div>
   </v-layout>
 </template>
 
 <script>
-// import api from '@/utils/apiClient'
+import api from '@/utils/apiClient'
 
 export default {
+  middleware: 'auth',
   data() {
     return {
-      rooms: [{ _id: '001', name: '805' }, { _id: '002', name: '806' }],
-      monipis: ['001', '002']
+      rooms: [],
+      monipis: [],
+      selectedData: null
     }
   },
-  mounted() {},
+  mounted: async function() {
+    try {
+      const resp = await api.get('/room')
+      this.rooms = resp.data
+    } catch {
+      console.debug('error')
+    }
+
+    try {
+      const resp = await api.get('/monipi')
+      this.monipis = resp.data
+    } catch {
+      console.debug('error')
+    }
+  },
   methods: {
-    submit: function() {}
+    submit: async function(roomId, monipiId) {
+      try {
+        await api.put('/room', {
+          _id: roomId,
+          monipiId: monipiId
+        })
+      } catch {
+        console.debug('monipi error')
+      }
+    }
   }
 }
 </script>
@@ -47,5 +88,9 @@ export default {
   line-height: 52px;
   margin-right: 16px;
   vertical-align: middle;
+}
+
+.submit-btn {
+  display: block;
 }
 </style>
