@@ -19,6 +19,14 @@ export default {
   },
   methods: {
     login: function() {
+      chrome.storage.sync.get(['key'], function(result) {
+        console.log('Value currently is ' + result.key);
+      });
+      console.debug(chrome.storage);
+      chrome.storage.sync.set({ key: 'theValue' }, function() {
+        // Notify that we saved.
+        message('Settings saved');
+      });
       this.$router.push('/home');
     },
   },
