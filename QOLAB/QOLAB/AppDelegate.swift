@@ -40,29 +40,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             withLength: NSStatusItem.squareLength)
         statusBarItem.button?.image = NSImage.init(named: "iconW")
         let statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
+        
         statusBarItem.menu = statusBarMenu
-        statusBarMenu.addItem(
-            withTitle: "新規登録",
-            action: #selector(AppDelegate.toggleRegisterPopover(_:)),
-            keyEquivalent: "")
+        
+        let userInfo = UserInfoDao().getUserInfo()
+        
+        if userInfo == nil {
+            statusBarMenu.addItem(
+                withTitle: "新規登録",
+                action: #selector(AppDelegate.toggleRegisterPopover(_:)),
+                keyEquivalent: "")
 
-        statusBarMenu.addItem(
-            withTitle: "ログイン",
-            action: #selector(AppDelegate.toggleLoginPopover(_:)),
-            keyEquivalent: "")
+            statusBarMenu.addItem(
+                withTitle: "ログイン",
+                action: #selector(AppDelegate.toggleLoginPopover(_:)),
+                keyEquivalent: "")
+        } else {
+            statusBarMenu.addItem(
+                withTitle: "計測開始",
+                action: #selector(AppDelegate.start),
+                keyEquivalent: "s")
+            statusBarMenu.addItem(
+                withTitle: "計測停止",
+                action: #selector(AppDelegate.stop),
+                keyEquivalent: "s")
+        }
         
         statusBarMenu.addItem(
             withTitle: "終了",
             action: #selector(AppDelegate.quit),
             keyEquivalent: "q")
-        statusBarMenu.addItem(
-            withTitle: "計測開始",
-            action: #selector(AppDelegate.start),
-            keyEquivalent: "s")
-        statusBarMenu.addItem(
-            withTitle: "計測停止",
-            action: #selector(AppDelegate.stop),
-            keyEquivalent: "s")
+
         
         let storyboard = NSStoryboard.init(name: "Auth", bundle: nil)
         let loginViewController = storyboard.instantiateController(withIdentifier: "login")
