@@ -20,16 +20,43 @@ struct APIClient {
         var request = URLRequest(url: (components?.url)!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
-        print(AccessTokenDao().getAccessToken() ?? "")
         let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
             if (error == nil) {
                 
                 do {
-                    print(String(data: data!, encoding: .utf8))
                     let res = try decoder.decode(FetchUserInfoResponse.self, from: data!)
                     UserInfoDao().setUserInfo(user: res)
                     completion(res)
                 } catch {
+                    completion(nil)
+                }
+            } else {
+                print("error")
+            }
+        })
+        task.resume()
+    }
+    
+    static func fetchLabInfo(_ completion: @escaping (JoinLabResponse?) -> Void) {
+        let decoder = JSONDecoder()
+        let components = URLComponents(string: APIURL.baseUrl + "/lab")
+        guard let url = components?.url else {
+            return
+        }
+        
+        var request = URLRequest(url: (components?.url)!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            if (error == nil) {
+                
+                do {
+                    let res = try decoder.decode(JoinLabResponse.self, from: data!)
+                    UserInfoDao().setLabName(lab: res)
+                    completion(res)
+                } catch {
+                    
+                    UserDefaults().removeObject(forKey: UserInfoDao.LAB_NAME)
                     completion(nil)
                 }
             } else {
@@ -49,7 +76,7 @@ struct APIClient {
         request.httpMethod = "POST"
         // set the header(s)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(AccessTokenDao().getAccessToken() ?? "", forHTTPHeaderField: "Authorization: Bearer")
+        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
 
         do{
             request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(userInfo)), options: [])
@@ -72,6 +99,41 @@ struct APIClient {
         })
         task.resume()
     }
+    
+    static func joinLab(joinInfo: JoinLabRequest, _ completion: @escaping (JoinLabResponse?) -> Void) {
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        var request = URLRequest(url: URL(string:APIURL.baseUrl + "/lab")!)
+        
+
+        // set the method(HTTP-POST)
+        request.httpMethod = "POST"
+        // set the header(s)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
+
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(joinInfo)), options: [])
+        }catch{
+            print(error.localizedDescription)
+        }
+        // use NSURLSessionDataTask
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            if (error == nil) {
+                do {
+                    let res = try decoder.decode(JoinLabResponse.self, from: data!)
+                    UserInfoDao().setLabName(lab: res)
+                    completion(res)
+                } catch {
+                    completion(nil)
+                }
+            } else {
+                print("error")
+            }
+        })
+        task.resume()
+    }
+    
     
     static func singUp(userInfo: AuthRequest, _ completion: @escaping ([PlaygroundStr]) -> Void) {
         let components = URLComponents(string: APIURL.baseUrl + "/signup")
