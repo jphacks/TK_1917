@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
-    let registerPopOver = NSPopover()
+    let joinLabPopOver = NSPopover()
     var isStopped = false
     var count = 1
     static var keyCount = 0
@@ -35,52 +35,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Insert code here to initialize your application
-        let statusBar = NSStatusBar.system
-        statusBarItem = statusBar.statusItem(
-            withLength: NSStatusItem.squareLength)
-        statusBarItem.button?.image = NSImage.init(named: "iconW")
-        let statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
         
-        statusBarItem.menu = statusBarMenu
-        
-        let userInfo = UserInfoDao().getUserInfo()
-        
-        if userInfo == nil {
-            statusBarMenu.addItem(
-                withTitle: "新規登録",
-                action: #selector(AppDelegate.openRegisterPage(_:)),
-                keyEquivalent: "")
-
-            statusBarMenu.addItem(
-                withTitle: "ログイン",
-                action: #selector(AppDelegate.toggleLoginPopover(_:)),
-                keyEquivalent: "")
-        } else {
-            statusBarMenu.addItem(
-                withTitle: "計測開始",
-                action: #selector(AppDelegate.start),
-                keyEquivalent: "s")
-            statusBarMenu.addItem(
-                withTitle: "計測停止",
-                action: #selector(AppDelegate.stop),
-                keyEquivalent: "s")
-            statusBarMenu.addItem(
-                withTitle: "ログアウト",
-                action: #selector(AppDelegate.logout(_:)),
-                keyEquivalent: "w")
-        }
-        
-        statusBarMenu.addItem(
-            withTitle: "終了",
-            action: #selector(AppDelegate.quit),
-            keyEquivalent: "q")
-
+        initStatusBar()
         
         let storyboard = NSStoryboard.init(name: "Auth", bundle: nil)
         let loginViewController = storyboard.instantiateController(withIdentifier: "login")
-        let registerViewController = storyboard.instantiateController(withIdentifier: "register")
+        let joinLabViewController = storyboard.instantiateController(withIdentifier: "joinLab")
         loginPopOver.contentViewController = (loginViewController as! NSViewController)
-        registerPopOver.contentViewController = (registerViewController as! NSViewController)
+        joinLabPopOver.contentViewController = (joinLabViewController as! NSViewController)
+        
         
     }
     
@@ -94,17 +57,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.menu = statusBarMenu
         
         let userInfo = UserInfoDao().getUserInfo()
+        let labInfo = UserInfoDao().getLabName()
         
         if userInfo == nil {
             statusBarMenu.addItem(
                 withTitle: "新規登録",
                 action: #selector(AppDelegate.openRegisterPage(_:)),
-                keyEquivalent: "")
+                keyEquivalent: "s")
 
             statusBarMenu.addItem(
                 withTitle: "ログイン",
                 action: #selector(AppDelegate.toggleLoginPopover(_:)),
-                keyEquivalent: "")
+                keyEquivalent: "l")
         } else {
             statusBarMenu.addItem(
                 withTitle: "計測開始",
@@ -113,39 +77,74 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             statusBarMenu.addItem(
                 withTitle: "計測停止",
                 action: #selector(AppDelegate.stop),
-                keyEquivalent: "s")
-            statusBarMenu.addItem(
-                withTitle: "ログアウト",
-                action: #selector(AppDelegate.logout(_:)),
-                keyEquivalent: "w")
+                keyEquivalent: "t")
+            if labInfo?.name == nil {
+                statusBarMenu.addItem(NSMenuItem.separator())
+                statusBarMenu.addItem(
+                    withTitle: "ラボに参加",
+                    action: #selector(AppDelegate.toggleJoinPopover(_:)),
+                    keyEquivalent: "j")
+                statusBarMenu.addItem(
+                    withTitle: "ログアウト",
+                    action: #selector(AppDelegate.logout(_:)),
+                    keyEquivalent: "w")
+                statusBarMenu.addItem(
+                    withTitle: "終了",
+                    action: #selector(AppDelegate.quit),
+                    keyEquivalent: "q")
+            } else {
+                statusBarMenu.addItem(NSMenuItem.separator())
+                statusBarMenu.addItem(
+                    withTitle: "ログアウト",
+                    action: #selector(AppDelegate.logout(_:)),
+                    keyEquivalent: "w")
+                statusBarMenu.addItem(
+                    withTitle: "終了",
+                    action: #selector(AppDelegate.quit),
+                    keyEquivalent: "q")
+                statusBarMenu.addItem(NSMenuItem.separator())
+                statusBarMenu.addItem(
+                    withTitle: (labInfo!.name+"研究室に参加中"),
+                    action: nil,
+                    keyEquivalent: "")
+                
+            }
         }
         
-        statusBarMenu.addItem(
-            withTitle: "終了",
-            action: #selector(AppDelegate.quit),
-            keyEquivalent: "q")
+
     }
     
     @objc func toggleLoginPopover(_ sender: Any){
         if loginPopOver.isShown{
             closeLoginPopover(sender)
         }else{
-            closeRegisterPopover(sender)
+            closeJoinPopover(sender)
             showLoginPopover(sender)
+        }
+    }
+    
+    @objc func toggleJoinPopover(_ sender: Any) {
+        if joinLabPopOver.isShown{
+            closeJoinPopover(sender)
+        }else{
+            showJoinPopover(sender)
+            closeLoginPopover(sender)
         }
     }
     
     @objc func openRegisterPage(_ sender: Any){
         NSWorkspace.shared.open(URL(string: "https://qolab-a0324.web.app/signup/")!)
     }
-
-    func closeRegisterPopover(_ sender: Any){
-        registerPopOver.performClose(sender)
-    }
     
     func showLoginPopover(_ sender: Any){
         if let button = statusBarItem.button{
             loginPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        }
+    }
+    
+    func showJoinPopover(_ sender: Any){
+        if let button = statusBarItem.button{
+            joinLabPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
     
@@ -156,6 +155,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     public func closeLoginPopover(_ sender: Any){
         loginPopOver.performClose(sender)
+    }
+    
+    public func closeJoinPopover(_ sender: Any){
+        joinLabPopOver.performClose(sender)
     }
     
     @objc func register () {
