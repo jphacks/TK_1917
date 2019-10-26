@@ -7,27 +7,16 @@
 //
 
 import Cocoa
+import CoreWLAN
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    let TIMER_NORMAL_SEC = 3.0
-    let TIMER_SITTING_SEC = 10.0
-    // 座りすぎアラートが作動する文字数のしきい値
-    let KEYNUM_THRESHOLD = 5
-
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
     let joinLabPopOver = NSPopover()
-    var isStopped = false
-    var count = 1
-    static var keyCount = 0
-    static var keyCountForSitting = 0
-    static var appName = ""
-    var arrayFlag: [Bool] = [false, false, false, false, false]
-    /* タイマー変数 */
-    var timerNormal = Timer()
-    var timerSitting = Timer()
+    let sensing = Sensing()
+
     
     override init(){
         print("Appdelegete init!!")
@@ -167,96 +156,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func start () {
-        /* タイマー実行 */
-        self.timerNormal = Timer.scheduledTimer(
-                    timeInterval: TIMER_NORMAL_SEC,//実行する時間
-                    target: self,
-                    selector: #selector(self.CountDown),//実行関数
-                    userInfo: nil,
-                    repeats: true
-        )
-        
-        /* タイマー実行 */
-        self.timerSitting = Timer.scheduledTimer(
-                    timeInterval: TIMER_SITTING_SEC,//実行する時間
-                    target: self,
-                    selector: #selector(self.checkLongSitting),//実行関数
-                    userInfo: nil,
-                    repeats: true
-        )
-
-//        RunLoop.current.run()
-        let d = Keylogger()
-        OperationQueue().addOperation({ () -> Void in
-    
-            while(!self.isStopped) {
-                d.start()
-            }
-
-        })
-        print("d start")
-    }
-    
-    /* タイマー関数 */
-    @objc func CountDown() {
-        self.count += 1
-        print("count:", count)
-        self.loggerStart()
-        // keyCountをリセット
-        AppDelegate.keyCount = 0
-//        /* 10秒かカウントしたらタイマーストップ */
-//        if (self.count > 10) {
-//            timer.invalidate()
-//        }
-    }
-    
-    @objc func keyCountUp(key: String) {
-        print("keyCountUp:", key, AppDelegate.keyCount)
-        AppDelegate.keyCount += 1
-    }
-    
-    @objc func keyCountUpForSitting(key: String) {
-        AppDelegate.keyCountForSitting += 1
-    }
-    
-    @objc func loggerStart() {
-        print("logger_start")
-        print(AppDelegate.appName, AppDelegate.keyCount)
-    }
-
-    /* タイマー関数 */
-    @objc func checkLongSitting() {
-        print("checkLongSitting: ", AppDelegate.keyCountForSitting)
-        if (AppDelegate.keyCountForSitting > KEYNUM_THRESHOLD) {
-            arrayFlag.removeLast()
-            arrayFlag.insert(true, at: 0)
-        } else {
-            arrayFlag.removeLast()
-            arrayFlag.insert(false, at: 0)
-        }
-        print("array", arrayFlag)
-        let orderedSet = NSOrderedSet(array: arrayFlag)
-        let uniqueValues = orderedSet.array as! [Bool]
-        
-        // 全てtrueだった場合 座りすぎ
-        if (uniqueValues[0] && uniqueValues.count == 1) {
-            print("座りすぎです！！！！！！")
-        }
-        // keyCountForSittingをリセット
-        AppDelegate.keyCountForSitting = 0
+        self.sensing.start()
     }
     
     @objc func stop() {
-        self.isStopped = true
-        let d = Keylogger()
-        d.stop()
+        self.sensing.stop()
     }
     
     @objc func login() {
         
     }
     
+    
     @objc func quit(){
+        self.sensing.quit()
         //アプリケーションの終了
         NSApplication.shared.terminate(self)
     }
