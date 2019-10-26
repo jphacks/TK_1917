@@ -3,14 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		060B614BB66D914759077ACB /* Pods_QOLAB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */; };
 		B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FD2363E52D00089862 /* Keylogger.swift */; };
 		B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FF2363E53500089862 /* CallBackFunctions.swift */; };
 		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
+		EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF23F4A12364704F0049B544 /* AccessTokenDao.swift */; };
 		EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A62E23640BC400992283 /* playgroundRequest.swift */; };
 		EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63023640BCF00992283 /* playgroundResponse.swift */; };
 		EF43A63523640E8700992283 /* apiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63423640E8700992283 /* apiClient.swift */; };
@@ -20,13 +22,20 @@
 		EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF52D7B72363DA4500892586 /* Assets.xcassets */; };
 		EF52D7BB2363DA4500892586 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF52D7B92363DA4500892586 /* Main.storyboard */; };
 		EFC6921123641B0700EBDA44 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFC6921023641B0700EBDA44 /* Auth.storyboard */; };
+		EFF084B42364725B006C4F5A /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B32364725B006C4F5A /* LoginResponse.swift */; };
+		EFF084B623647581006C4F5A /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B523647581006C4F5A /* AuthRequest.swift */; };
+		EFF084B823647CF6006C4F5A /* LoginSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B723647CF6006C4F5A /* LoginSuccessViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QOLAB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		856ADE87C7B7A04A95B17913 /* Pods-QOLAB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.debug.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.debug.xcconfig"; sourceTree = "<group>"; };
 		B18DD9FD2363E52D00089862 /* Keylogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keylogger.swift; sourceTree = "<group>"; };
 		B18DD9FF2363E53500089862 /* CallBackFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallBackFunctions.swift; sourceTree = "<group>"; };
+		E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.release.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.release.xcconfig"; sourceTree = "<group>"; };
 		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EF23F4A12364704F0049B544 /* AccessTokenDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDao.swift; sourceTree = "<group>"; };
 		EF43A62E23640BC400992283 /* playgroundRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundRequest.swift; sourceTree = "<group>"; };
 		EF43A63023640BCF00992283 /* playgroundResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundResponse.swift; sourceTree = "<group>"; };
 		EF43A63423640E8700992283 /* apiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = apiClient.swift; sourceTree = "<group>"; };
@@ -39,6 +48,9 @@
 		EF52D7BC2363DA4500892586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF52D7BD2363DA4500892586 /* QOLAB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QOLAB.entitlements; sourceTree = "<group>"; };
 		EFC6921023641B0700EBDA44 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		EFF084B32364725B006C4F5A /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		EFF084B523647581006C4F5A /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		EFF084B723647CF6006C4F5A /* LoginSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,15 +58,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				060B614BB66D914759077ACB /* Pods_QOLAB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FF1F7AA67C444B3FFF0718C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF23F4A02364703F0049B544 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EF23F4A12364704F0049B544 /* AccessTokenDao.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EF43A62A23640B9500992283 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				EF23F4A02364703F0049B544 /* Model */,
 				EF43A63223640E6A00992283 /* Api */,
 				EF43A62B23640B9D00992283 /* Entity */,
 			);
@@ -74,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				EF43A63023640BCF00992283 /* playgroundResponse.swift */,
+				EFF084B32364725B006C4F5A /* LoginResponse.swift */,
 			);
 			path = ReponseDto;
 			sourceTree = "<group>";
@@ -82,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				EF43A62E23640BC400992283 /* playgroundRequest.swift */,
+				EFF084B523647581006C4F5A /* AuthRequest.swift */,
 			);
 			path = RequestDto;
 			sourceTree = "<group>";
@@ -100,6 +132,8 @@
 			children = (
 				EF52D7B22363DA4200892586 /* QOLAB */,
 				EF52D7B12363DA4200892586 /* Products */,
+				FD458436D2ED4DD0C65D4968 /* Pods */,
+				5FF1F7AA67C444B3FFF0718C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,8 +160,18 @@
 				EF156F172363E71600ABAC9E /* RegisterViewController.swift */,
 				EF156F192363E85D00ABAC9E /* LoginViewController.swift */,
 				EFC6921023641B0700EBDA44 /* Auth.storyboard */,
+				EFF084B723647CF6006C4F5A /* LoginSuccessViewController.swift */,
 			);
 			path = QOLAB;
+			sourceTree = "<group>";
+		};
+		FD458436D2ED4DD0C65D4968 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				856ADE87C7B7A04A95B17913 /* Pods-QOLAB.debug.xcconfig */,
+				E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF52D7C02363DA4500892586 /* Build configuration list for PBXNativeTarget "QOLAB" */;
 			buildPhases = (
+				680FDC805918AC90724D8206 /* [CP] Check Pods Manifest.lock */,
 				EF52D7AC2363DA4200892586 /* Sources */,
 				EF52D7AD2363DA4200892586 /* Frameworks */,
 				EF52D7AE2363DA4200892586 /* Resources */,
+				F184E3EB144771200ACFE74A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -196,6 +242,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		680FDC805918AC90724D8206 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QOLAB-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F184E3EB144771200ACFE74A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QOLAB/Pods-QOLAB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QOLAB/Pods-QOLAB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QOLAB/Pods-QOLAB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EF52D7AC2363DA4200892586 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -203,12 +291,16 @@
 			files = (
 				EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */,
 				EF43A63523640E8700992283 /* apiClient.swift in Sources */,
+				EFF084B42364725B006C4F5A /* LoginResponse.swift in Sources */,
 				EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */,
+				EFF084B823647CF6006C4F5A /* LoginSuccessViewController.swift in Sources */,
 				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
 				B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */,
+				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */,
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,
+				EFF084B623647581006C4F5A /* AuthRequest.swift in Sources */,
 				EF43A63723640E9300992283 /* apiRequest.swift in Sources */,
 				EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */,
 			);
@@ -343,9 +435,11 @@
 		};
 		EF52D7C12363DA4500892586 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 856ADE87C7B7A04A95B17913 /* Pods-QOLAB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = QOLAB/QOLAB.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = U3Q2WH7L9L;
@@ -355,17 +449,20 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = jphacks.QOLAB;
+				PRODUCT_BUNDLE_IDENTIFIER = jphacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		EF52D7C22363DA4500892586 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = QOLAB/QOLAB.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = U3Q2WH7L9L;
@@ -375,8 +472,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = jphacks.QOLAB;
+				PRODUCT_BUNDLE_IDENTIFIER = jphacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

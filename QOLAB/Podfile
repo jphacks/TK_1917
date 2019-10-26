@@ -1,0 +1,10 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+use_frameworks!
+target 'QOLAB' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  pod 'SwiftyJSON'
+  # Pods for QOLAB
+  pod 'JWTDecode', '~> 2.2'
+  pod 'RxSwift'
+end

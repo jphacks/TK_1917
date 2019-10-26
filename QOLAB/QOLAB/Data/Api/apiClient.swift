@@ -14,3 +14,8 @@ enum ApiError: Error {
     case serverError(Int)
     case otherError(String)
 }
+
+enum Result<T, E: Error> {
+    case success(T)
+    case failure(E)
+}
