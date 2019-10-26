@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             keyEquivalent: "q")
         
         loginPopOver.contentViewController = ViewController(nibName: "LoginViewController", bundle: nil)
-        registerPopOver.contentViewController = ViewController(nibName: "CustomViewController", bundle: nil)
+        registerPopOver.contentViewController = ViewController(nibName: "RegisterViewController", bundle: nil)
         
     }
     
