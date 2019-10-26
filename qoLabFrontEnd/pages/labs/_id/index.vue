@@ -2,24 +2,19 @@
   <v-layout column justify-center class="container">
     <h2 class="display-2 label">研究室の管理</h2>
     <div v-for="room in rooms" :key="room._id" class="list">
-      <div>
+      <div class="flex">
         <div class="room-label">{{ room.name }}</div>
-        <p>現在のモニパイID: {{ room.monipiId }}</p>
+        <v-select
+          class="monipi-selector"
+          item-text="_id"
+          item-value="_id"
+          :items="monipis"
+          label="モニパイ"
+          solo
+          @change="e => submit(room._id, e)"
+        ></v-select>
       </div>
-      <v-select
-        item-text="monipiCode"
-        item-value="_id"
-        :items="monipis"
-        label="モニパイ"
-        solo
-        @change="e => submit(room._id, e)"
-      ></v-select>
-      <v-btn
-        class="submit-btn"
-        color="primary"
-        @click="submit(room._id, monipi._Id)"
-        >更新する</v-btn
-      >
+      <p>現在のモニパイId: {{ room.monipiId }}</p>
     </div>
   </v-layout>
 </template>
@@ -58,6 +53,10 @@ export default {
           _id: roomId,
           monipiId: monipiId
         })
+
+        const updatedRoom = this.rooms.filter(r => r._id === roomId)
+        console.debug(updatedRoom)
+        updatedRoom[0].monipiId = monipiId
       } catch {
         console.debug('monipi error')
       }
@@ -68,29 +67,34 @@ export default {
 
 <style scoped>
 .container {
-  width: 500px;
+  width: 1000px;
 }
 
 .label {
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 900px;
 }
 
 .list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 76px;
+  margin-bottom: 32px;
+}
+
+.monipi-selector {
+  width: 600px;
 }
 
 .room-label {
+  width: 200px;
   height: 76px;
   font-size: 32px;
   line-height: 52px;
   margin-right: 16px;
   vertical-align: middle;
-}
-
-.submit-btn {
-  display: block;
 }
 </style>
