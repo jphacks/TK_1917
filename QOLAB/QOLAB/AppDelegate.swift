@@ -10,8 +10,8 @@ import Cocoa
 import CoreWLAN
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-    
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
+    let NScenter = NSUserNotificationCenter.default
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
     let joinLabPopOver = NSPopover()
@@ -29,7 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ) as CFDictionary
 
         AXIsProcessTrustedWithOptions(options)
-
         // Insert code here to initialize your application
         initStatusBar()
         
@@ -87,7 +86,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     action: #selector(AppDelegate.start),
                     keyEquivalent: "s")
             }
-
 
             if labInfo?.name == nil {
                 statusBarMenu.addItem(NSMenuItem.separator())
@@ -193,6 +191,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
     
+    @objc func notification() {
+        self.NScenter.delegate = self
+        let notification = NSUserNotification.init()
+        // アプリ名を表示
+        notification.contentImage = NSImage(named: "black")
+        notification.title = (Bundle.main.infoDictionary?[kCFBundleNameKey as String])! as? String
+        notification.subtitle = "疲れてませんか？少し休憩しましょう"
+        self.NScenter.deliver(notification)
+        
+    }
+
+    func userNotificationCenter(_ center: NSUserNotificationCenter,
+                                             shouldPresent notification: NSUserNotification) -> Bool {
+            return true
+    }
+    
+    private func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) -> Bool {
+        print("ok");
+        return true;
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
     
     @objc func quit(){
         self.sensing.quit()

@@ -67,7 +67,12 @@ class Sensing{
             print(event.characters!)
             Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
             self.keyCountUp(key: event.characters!)
-            self.keyCountUpForSitting(key: event.characters!)
+        }
+        
+        NSEvent.addGlobalMonitorForEvents(matching: [.rightMouseDown, .leftMouseDown]) { event in
+            print("Mouse Down Event")
+            self.keyCountUpForSitting(key: "")
+
         }
         
         NSWorkspace.shared.notificationCenter.addObserver(self,selector: #selector(activated(_:)),name: NSWorkspace.didActivateApplicationNotification,object: nil)
