@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		060B614BB66D914759077ACB /* Pods_QOLAB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */; };
 		B1631D312364D04B00816EA0 /* Sensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1631D302364D04B00816EA0 /* Sensing.swift */; };
-		B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FD2363E52D00089862 /* Keylogger.swift */; };
-		B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FF2363E53500089862 /* CallBackFunctions.swift */; };
 		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
 		EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */; };
@@ -36,8 +34,6 @@
 		53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QOLAB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		856ADE87C7B7A04A95B17913 /* Pods-QOLAB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.debug.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.debug.xcconfig"; sourceTree = "<group>"; };
 		B1631D302364D04B00816EA0 /* Sensing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensing.swift; sourceTree = "<group>"; };
-		B18DD9FD2363E52D00089862 /* Keylogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keylogger.swift; sourceTree = "<group>"; };
-		B18DD9FF2363E53500089862 /* CallBackFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallBackFunctions.swift; sourceTree = "<group>"; };
 		E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.release.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.release.xcconfig"; sourceTree = "<group>"; };
 		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -86,8 +82,6 @@
 		B1631D2F2364CFD000816EA0 /* Monitor */ = {
 			isa = PBXGroup;
 			children = (
-				B18DD9FD2363E52D00089862 /* Keylogger.swift */,
-				B18DD9FF2363E53500089862 /* CallBackFunctions.swift */,
 				B1631D302364D04B00816EA0 /* Sensing.swift */,
 			);
 			path = Monitor;
@@ -320,12 +314,10 @@
 				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
 				B1631D312364D04B00816EA0 /* Sensing.swift in Sources */,
 				EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */,
-				B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */,
 				EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */,
 				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */,
-				B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */,
 				EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */,
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,
 				EFF084B623647581006C4F5A /* AuthRequest.swift in Sources */,
@@ -470,7 +462,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = U3Q2WH7L9L;
+				DEVELOPMENT_TEAM = 8WYZU24YBL;
 				INFOPLIST_FILE = QOLAB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,7 +485,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = U3Q2WH7L9L;
+				DEVELOPMENT_TEAM = 8WYZU24YBL;
 				INFOPLIST_FILE = QOLAB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

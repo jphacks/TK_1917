@@ -65,18 +65,26 @@ class Sensing{
         NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { event in
             // not called
             print(event.characters!)
+            Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
+            self.keyCountUp(key: event.characters!)
+            self.keyCountUpForSitting(key: event.characters!)
         }
         
-    //        RunLoop.current.run()
-//        let d = Keylogger()
-//        OperationQueue().addOperation({ () -> Void in
-//
-//            while(!self.isStopped) {
-//                d.start()
-//            }
-//
-//        })
+        NSWorkspace.shared.notificationCenter.addObserver(self,selector: #selector(activated(_:)),name: NSWorkspace.didActivateApplicationNotification,object: nil)
+        
     }
+    
+    @objc func activated(_ notification: NSNotification) {
+        if let info = notification.userInfo,
+            let app = info[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
+            let name = app.localizedName
+        {
+            Sensing.appName = name
+            print(name)
+        }
+    }
+
+    
     
     @objc func timerCounter() {
         // タイマー開始からのインターバル時間 単位は秒
@@ -96,7 +104,7 @@ class Sensing{
             wifiDict[ssid] = String(Int(currentTime))
         }
     }
-    
+        
     /* タイマー関数 */
     @objc func CountDown() {
         self.count += 1
@@ -151,9 +159,6 @@ class Sensing{
     
     func stop() {
         self.isStopped = true
-        let d = Keylogger()
-        d.stop()
-        
         timerSitting.invalidate()
         timerNormal.invalidate()
         stopWatchTimer.invalidate()
