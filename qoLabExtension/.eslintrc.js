@@ -25,6 +25,8 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
+    'no-alert': 'off',
+    'no-unused-expressions': 'off',
     // don't require .vue extension when importing
     'import/extensions': [
       'error',
