@@ -1,5 +1,5 @@
 import PageIndex from './pages/Index';
-import Home from './pages/Home';
+import Signin from './pages/Signin';
 
 export default [
   {
@@ -7,7 +7,7 @@ export default [
     component: PageIndex,
   },
   {
-    path: '/home',
-    component: Home,
+    path: '/signin',
+    component: Signin,
   },
 ];
