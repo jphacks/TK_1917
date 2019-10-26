@@ -37,6 +37,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             withTitle: "終了",
             action: #selector(AppDelegate.quit),
             keyEquivalent: "q")
+        statusBarMenu.addItem(
+            withTitle: "計測開始",
+            action: #selector(AppDelegate.start),
+            keyEquivalent: "s")
+        statusBarMenu.addItem(
+            withTitle: "計測停止",
+            action: #selector(AppDelegate.stop),
+            keyEquivalent: "s")
         
         loginPopOver.contentViewController = ViewController(nibName: "LoginViewController", bundle: nil)
         registerPopOver.contentViewController = ViewController(nibName: "RegisterViewController", bundle: nil)
@@ -83,6 +91,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func register () {
         
+    }
+    
+    @objc func start () {
+
+//        RunLoop.current.run()
+        OperationQueue().addOperation({ () -> Void in
+            let d = Keylogger()
+            while(true) {
+                d.start()
+            }
+
+        })
+        print("d start")
+    }
+    
+    @objc func stop() {
+        let d = Keylogger()
+        d.stop()
     }
     
     @objc func login() {
