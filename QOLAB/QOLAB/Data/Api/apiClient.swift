@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+enum ApiError: Error {
+    case networkError(Int)
+    case parseError
+    case serverError(Int)
+    case otherError(String)
+}
