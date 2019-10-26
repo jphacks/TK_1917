@@ -2,7 +2,7 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
-        <Bar
+        <LineChart
           v-if="browsingData"
           :height="450"
           :width="800"
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import Bar from '@/components/Bar'
+import LineChart from '@/components/LineChart'
 import api from '@/utils/apiClient'
 
 export default {
   components: {
-    Bar
+    LineChart
   },
   data() {
     return {
@@ -34,29 +34,23 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '過去6時間で見ていたドメインランキング' // ラベル
+          text: '過去6時間で入力したキー数' // ラベル
         }
       }
     }
   },
   async created() {
-    const res = await api.get('visialization/browsing')
-    const browsingData = res.data
-    const domains = this.unique(browsingData.map(d => d.domain))
-    const datas = domains
-      .map(d => ({
-        key: d,
-        value: browsingData.filter(b => b.domain === d).length
-      }))
-      .sort((a, b) => b.value - a.value)
-    const labels = datas.map(d => d.key)
-    const data = datas.map(d => d.value)
+    const res = await api.get('visialization/key')
+    const keys = res.data
+    const labels = keys.map(k => k.createdAt)
+    const data = keys.map(k => k.typeCount)
     this.browsingData = {
       labels,
       datasets: [
         {
+          fillColor: 'red',
           data,
-          backgroundColor: this.labelColors(domains)
+          backgroundColor: 'rgba(220,220,220,0.3)'
         }
       ]
     }
