@@ -148,16 +148,101 @@ DQ
             </objects>
             <point key="canvasLocation" x="139" y="497"/>
         </scene>
-        <!--Login Success View Controller-->
+        <!--Join Lab View Controller-->
         <scene sceneID="Dfx-6c-Ogi">
             <objects>
-                <viewController storyboardIdentifier="loginSuccess" id="GSC-Rv-RoL" customClass="LoginSuccessViewController" customModule="QOLAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="joinLab" id="GSC-Rv-RoL" customClass="JoinLabViewController" customModule="QOLAB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="nkl-Yg-nj1">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QWM-kG-RM9">
+                                <rect key="frame" x="175" y="204" width="101" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="ラボコードを入力" id="aFN-ec-15S">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nMu-0E-OWC">
+                                <rect key="frame" x="177" y="148" width="96" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="hjb-Rl-NuM">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="slX-9u-BOd">
+                                <rect key="frame" x="193" y="78" width="65" height="32"/>
+                                <buttonCell key="cell" type="push" title="参加" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="viL-ub-KyW">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="joinLab:" target="GSC-Rv-RoL" id="YLw-Sw-2ge"/>
+                                </connections>
+                            </button>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="miF-Pu-Gox">
+                                <rect key="frame" x="217" y="88" width="16" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jFn-WC-RxM">
+                                <rect key="frame" x="181" y="180" width="89" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="に参加しました" id="ACg-Ea-6uf">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9YL-4Z-9Cz">
+                                <rect key="frame" x="187" y="117" width="77" height="32"/>
+                                <buttonCell key="cell" type="push" title="閉じる" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKs-OI-fpe">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="closePopOver:" target="GSC-Rv-RoL" id="VhX-jV-cxK"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tT3-Q8-9XF">
+                                <rect key="frame" x="163" y="237" width="125" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="参加できませんでした" id="Hso-1g-ih5">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="slX-9u-BOd" firstAttribute="top" secondItem="nMu-0E-OWC" secondAttribute="bottom" constant="42" id="0YH-xu-mdT"/>
+                            <constraint firstItem="tT3-Q8-9XF" firstAttribute="top" secondItem="nkl-Yg-nj1" secondAttribute="top" constant="47" id="7SQ-9C-U3W"/>
+                            <constraint firstItem="nMu-0E-OWC" firstAttribute="centerX" secondItem="nkl-Yg-nj1" secondAttribute="centerX" id="H8L-BF-0x7"/>
+                            <constraint firstItem="9YL-4Z-9Cz" firstAttribute="top" secondItem="jFn-WC-RxM" secondAttribute="bottom" constant="35" id="Iph-ct-ixf"/>
+                            <constraint firstItem="tT3-Q8-9XF" firstAttribute="centerX" secondItem="nkl-Yg-nj1" secondAttribute="centerX" id="TdQ-vk-mya"/>
+                            <constraint firstItem="jFn-WC-RxM" firstAttribute="centerX" secondItem="nkl-Yg-nj1" secondAttribute="centerX" id="i4T-E0-yzM"/>
+                            <constraint firstItem="slX-9u-BOd" firstAttribute="leading" secondItem="nkl-Yg-nj1" secondAttribute="leading" constant="199" id="oxs-gA-7Tc"/>
+                            <constraint firstItem="nMu-0E-OWC" firstAttribute="leading" secondItem="nkl-Yg-nj1" secondAttribute="leading" constant="177" id="rO2-wm-WyD"/>
+                            <constraint firstItem="QWM-kG-RM9" firstAttribute="top" secondItem="nkl-Yg-nj1" secondAttribute="top" constant="80" id="vgi-VV-T8B"/>
+                            <constraint firstItem="nMu-0E-OWC" firstAttribute="top" secondItem="QWM-kG-RM9" secondAttribute="bottom" constant="35" id="who-ce-bm7"/>
+                            <constraint firstItem="9YL-4Z-9Cz" firstAttribute="centerX" secondItem="nkl-Yg-nj1" secondAttribute="centerX" id="xYA-pV-hby"/>
+                            <constraint firstItem="jFn-WC-RxM" firstAttribute="top" secondItem="nkl-Yg-nj1" secondAttribute="top" constant="104" id="xbN-xC-WyX"/>
+                            <constraint firstItem="QWM-kG-RM9" firstAttribute="centerX" secondItem="nkl-Yg-nj1" secondAttribute="centerX" id="xda-3w-rOf"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="closeButton" destination="wFK-GY-fGN" id="0cd-L9-aQi"/>
+                        <outlet property="closeButton" destination="9YL-4Z-9Cz" id="2wH-SW-Cnb"/>
+                        <outlet property="error" destination="tT3-Q8-9XF" id="Hfp-Ly-g7P"/>
+                        <outlet property="joinButton" destination="slX-9u-BOd" id="rYf-if-0lu"/>
+                        <outlet property="joinText" destination="QWM-kG-RM9" id="Nve-Zj-VIe"/>
+                        <outlet property="labCode" destination="nMu-0E-OWC" id="WxN-cz-4je"/>
+                        <outlet property="loadingCircle" destination="miF-Pu-Gox" id="plx-Es-peb"/>
+                        <outlet property="successText" destination="jFn-WC-RxM" id="1Ij-Pd-WdA"/>
                     </connections>
                 </viewController>
                 <customObject id="jMP-fk-n5h" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
