@@ -89,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func closeLoginPopover(_ sender: Any){
+    public func closeLoginPopover(_ sender: Any){
         loginPopOver.performClose(sender)
     }
     
