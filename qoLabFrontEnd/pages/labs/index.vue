@@ -56,8 +56,8 @@
 
 <script>
 import api from '@/utils/apiClient'
-// TODO: middleware追加
 export default {
+  middleware: 'auth',
   data() {
     return {
       labName: '',
