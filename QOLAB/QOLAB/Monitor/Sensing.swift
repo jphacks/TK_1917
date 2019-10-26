@@ -104,6 +104,8 @@ class Sensing{
         self.loggerStart()
         // keyCountをリセット
         Sensing.keyCount = 0
+        
+        
 //        /* 10秒かカウントしたらタイマーストップ */
 //        if (self.count > 10) {
 //            timer.invalidate()
@@ -121,6 +123,7 @@ class Sensing{
     
     @objc func loggerStart() {
         print(Sensing.appName, Sensing.keyCount)
+        
     }
 
     /* タイマー関数 */

@@ -17,6 +17,8 @@
 		EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29662364890A00C26B06 /* UserInfoDao.swift */; };
 		EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */; };
 		EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */; };
+		EF1E296F2364E47C00C26B06 /* UserActivityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E296E2364E47C00C26B06 /* UserActivityRequest.swift */; };
+		EF1E29712364E48B00C26B06 /* UserActivityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29702364E48B00C26B06 /* UserActivityResponse.swift */; };
 		EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF23F4A12364704F0049B544 /* AccessTokenDao.swift */; };
 		EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A62E23640BC400992283 /* playgroundRequest.swift */; };
 		EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63023640BCF00992283 /* playgroundResponse.swift */; };
@@ -45,6 +47,8 @@
 		EF1E29662364890A00C26B06 /* UserInfoDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDao.swift; sourceTree = "<group>"; };
 		EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLabRequest.swift; sourceTree = "<group>"; };
 		EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLabResponse.swift; sourceTree = "<group>"; };
+		EF1E296E2364E47C00C26B06 /* UserActivityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityRequest.swift; sourceTree = "<group>"; };
+		EF1E29702364E48B00C26B06 /* UserActivityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityResponse.swift; sourceTree = "<group>"; };
 		EF23F4A12364704F0049B544 /* AccessTokenDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDao.swift; sourceTree = "<group>"; };
 		EF43A62E23640BC400992283 /* playgroundRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundRequest.swift; sourceTree = "<group>"; };
 		EF43A63023640BCF00992283 /* playgroundResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundResponse.swift; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 				EFF084B32364725B006C4F5A /* LoginResponse.swift */,
 				EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */,
 				EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */,
+				EF1E29702364E48B00C26B06 /* UserActivityResponse.swift */,
 			);
 			path = ReponseDto;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 				EF43A62E23640BC400992283 /* playgroundRequest.swift */,
 				EFF084B523647581006C4F5A /* AuthRequest.swift */,
 				EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */,
+				EF1E296E2364E47C00C26B06 /* UserActivityRequest.swift */,
 			);
 			path = RequestDto;
 			sourceTree = "<group>";
@@ -317,11 +323,13 @@
 				EFF084B42364725B006C4F5A /* LoginResponse.swift in Sources */,
 				EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */,
 				EFF084B823647CF6006C4F5A /* JoinLabViewController.swift in Sources */,
+				EF1E296F2364E47C00C26B06 /* UserActivityRequest.swift in Sources */,
 				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
 				B1631D312364D04B00816EA0 /* Sensing.swift in Sources */,
 				EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */,
 				B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */,
 				EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */,
+				EF1E29712364E48B00C26B06 /* UserActivityResponse.swift in Sources */,
 				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */,

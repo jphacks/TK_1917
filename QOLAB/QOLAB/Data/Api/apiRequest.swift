@@ -134,6 +134,40 @@ struct APIClient {
         task.resume()
     }
     
+    static func postActivity(activity: UserActivityRequest, _ completion: @escaping (UserActivityResponse?) -> Void) {
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        var request = URLRequest(url: URL(string:APIURL.baseUrl + "/user-activity")!)
+        
+
+        // set the method(HTTP-POST)
+        request.httpMethod = "POST"
+        // set the header(s)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
+
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(activity)), options: [])
+        }catch{
+            print(error.localizedDescription)
+        }
+        // use NSURLSessionDataTask
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            if (error == nil) {
+                do {
+                    let res = try decoder.decode(UserActivityResponse.self, from: data!)
+                    completion(res)
+                } catch {
+                    completion(nil)
+                }
+            } else {
+                print("error")
+            }
+        })
+        task.resume()
+    }
+
+    
     
     static func singUp(userInfo: AuthRequest, _ completion: @escaping ([PlaygroundStr]) -> Void) {
         let components = URLComponents(string: APIURL.baseUrl + "/signup")
