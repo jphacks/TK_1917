@@ -78,6 +78,8 @@ class LoginViewController: NSViewController {
                         }
                 } else {
                     self.error.isHidden = false
+                    self.loadingCircle.isHidden = true
+                    self.loginButton.isHidden = false
                 }
 //                print(result)
             }
