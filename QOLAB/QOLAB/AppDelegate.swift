@@ -45,10 +45,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let userInfo = UserInfoDao().getUserInfo()
         
-        if userInfo == nil {
+        if userInfo != nil {
             statusBarMenu.addItem(
                 withTitle: "新規登録",
-                action: #selector(AppDelegate.toggleRegisterPopover(_:)),
+                action: #selector(AppDelegate.openRegisterPage(_:)),
                 keyEquivalent: "")
 
             statusBarMenu.addItem(
@@ -89,19 +89,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @objc func toggleRegisterPopover(_ sender: Any){
-        if registerPopOver.isShown{
-            closeRegisterPopover(sender)
-        }else{
-            closeLoginPopover(sender)
-            showRegisterPopover(sender)
-        }
-    }
-    
-    func showRegisterPopover(_ sender: Any){
-        if let button = statusBarItem.button{
-            registerPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-        }
+    @objc func openRegisterPage(_ sender: Any){
+        NSWorkspace.shared.open(URL(string: "https://qolab-a0324.web.app/signup/")!)
     }
 
     func closeRegisterPopover(_ sender: Any){
