@@ -138,6 +138,7 @@ Outside:if pressed == 1
                 if scancode >= 0 && scancode <= 100 {
                     let d = AppDelegate()
                     d.keyCountUp(key: mySelf.keyMap[scancode]![1])
+                    d.keyCountUpForSitting(key: mySelf.keyMap[scancode]![1])
                 }
             }
             else
@@ -146,6 +147,7 @@ Outside:if pressed == 1
                     print("else:", scancode)
                     let d = AppDelegate()
                     d.keyCountUp(key: mySelf.keyMap[scancode]![0])
+                    d.keyCountUpForSitting(key: mySelf.keyMap[scancode]![0])
                 }
             }
             
