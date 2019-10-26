@@ -25,6 +25,7 @@ class LoginViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loadingCircle.isHidden = true
         error.isHidden = true
         successText.isHidden = true
@@ -33,6 +34,18 @@ class LoginViewController: NSViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear() {
+        passText.isHidden = false
+        emailText.isHidden = false
+        emailTextField.isHidden = false
+        passTextField.isHidden = false
+        loginButton.isHidden = false
+        error.isHidden = true
+        loadingCircle.isHidden = true
+        successText.isHidden = true
+        successButton.isHidden = true
+    }
+    
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
@@ -45,20 +58,22 @@ class LoginViewController: NSViewController {
         loginButton.isHidden = true
         error.isHidden = true
         
-        print(emailTextField.stringValue)
-        print(passTextField.stringValue)
         let paramDto = AuthRequest(email: emailTextField.stringValue, password: passTextField.stringValue)
         APIClient.singIn(userInfo: paramDto) {
             (result) in
             DispatchQueue.main.sync {
-                self.loadingCircle.isHidden = true
-                self.loginButton.isHidden = false
+
                 if result != nil {
-                    self.showLoginSuccess()
+//                    self.showLoginSuccess()
                     APIClient.fetchUserInfo() {
                             (res) in
                             DispatchQueue.main.sync {
-                                
+                                APIClient.fetchLabInfo() {
+                                    (res) in
+                                    DispatchQueue.main.sync {
+                                        self.showLoginSuccess()
+                                    }
+                                }
                             }
                         }
                 } else {

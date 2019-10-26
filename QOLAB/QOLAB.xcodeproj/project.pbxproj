@@ -14,6 +14,8 @@
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
 		EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */; };
 		EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29662364890A00C26B06 /* UserInfoDao.swift */; };
+		EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */; };
+		EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */; };
 		EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF23F4A12364704F0049B544 /* AccessTokenDao.swift */; };
 		EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A62E23640BC400992283 /* playgroundRequest.swift */; };
 		EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63023640BCF00992283 /* playgroundResponse.swift */; };
@@ -26,7 +28,7 @@
 		EFC6921123641B0700EBDA44 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFC6921023641B0700EBDA44 /* Auth.storyboard */; };
 		EFF084B42364725B006C4F5A /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B32364725B006C4F5A /* LoginResponse.swift */; };
 		EFF084B623647581006C4F5A /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B523647581006C4F5A /* AuthRequest.swift */; };
-		EFF084B823647CF6006C4F5A /* LoginSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B723647CF6006C4F5A /* LoginSuccessViewController.swift */; };
+		EFF084B823647CF6006C4F5A /* JoinLabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF084B723647CF6006C4F5A /* JoinLabViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoResponse.swift; sourceTree = "<group>"; };
 		EF1E29662364890A00C26B06 /* UserInfoDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDao.swift; sourceTree = "<group>"; };
+		EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLabRequest.swift; sourceTree = "<group>"; };
+		EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLabResponse.swift; sourceTree = "<group>"; };
 		EF23F4A12364704F0049B544 /* AccessTokenDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDao.swift; sourceTree = "<group>"; };
 		EF43A62E23640BC400992283 /* playgroundRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundRequest.swift; sourceTree = "<group>"; };
 		EF43A63023640BCF00992283 /* playgroundResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundResponse.swift; sourceTree = "<group>"; };
@@ -54,7 +58,7 @@
 		EFC6921023641B0700EBDA44 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		EFF084B32364725B006C4F5A /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		EFF084B523647581006C4F5A /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
-		EFF084B723647CF6006C4F5A /* LoginSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessViewController.swift; sourceTree = "<group>"; };
+		EFF084B723647CF6006C4F5A /* JoinLabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLabViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 				EF43A63023640BCF00992283 /* playgroundResponse.swift */,
 				EFF084B32364725B006C4F5A /* LoginResponse.swift */,
 				EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */,
+				EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */,
 			);
 			path = ReponseDto;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			children = (
 				EF43A62E23640BC400992283 /* playgroundRequest.swift */,
 				EFF084B523647581006C4F5A /* AuthRequest.swift */,
+				EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */,
 			);
 			path = RequestDto;
 			sourceTree = "<group>";
@@ -166,7 +172,7 @@
 				EF156F172363E71600ABAC9E /* RegisterViewController.swift */,
 				EF156F192363E85D00ABAC9E /* LoginViewController.swift */,
 				EFC6921023641B0700EBDA44 /* Auth.storyboard */,
-				EFF084B723647CF6006C4F5A /* LoginSuccessViewController.swift */,
+				EFF084B723647CF6006C4F5A /* JoinLabViewController.swift */,
 			);
 			path = QOLAB;
 			sourceTree = "<group>";
@@ -299,12 +305,14 @@
 				EF43A63523640E8700992283 /* apiClient.swift in Sources */,
 				EFF084B42364725B006C4F5A /* LoginResponse.swift in Sources */,
 				EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */,
-				EFF084B823647CF6006C4F5A /* LoginSuccessViewController.swift in Sources */,
+				EFF084B823647CF6006C4F5A /* JoinLabViewController.swift in Sources */,
 				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
 				EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */,
 				B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */,
+				EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */,
 				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
+				EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */,
 				B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */,
 				EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */,
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,

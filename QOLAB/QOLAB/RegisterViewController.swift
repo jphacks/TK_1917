@@ -29,8 +29,6 @@ class RegisterViewController: NSViewController {
     
     
     @IBAction func didClickRegisterButton(_ sender: Any) {
-        print(emailTextField.stringValue)
-        print(passTextField.stringValue)
         
         
     }
