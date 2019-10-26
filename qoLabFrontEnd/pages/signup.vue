@@ -1,7 +1,12 @@
 <template>
   <v-layout column justify-center align-center>
     <h2 class="display-2">登録</h2>
-    <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+    <v-form
+      ref="form"
+      v-model="valid"
+      :lazy-validation="lazy"
+      @submit.prevent="submit"
+    >
       <v-text-field
         v-model="email"
         :rules="emailRules"
@@ -15,7 +20,7 @@
         required
       ></v-text-field>
       <div>
-        <v-btn type="submit" class="mr-4" color="primary" @click="submit"
+        <v-btn :disabled="!valid" type="submit" class="mr-4" color="primary"
           >登録</v-btn
         >
       </div>
@@ -27,9 +32,10 @@
 </template>
 
 <script>
+import api from '@/utils/apiClient'
 export default {
   data: () => ({
-    valid: true,
+    valid: false,
     email: '',
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -43,11 +49,21 @@ export default {
     lazy: false
   }),
   methods: {
-    submit: function() {
-      if (this.valid) {
+    submit: async function() {
+      if (!this.valid) {
         return
       }
-      console.debug('a')
+
+      try {
+        const resp = await api.post('/signup', {
+          email: this.email,
+          password: this.password
+        })
+        localStorage.setItem('access_token', resp.data.access_token)
+        this.$router.push('/')
+      } catch (e) {
+        console.debug('error')
+      }
     }
   }
 }
