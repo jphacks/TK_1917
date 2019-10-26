@@ -3,6 +3,7 @@
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
         <DomainChart />
+        <AppChart />
       </div>
     </v-flex>
   </v-layout>
@@ -10,11 +11,13 @@
 
 <script>
 import DomainChart from '@/components/DomainChart'
+import AppChart from '@/components/AppChart'
 
 export default {
   middleware: 'auth',
   components: {
-    DomainChart
+    DomainChart,
+    AppChart
   }
 }
 </script>
