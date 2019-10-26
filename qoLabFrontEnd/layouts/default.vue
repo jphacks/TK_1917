@@ -14,18 +14,22 @@
     </v-content>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Home</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Lab Settings</v-list-tile-title>
-        </v-list-tile>
+        <nuxt-link to="/" tag="div" class="menu-icon">
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon light>compare_arrows</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile>
+        </nuxt-link>
+        <nuxt-link to="/labs" tag="div" class="menu-icon">
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon light>compare_arrows</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Lab Settings</v-list-tile-title>
+          </v-list-tile>
+        </nuxt-link>
         <v-list-tile>
           <v-list-tile-action>
             <v-icon light>compare_arrows</v-icon>
@@ -55,3 +59,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.menu-icon {
+  cursor: pointer;
+}
+</style>
