@@ -1,5 +1,5 @@
 import { createApiClientWithAuthHeader } from './popup/utils/apiClient';
-
+global.browser = require('webextension-polyfill');
 function getAccessToken() {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(['access_token'], result => {
