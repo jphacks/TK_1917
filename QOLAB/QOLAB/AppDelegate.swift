@@ -12,6 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var statusBarItem: NSStatusItem!
+    let loginPopOver = NSPopover()
+    let registerPopOver = NSPopover()
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Insert code here to initialize your application
@@ -23,12 +25,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.menu = statusBarMenu
         statusBarMenu.addItem(
             withTitle: "新規登録",
-            action: #selector(AppDelegate.register),
+            action: #selector(AppDelegate.toggleRegisterPopover(_:)),
             keyEquivalent: "")
 
         statusBarMenu.addItem(
             withTitle: "ログイン",
-            action: #selector(AppDelegate.login),
+            action: #selector(AppDelegate.toggleLoginPopover(_:)),
             keyEquivalent: "")
         
         statusBarMenu.addItem(
@@ -36,6 +38,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             action: #selector(AppDelegate.quit),
             keyEquivalent: "q")
         
+        loginPopOver.contentViewController = ViewController(nibName: "LoginViewController", bundle: nil)
+        registerPopOver.contentViewController = ViewController(nibName: "CustomViewController", bundle: nil)
+        
+    }
+    
+    @objc func toggleLoginPopover(_ sender: Any){
+        if loginPopOver.isShown{
+            closeLoginPopover(sender)
+        }else{
+            closeRegisterPopover(sender)
+            showLoginPopover(sender)
+        }
+    }
+    
+    @objc func toggleRegisterPopover(_ sender: Any){
+        if registerPopOver.isShown{
+            closeRegisterPopover(sender)
+        }else{
+            closeLoginPopover(sender)
+            showRegisterPopover(sender)
+        }
+    }
+    
+    func showRegisterPopover(_ sender: Any){
+        if let button = statusBarItem.button{
+            registerPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        }
+    }
+
+    func closeRegisterPopover(_ sender: Any){
+        registerPopOver.performClose(sender)
+    }
+    
+    func showLoginPopover(_ sender: Any){
+        if let button = statusBarItem.button{
+            loginPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        }
+    }
+
+    func closeLoginPopover(_ sender: Any){
+        loginPopOver.performClose(sender)
     }
     
     @objc func register () {
