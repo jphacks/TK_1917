@@ -66,6 +66,7 @@ class Sensing{
             // not called
             print(event.characters!)
         }
+        
     //        RunLoop.current.run()
 //        let d = Keylogger()
 //        OperationQueue().addOperation({ () -> Void in
