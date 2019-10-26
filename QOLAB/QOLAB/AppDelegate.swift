@@ -47,8 +47,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             action: #selector(AppDelegate.stop),
             keyEquivalent: "s")
         
-        loginPopOver.contentViewController = ViewController(nibName: "LoginViewController", bundle: nil)
-        registerPopOver.contentViewController = ViewController(nibName: "RegisterViewController", bundle: nil)
+        let storyboard = NSStoryboard.init(name: "Auth", bundle: nil)
+        let loginViewController = storyboard.instantiateController(withIdentifier: "login")
+        let registerViewController = storyboard.instantiateController(withIdentifier: "register")
+        loginPopOver.contentViewController = (loginViewController as! NSViewController)
+        registerPopOver.contentViewController = (registerViewController as! NSViewController)
         
     }
     
@@ -128,3 +131,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 }
 
+struct PlaygroundStr: Codable {
+    let _id: String
+    let name: String
+    let createdAt: String
+    let __v: Int
+}

@@ -7,25 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EF156F162363E5B300ABAC9E /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF156F152363E5B300ABAC9E /* RegisterViewController.xib */; };
-		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
-		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
-		EF156F1C2363E87800ABAC9E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF156F1B2363E87800ABAC9E /* LoginViewController.xib */; };
 		B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FD2363E52D00089862 /* Keylogger.swift */; };
 		B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FF2363E53500089862 /* CallBackFunctions.swift */; };
+		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
+		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
+		EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A62E23640BC400992283 /* playgroundRequest.swift */; };
+		EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63023640BCF00992283 /* playgroundResponse.swift */; };
+		EF43A63523640E8700992283 /* apiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63423640E8700992283 /* apiClient.swift */; };
+		EF43A63723640E9300992283 /* apiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63623640E9300992283 /* apiRequest.swift */; };
 		EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF52D7B32363DA4200892586 /* AppDelegate.swift */; };
 		EF52D7B62363DA4200892586 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF52D7B52363DA4200892586 /* ViewController.swift */; };
 		EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF52D7B72363DA4500892586 /* Assets.xcassets */; };
 		EF52D7BB2363DA4500892586 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF52D7B92363DA4500892586 /* Main.storyboard */; };
+		EFC6921123641B0700EBDA44 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFC6921023641B0700EBDA44 /* Auth.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EF156F152363E5B300ABAC9E /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
-		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		EF156F1B2363E87800ABAC9E /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B18DD9FD2363E52D00089862 /* Keylogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keylogger.swift; sourceTree = "<group>"; };
 		B18DD9FF2363E53500089862 /* CallBackFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallBackFunctions.swift; sourceTree = "<group>"; };
+		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EF43A62E23640BC400992283 /* playgroundRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundRequest.swift; sourceTree = "<group>"; };
+		EF43A63023640BCF00992283 /* playgroundResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundResponse.swift; sourceTree = "<group>"; };
+		EF43A63423640E8700992283 /* apiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = apiClient.swift; sourceTree = "<group>"; };
+		EF43A63623640E9300992283 /* apiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = apiRequest.swift; sourceTree = "<group>"; };
 		EF52D7B02363DA4200892586 /* QOLAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QOLAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF52D7B32363DA4200892586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF52D7B52363DA4200892586 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,6 +38,7 @@
 		EF52D7BA2363DA4500892586 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF52D7BC2363DA4500892586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF52D7BD2363DA4500892586 /* QOLAB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QOLAB.entitlements; sourceTree = "<group>"; };
+		EFC6921023641B0700EBDA44 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +52,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF43A62A23640B9500992283 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				EF43A63223640E6A00992283 /* Api */,
+				EF43A62B23640B9D00992283 /* Entity */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		EF43A62B23640B9D00992283 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				EF43A62D23640BB100992283 /* RequestDto */,
+				EF43A62C23640BA300992283 /* ReponseDto */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		EF43A62C23640BA300992283 /* ReponseDto */ = {
+			isa = PBXGroup;
+			children = (
+				EF43A63023640BCF00992283 /* playgroundResponse.swift */,
+			);
+			path = ReponseDto;
+			sourceTree = "<group>";
+		};
+		EF43A62D23640BB100992283 /* RequestDto */ = {
+			isa = PBXGroup;
+			children = (
+				EF43A62E23640BC400992283 /* playgroundRequest.swift */,
+			);
+			path = RequestDto;
+			sourceTree = "<group>";
+		};
+		EF43A63223640E6A00992283 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				EF43A63423640E8700992283 /* apiClient.swift */,
+				EF43A63623640E9300992283 /* apiRequest.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		EF52D7A72363DA4200892586 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +114,7 @@
 		EF52D7B22363DA4200892586 /* QOLAB */ = {
 			isa = PBXGroup;
 			children = (
+				EF43A62A23640B9500992283 /* Data */,
 				B18DD9FF2363E53500089862 /* CallBackFunctions.swift */,
 				B18DD9FD2363E52D00089862 /* Keylogger.swift */,
 				EF52D7B32363DA4200892586 /* AppDelegate.swift */,
@@ -73,10 +123,9 @@
 				EF52D7B92363DA4500892586 /* Main.storyboard */,
 				EF52D7BC2363DA4500892586 /* Info.plist */,
 				EF52D7BD2363DA4500892586 /* QOLAB.entitlements */,
-				EF156F152363E5B300ABAC9E /* RegisterViewController.xib */,
 				EF156F172363E71600ABAC9E /* RegisterViewController.swift */,
 				EF156F192363E85D00ABAC9E /* LoginViewController.swift */,
-				EF156F1B2363E87800ABAC9E /* LoginViewController.xib */,
+				EFC6921023641B0700EBDA44 /* Auth.storyboard */,
 			);
 			path = QOLAB;
 			sourceTree = "<group>";
@@ -139,9 +188,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF156F1C2363E87800ABAC9E /* LoginViewController.xib in Resources */,
+				EFC6921123641B0700EBDA44 /* Auth.storyboard in Resources */,
 				EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */,
-				EF156F162363E5B300ABAC9E /* RegisterViewController.xib in Resources */,
 				EF52D7BB2363DA4500892586 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,11 +202,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */,
+				EF43A63523640E8700992283 /* apiClient.swift in Sources */,
 				EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */,
+				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
 				B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */,
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,
+				EF43A63723640E9300992283 /* apiRequest.swift in Sources */,
+				EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +348,7 @@
 				CODE_SIGN_ENTITLEMENTS = QOLAB/QOLAB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 8WYZU24YBL;
+				DEVELOPMENT_TEAM = U3Q2WH7L9L;
 				INFOPLIST_FILE = QOLAB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -316,7 +368,7 @@
 				CODE_SIGN_ENTITLEMENTS = QOLAB/QOLAB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 8WYZU24YBL;
+				DEVELOPMENT_TEAM = U3Q2WH7L9L;
 				INFOPLIST_FILE = QOLAB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

