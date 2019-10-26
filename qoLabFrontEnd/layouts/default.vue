@@ -30,7 +30,7 @@
             <v-list-tile-title>Lab Settings</v-list-tile-title>
           </v-list-tile>
         </nuxt-link>
-        <v-list-tile>
+        <v-list-tile @click="logout">
           <v-list-tile-action>
             <v-icon light>compare_arrows</v-icon>
           </v-list-tile-action>
@@ -55,6 +55,12 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'qoLab'
+    }
+  },
+  methods: {
+    logout: function() {
+      localStorage.clear()
+      location.reload()
     }
   }
 }
