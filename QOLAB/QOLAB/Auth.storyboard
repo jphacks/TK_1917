@@ -13,72 +13,7 @@
                     <view key="view" id="Evy-3N-Q10">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xf2-6b-FTN">
-                                <rect key="frame" x="104" y="219" width="89" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="メールアドレス" id="IwB-Ah-wc5">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jd2-rP-dDw">
-                                <rect key="frame" x="106" y="184" width="238" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="dJb-rY-e1o">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kd0-Iq-Rms">
-                                <rect key="frame" x="104" y="152" width="65" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="パスワード" id="XaR-yn-5pQ">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Xh-sR-Xgf">
-                                <rect key="frame" x="193" y="63" width="65" height="32"/>
-                                <buttonCell key="cell" type="push" title="登録" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="s8f-1L-S8B">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="didClickRegisterButton:" target="2Du-Wt-Sky" id="vBd-MV-OlY"/>
-                                </connections>
-                            </button>
-                            <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xzu-uu-2NX">
-                                <rect key="frame" x="106" y="117" width="238" height="21"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="WuK-vP-Mq9">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <allowedInputSourceLocales>
-                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                    </allowedInputSourceLocales>
-                                </secureTextFieldCell>
-                            </secureTextField>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="5Xh-sR-Xgf" firstAttribute="top" secondItem="xzu-uu-2NX" secondAttribute="bottom" constant="26" id="69Y-0q-aBn"/>
-                            <constraint firstItem="Xf2-6b-FTN" firstAttribute="top" secondItem="Evy-3N-Q10" secondAttribute="top" constant="65" id="GBz-AQ-O7O"/>
-                            <constraint firstItem="Jd2-rP-dDw" firstAttribute="top" secondItem="Xf2-6b-FTN" secondAttribute="bottom" constant="14" id="J8f-Su-wcg"/>
-                            <constraint firstItem="Kd0-Iq-Rms" firstAttribute="top" secondItem="Jd2-rP-dDw" secondAttribute="bottom" constant="16" id="Lpb-KI-HRS"/>
-                            <constraint firstItem="Jd2-rP-dDw" firstAttribute="centerX" secondItem="Evy-3N-Q10" secondAttribute="centerX" id="dky-Wr-jkl"/>
-                            <constraint firstItem="Kd0-Iq-Rms" firstAttribute="leading" secondItem="Jd2-rP-dDw" secondAttribute="leading" id="fhL-Sl-7eM"/>
-                            <constraint firstItem="5Xh-sR-Xgf" firstAttribute="centerX" secondItem="Evy-3N-Q10" secondAttribute="centerX" id="gWT-MC-h5I"/>
-                            <constraint firstItem="Xf2-6b-FTN" firstAttribute="leading" secondItem="Evy-3N-Q10" secondAttribute="leading" constant="106" id="h23-bh-0sL"/>
-                            <constraint firstItem="xzu-uu-2NX" firstAttribute="centerX" secondItem="Evy-3N-Q10" secondAttribute="centerX" id="hi8-kZ-SLI"/>
-                            <constraint firstItem="xzu-uu-2NX" firstAttribute="leading" secondItem="Kd0-Iq-Rms" secondAttribute="leading" id="lii-v9-4Lk"/>
-                            <constraint firstItem="xzu-uu-2NX" firstAttribute="top" secondItem="Kd0-Iq-Rms" secondAttribute="bottom" constant="14" id="tmw-lX-B84"/>
-                            <constraint firstItem="Jd2-rP-dDw" firstAttribute="leading" secondItem="Xf2-6b-FTN" secondAttribute="leading" id="wwY-RS-Gmo"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="emailTextField" destination="Jd2-rP-dDw" id="fb3-Gw-tq4"/>
-                        <outlet property="passTextField" destination="xzu-uu-2NX" id="oVp-aB-dmk"/>
-                    </connections>
                 </viewController>
                 <customObject id="HZC-nF-qRr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,6 +57,9 @@
                                 <buttonCell key="cell" type="push" title="ログイン" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3SD-dh-zOc">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="didClickLoginButton:" target="jor-J3-aRq" id="n1h-x6-Yr0"/>
@@ -162,6 +100,9 @@
                                 <buttonCell key="cell" type="push" title="閉じる" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8yJ-to-pfK">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="closePopover:" target="jor-J3-aRq" id="kLW-7a-hRv"/>

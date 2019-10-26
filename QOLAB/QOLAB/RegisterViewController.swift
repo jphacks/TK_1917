@@ -16,6 +16,7 @@ class RegisterViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSWorkspace.shared.open(URL(string: "https://www.google.com/")!)
 
         // Do any additional setup after loading the view.
     }
@@ -26,15 +27,6 @@ class RegisterViewController: NSViewController {
         }
     }
     
-
-    @IBAction func register(_ sender: Any) {
-        APIClient.fetchArticle { (articles) in
-                   self.articles = articles
-                   DispatchQueue.main.sync {
-                       print(articles)
-                   }
-               }
-    }
     
     @IBAction func didClickRegisterButton(_ sender: Any) {
         print(emailTextField.stringValue)

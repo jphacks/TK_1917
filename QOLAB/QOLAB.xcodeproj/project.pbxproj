@@ -12,6 +12,8 @@
 		B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18DD9FF2363E53500089862 /* CallBackFunctions.swift */; };
 		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
+		EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */; };
+		EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29662364890A00C26B06 /* UserInfoDao.swift */; };
 		EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF23F4A12364704F0049B544 /* AccessTokenDao.swift */; };
 		EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A62E23640BC400992283 /* playgroundRequest.swift */; };
 		EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43A63023640BCF00992283 /* playgroundResponse.swift */; };
@@ -35,6 +37,8 @@
 		E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.release.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.release.xcconfig"; sourceTree = "<group>"; };
 		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoResponse.swift; sourceTree = "<group>"; };
+		EF1E29662364890A00C26B06 /* UserInfoDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDao.swift; sourceTree = "<group>"; };
 		EF23F4A12364704F0049B544 /* AccessTokenDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDao.swift; sourceTree = "<group>"; };
 		EF43A62E23640BC400992283 /* playgroundRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundRequest.swift; sourceTree = "<group>"; };
 		EF43A63023640BCF00992283 /* playgroundResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playgroundResponse.swift; sourceTree = "<group>"; };
@@ -77,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				EF23F4A12364704F0049B544 /* AccessTokenDao.swift */,
+				EF1E29662364890A00C26B06 /* UserInfoDao.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -105,6 +110,7 @@
 			children = (
 				EF43A63023640BCF00992283 /* playgroundResponse.swift */,
 				EFF084B32364725B006C4F5A /* LoginResponse.swift */,
+				EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */,
 			);
 			path = ReponseDto;
 			sourceTree = "<group>";
@@ -295,10 +301,12 @@
 				EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */,
 				EFF084B823647CF6006C4F5A /* LoginSuccessViewController.swift in Sources */,
 				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
+				EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */,
 				B18DDA002363E53500089862 /* CallBackFunctions.swift in Sources */,
 				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				B18DD9FE2363E52D00089862 /* Keylogger.swift in Sources */,
+				EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */,
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,
 				EFF084B623647581006C4F5A /* AuthRequest.swift in Sources */,
 				EF43A63723640E9300992283 /* apiRequest.swift in Sources */,

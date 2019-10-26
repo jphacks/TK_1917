@@ -10,25 +10,32 @@ import Foundation
 import SwiftyJSON
 struct APIClient {
     
-    static func fetchArticle(_ completion: @escaping ([PlaygroundStr]) -> Void) {
-        
-        let components = URLComponents(string: "http://localhost:3000/playground")
+    static func fetchUserInfo(_ completion: @escaping (FetchUserInfoResponse?) -> Void) {
+        let decoder = JSONDecoder()
+        let components = URLComponents(string: APIURL.baseUrl + "/me")
         guard let url = components?.url else {
             return
         }
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                let decorder = JSONDecoder()
+        
+        var request = URLRequest(url: (components?.url)!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
+        print(AccessTokenDao().getAccessToken() ?? "")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            if (error == nil) {
+                
                 do {
-                    let articles = try decorder.decode([PlaygroundStr].self, from: data)
-                    completion(articles)
+                    print(String(data: data!, encoding: .utf8))
+                    let res = try decoder.decode(FetchUserInfoResponse.self, from: data!)
+                    UserInfoDao().setUserInfo(user: res)
+                    completion(res)
                 } catch {
-                    print(error.localizedDescription)
+                    completion(nil)
                 }
             } else {
-                print(error ?? "Error")
+                print("error")
             }
-        }
+        })
         task.resume()
     }
     

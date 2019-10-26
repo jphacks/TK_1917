@@ -38,15 +38,6 @@ class LoginViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-    @IBAction func signIn(_ sender: Any) {
-        APIClient.fetchArticle { (articles) in
-                   self.articles = articles
-                   DispatchQueue.main.sync {
-                       print(articles)
-                   }
-               }
-    }
     
     @IBAction func didClickLoginButton(_ sender: Any) {
         loadingCircle.isHidden = false
@@ -64,11 +55,16 @@ class LoginViewController: NSViewController {
                 self.loginButton.isHidden = false
                 if result != nil {
                     self.showLoginSuccess()
-                    
+                    APIClient.fetchUserInfo() {
+                            (res) in
+                            DispatchQueue.main.sync {
+//                                print(UserInfoDao().getUserInfo())
+                            }
+                        }
                 } else {
                     self.error.isHidden = false
                 }
-                print(result)
+//                print(result)
             }
         }
         
