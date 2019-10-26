@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-class CustomViewController: NSViewController {
+class RegisterViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
