@@ -1,5 +1,26 @@
 <template>
   <v-layout column justify-center class="container">
+    <h2 class="display-2 label">slackの連携</h2>
+    <v-form ref="form" v-model="valid" @submit.prevent="updateSlackConfig">
+      <v-text-field
+        v-model="url"
+        :rules="urlRules"
+        label="webhook comming URL"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="channel"
+        :rules="channelRules"
+        label="チャンネル名"
+        required
+      ></v-text-field>
+      <div>
+        <v-btn :disabled="!valid" type="submit" class="mr-4" color="primary"
+          >slack通知を設定</v-btn
+        >
+      </div>
+    </v-form>
+    <span class="line"></span>
     <h2 class="display-2 label">研究室の管理</h2>
     <div v-for="room in rooms" :key="room._id" class="list">
       <div class="flex">
@@ -28,7 +49,11 @@ export default {
     return {
       rooms: [],
       monipis: [],
-      selectedData: null
+      valid: false,
+      url: '',
+      urlRules: [v => !!v || 'URL is required'],
+      channel: '',
+      channelRules: [v => !!v || 'Channel Name is required']
     }
   },
   mounted: async function() {
@@ -57,6 +82,16 @@ export default {
         const updatedRoom = this.rooms.filter(r => r._id === roomId)
         console.debug(updatedRoom)
         updatedRoom[0].monipiId = monipiId
+      } catch {
+        console.debug('monipi error')
+      }
+    },
+    updateSlackConfig: async function() {
+      try {
+        await api.post('/slack-config', {
+          url: this.url,
+          channel: this.channel
+        })
       } catch {
         console.debug('monipi error')
       }
@@ -96,5 +131,10 @@ export default {
   line-height: 52px;
   margin-right: 16px;
   vertical-align: middle;
+}
+
+.line {
+  margin: 32px 0;
+  border-bottom: 1px solid #ffffff;
 }
 </style>
