@@ -45,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let userInfo = UserInfoDao().getUserInfo()
         
-        if userInfo != nil {
+        if userInfo == nil {
             statusBarMenu.addItem(
                 withTitle: "新規登録",
                 action: #selector(AppDelegate.openRegisterPage(_:)),

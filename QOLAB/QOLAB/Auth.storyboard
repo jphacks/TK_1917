@@ -100,6 +100,9 @@ DQ
                                 <buttonCell key="cell" type="push" title="閉じる" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8yJ-to-pfK">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="closePopover:" target="jor-J3-aRq" id="kLW-7a-hRv"/>
