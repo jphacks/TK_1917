@@ -17,6 +17,7 @@ import Bar from '@/components/Bar'
 import api from '@/utils/apiClient'
 
 export default {
+  middleware: 'auth',
   components: {
     Bar
   },
