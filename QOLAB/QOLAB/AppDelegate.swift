@@ -208,7 +208,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
 
         })
-        print("d start")
     }
     
     /* タイマー関数 */
@@ -234,7 +233,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let second = (Int)(fmod(currentTime, 60))
         // floor 切り捨て、小数点以下を取り出して *100
         let msec = (Int)((currentTime - floor(currentTime))*100)
-        print(currentTime, minute, second, msec)
+        
+//        print(currentTime, minute, second, msec)
         let ssid = CWWiFiClient.init().interface()?.ssid() ?? String()
         
         if ssid != "" {
@@ -261,7 +261,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func loggerStart() {
-        print("logger_start")
         print(AppDelegate.appName, AppDelegate.keyCount)
     }
 
@@ -269,13 +268,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func checkLongSitting() {
         print("checkLongSitting: ", AppDelegate.keyCountForSitting)
         if (AppDelegate.keyCountForSitting > KEYNUM_THRESHOLD) {
+            print("detect: threshold over")
             arrayFlag.removeLast()
             arrayFlag.insert(true, at: 0)
         } else {
             arrayFlag.removeLast()
             arrayFlag.insert(false, at: 0)
         }
-        print("array", arrayFlag)
         let orderedSet = NSOrderedSet(array: arrayFlag)
         let uniqueValues = orderedSet.array as! [Bool]
         
@@ -296,7 +295,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         timerNormal.invalidate()
         stopWatchTimer.invalidate()
         
-        print(wifiDict ?? "aaaa")
+        print(wifiDict)
     }
     
     @objc func login() {
@@ -314,7 +313,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         timerNormal.invalidate()
         stopWatchTimer.invalidate()
         
-        print(wifiDict ?? "aaaa")
+        print(wifiDict)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
