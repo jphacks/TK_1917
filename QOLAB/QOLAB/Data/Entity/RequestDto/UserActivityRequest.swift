@@ -17,3 +17,21 @@ struct ActivityData: Codable {
     var appName: String
     var typeCount: Int
 }
+
+struct UserSitRequest: Codable {
+    var sittingTime: Int
+}
+
+struct SittingActivityData: Codable {
+    var sittingStayTime: Int
+}
+
+struct UserNetworkRequest: Codable {
+    var activityName: String
+    var data: NetworkActivityData
+}
+
+struct NetworkActivityData: Codable {
+    var ssid: String
+    var stayTime: Int
+}
