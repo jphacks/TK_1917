@@ -15,6 +15,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let loginPopOver = NSPopover()
     let registerPopOver = NSPopover()
     var isStopped = false
+    var count = 1
+    static var keyCount = 0
+    static var appName = ""
+    /* タイマー変数 */
+    var timer = Timer()
+    
+    override init(){
+        print("Appdelegete init!!")
+    }
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Insert code here to initialize your application
@@ -98,16 +107,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func start () {
-
+        /* タイマー実行 */
+        self.timer = Timer.scheduledTimer(
+                    timeInterval: 3,//実行する時間
+                    target: self,
+                    selector: #selector(self.CountDown),//実行関数
+                    userInfo: nil,
+                    repeats: true
+        )
 //        RunLoop.current.run()
+        let d = Keylogger()
         OperationQueue().addOperation({ () -> Void in
-            let d = Keylogger()
+    
             while(!self.isStopped) {
                 d.start()
             }
 
         })
         print("d start")
+    }
+    
+    /* タイマー関数 */
+    @objc func CountDown() {
+        self.count += 1
+        print("count:", count)
+        self.logger_start()
+//        /* 10秒かカウントしたらタイマーストップ */
+//        if (self.count > 10) {
+//            timer.invalidate()
+//        }
+    }
+    
+    @objc func keyCountUp(key: String) {
+        print("keyCountUp:", key, AppDelegate.keyCount)
+        AppDelegate.keyCount += 1
+    }
+    
+    @objc func logger_start() {
+        print("logger_start")
+        print(AppDelegate.appName, AppDelegate.keyCount)
     }
     
     @objc func stop() {

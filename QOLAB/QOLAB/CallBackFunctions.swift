@@ -94,8 +94,7 @@ class CallBackFunctions
         let pressed = IOHIDValueGetIntegerValue(device );
         var dateFolder = "\(calander.component(.day, from: Date()))-\(calander.component(.month, from: Date()))-\(calander.component(.year, from: Date()))"
         var path = mySelf.keyData.appendingPathComponent(dateFolder)
-        print("Handle_IOHIDInputValueCallback", path)
-        print("test", mySelf)
+//        print("Handle_IOHIDInputValueCallback", path)
 
         if !FileManager.default.fileExists(atPath: path.path)
         {
@@ -109,7 +108,6 @@ class CallBackFunctions
             }
         }
         let fileName = path.appendingPathComponent(mySelf.appName).path
-        print("fileName: ", fileName)
         if CallBackFunctions.prev == fileName
         {
             test = false
@@ -152,8 +150,8 @@ Outside:if pressed == 1
             else
             {
                 fh?.write(mySelf.keyMap[scancode]![0].data(using: .utf8)!)
-                print("myself", mySelf.keyMap[scancode]![0].data(using: .utf8)!)
-                print("keymap", mySelf.keyMap[scancode])
+                let d = AppDelegate()
+                d.keyCountUp(key: mySelf.keyMap[scancode]![0])
             }
             
         }
