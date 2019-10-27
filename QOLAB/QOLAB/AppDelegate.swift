@@ -10,13 +10,14 @@ import Cocoa
 import CoreWLAN
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
     
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
     let joinLabPopOver = NSPopover()
     let sensing = Sensing()
     var isSensingStarted = false
+    let NScenter = NSUserNotificationCenter.default
 
     
     override init(){
@@ -181,12 +182,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.isSensingStarted = true
         initStatusBar()
         self.sensing.start()
+        start_notification()
     }
     
     @objc func stop() {
         self.isSensingStarted = false
         initStatusBar()
         self.sensing.stop()
+    }
+    
+    @objc func start_notification() {
+        print("start_nortify")
+        self.NScenter.delegate = self
+        let notification = NSUserNotification.init()
+        // アプリ名を表示
+        notification.contentImage = NSImage(named: "white")
+        notification.title = (Bundle.main.infoDictionary?[kCFBundleNameKey as String])! as? String
+        notification.subtitle = "計測を開始しました。"
+        self.NScenter.deliver(notification)
+        
     }
     
     @objc func login() {

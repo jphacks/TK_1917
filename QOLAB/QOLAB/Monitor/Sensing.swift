@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 import CoreWLAN
 
-class Sensing{
+class Sensing: NSObject, NSUserNotificationCenterDelegate{
     let TIMER_NORMAL_SEC = 60.0
     let TIMER_SITTING_SEC = 10.0
     // 座りすぎアラートが作動する文字数のしきい値
@@ -28,10 +28,10 @@ class Sensing{
     var timerSitting = Timer()
     var stopWatchTimer = Timer()
     var startTime = Date()
-    
-    init() {
+    let NScenter = NSUserNotificationCenter.default
 
-    }
+    
+    override init() {}
     
     func start() {
         /* タイマー実行 */
@@ -152,6 +152,7 @@ class Sensing{
         if (uniqueValues[0] && uniqueValues.count == 1) {
             
             print("座りすぎです！！！！！！")
+            notification()
         }
         // keyCountForSittingをリセット
         Sensing.keyCountForSitting = 0
@@ -159,6 +160,18 @@ class Sensing{
     
     @objc func wifi() {
         print("wifi", CWWiFiClient.init().interface()?.ssid() ?? String())
+    }
+    
+    @objc func notification() {
+        print("nortify")
+        self.NScenter.delegate = self
+        let notification = NSUserNotification.init()
+        // アプリ名を表示
+        notification.contentImage = NSImage(named: "white")
+        notification.title = (Bundle.main.infoDictionary?[kCFBundleNameKey as String])! as? String
+        notification.subtitle = "座っている時間が長いよ！少し休憩しよう？"
+        self.NScenter.deliver(notification)
+        
     }
     
     func stop() {
