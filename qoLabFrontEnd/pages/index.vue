@@ -124,7 +124,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '気温(℃)' // ラベル
+          text: '湿度(%)' // ラベル
         }
       },
       options3: {
@@ -141,7 +141,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '湿度(%)' // ラベル
+          text: '気温(℃)' // ラベル
         }
       }
     }
