@@ -32,8 +32,8 @@
       <v-btn
         :disabled="!canCreateByCode"
         :loading="isCreateLoading"
-        @click="createLab"
         color="primary"
+        @click="createLab"
         >create</v-btn
       >
     </div>
@@ -45,7 +45,7 @@
         <v-btn color="primary">{{ lab.name }}の設定をする</v-btn>
       </nuxt-link>
 
-      <v-btn :loading="isLeaveLoading" @click="leaveLab" class="nukeru"
+      <v-btn :loading="isLeaveLoading" class="nukeru" @click="leaveLab"
         >このラボルームから脱退する</v-btn
       >
     </div>

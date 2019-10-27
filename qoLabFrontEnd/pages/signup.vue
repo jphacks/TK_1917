@@ -5,8 +5,8 @@
       ref="form"
       v-model="valid"
       :lazy-validation="lazy"
-      @submit.prevent="submit"
       class="registerForm"
+      @submit.prevent="submit"
     >
       <v-text-field
         v-model="email"
@@ -23,19 +23,19 @@
       ></v-text-field>
       <div class="registerButton">
         <v-btn
+          v-if="!this.isLoading"
           :disabled="!valid"
           type="submit"
           class="button"
           color="primary"
-          v-if="!this.isLoading"
           >登録</v-btn
         >
         <v-btn
+          v-if="this.isLoading"
           :disabled="!valid || this.isLoading"
           type="submit"
           class="button"
           color="primary"
-          v-if="this.isLoading"
         >
           <v-progress-circular
             indeterminate
