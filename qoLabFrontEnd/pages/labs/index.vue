@@ -5,9 +5,8 @@
         v-show="showAlert"
         transition="scale-transition"
         :type="alertType"
+        >{{ alertMsg }}</v-alert
       >
-        {{ alertMsg }}
-      </v-alert>
     </div>
     <div v-if="!lab" class="create-container">
       <h1>Create Lab</h1>
@@ -21,9 +20,8 @@
         :disabled="!canCreate"
         :loading="isCreateLoading"
         @click="createLab"
+        >create</v-btn
       >
-        create
-      </v-btn>
       <h1>Join Lab by LabCode</h1>
       <v-text-field
         v-model="labCode"
@@ -35,21 +33,21 @@
         :disabled="!canCreateByCode"
         :loading="isCreateLoading"
         @click="createLab"
+        color="primary"
+        >create</v-btn
       >
-        create
-      </v-btn>
     </div>
     <div v-else class="created-container">
       <p class="title">同じ研究室のみんなで共有してね</p>
       <p class="headline">labcode: {{ lab.labCode }}</p>
 
       <nuxt-link :to="`/labs/${lab._id}`">
-        <v-btn>{{ lab.name }}の設定をする</v-btn>
+        <v-btn color="primary">{{ lab.name }}の設定をする</v-btn>
       </nuxt-link>
 
-      <v-btn :loading="isLeaveLoading" @click="leaveLab">
-        このラボルームから脱退する
-      </v-btn>
+      <v-btn :loading="isLeaveLoading" @click="leaveLab" class="nukeru"
+        >このラボルームから脱退する</v-btn
+      >
     </div>
   </div>
 </template>
@@ -140,5 +138,8 @@ export default {
 }
 .v-alert {
   margin-bottom: 24px;
+}
+.nukeru {
+  background-color: #c5c5c5;
 }
 </style>

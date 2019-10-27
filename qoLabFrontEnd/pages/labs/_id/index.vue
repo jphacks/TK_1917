@@ -1,6 +1,6 @@
 <template>
   <v-layout column justify-center class="container">
-    <h2 class="display-2 label">slackの連携</h2>
+    <h2 class="label">slackの連携</h2>
     <v-form ref="form" v-model="valid" @submit.prevent="updateSlackConfig">
       <v-text-field
         v-model="url"
@@ -21,7 +21,7 @@
       </div>
     </v-form>
     <span class="line"></span>
-    <h2 class="display-2 label">研究室の管理</h2>
+    <h2 class="label">研究室の管理</h2>
     <div v-for="room in rooms" :key="room._id" class="list">
       <div class="flex">
         <div class="room-label">{{ room.name }}</div>
@@ -36,6 +36,7 @@
         ></v-select>
       </div>
       <p>現在のモニパイId: {{ room.monipiId }}</p>
+      <v-divider :inset="inset"></v-divider>
     </div>
   </v-layout>
 </template>
@@ -107,6 +108,7 @@ export default {
 
 .label {
   margin-bottom: 8px;
+  font-size: 20px;
 }
 
 .flex {
