@@ -158,6 +158,8 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
             
             print("座りすぎです！！！！！！")
             notification()
+            // flagを初期化
+            arrayFlag = [false, false, false, false, false]
         }
         // keyCountForSittingをリセット
         Sensing.keyCountForSitting = 0
