@@ -28,7 +28,7 @@ export default {
       options: {
         plugins: {
           colorschemes: {
-            scheme: 'tableau.ClassicLight10'
+            scheme: 'office.YellowOrange6'
           }
         },
         legend: {
@@ -39,7 +39,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '過去6時間で見ていたドメインランキング' // ラベル
+          text: '過去6時間で訪れたドメイン（回数）' // ラベル
         }
       }
     }

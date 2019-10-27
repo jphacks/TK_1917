@@ -28,7 +28,7 @@ export default {
       options: {
         plugins: {
           colorschemes: {
-            scheme: 'tableau.ClassicLight10'
+            scheme: 'brewer.Accent3'
           }
         },
         legend: {
@@ -39,7 +39,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '過去6時間で入力したキー数' // ラベル
+          text: '過去6時間のキー入力推移' // ラベル
         }
       }
     }
@@ -55,7 +55,7 @@ export default {
         {
           fillColor: 'red',
           data,
-          backgroundColor: 'rgba(220,220,220,0.3)'
+          backgroundColor: 'rgba(255,255,255,0)'
         }
       ]
     }
