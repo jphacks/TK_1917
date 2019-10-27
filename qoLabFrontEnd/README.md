@@ -1,6 +1,6 @@
 # qoLabFrontEnd
 
-> Manage Page
+ユーザー登録や, 研究室の居室, モニパイ(qoLab 用 Raspberry Pi)の管理画面
 
 ## Build Setup
 
