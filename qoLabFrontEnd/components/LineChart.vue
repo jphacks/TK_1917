@@ -8,6 +8,11 @@ export default {
   mixins: [reactiveProp],
   props: {
     options: {
+      plugins: {
+        colorschemes: {
+          scheme: 'tableau.ClassicLight10'
+        }
+      },
       type: Object,
       default: null
     }

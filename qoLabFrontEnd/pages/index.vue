@@ -2,9 +2,15 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
-        <DomainChart />
-        <AppChart />
-        <KeyChart />
+        <div class="container">
+          <DomainChart />
+        </div>
+        <div class="container">
+          <AppChart />
+        </div>
+        <div class="container">
+          <KeyChart />
+        </div>
       </div>
     </v-flex>
   </v-layout>
@@ -24,3 +30,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.container {
+  margin: 30px auto;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-  <v-app dark>
-    <v-toolbar :clipped-left="clipped" fixed app>
+  <v-app>
+    <v-toolbar :clipped-left="clipped" fixed app :color="barColor" :dark="true">
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -62,7 +62,8 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'qoLab'
+      title: 'qoLab',
+      barColor: 'primary'
     }
   },
   methods: {
