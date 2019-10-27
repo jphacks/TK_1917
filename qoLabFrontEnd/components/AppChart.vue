@@ -38,7 +38,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: 'アプリの使用時間（過去６時間）' // ラベル
+          text: 'Macアプリの使用時間割合（過去６時間）' // ラベル
         }
       }
     }
