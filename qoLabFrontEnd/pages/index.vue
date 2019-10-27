@@ -13,14 +13,14 @@
         </div>
         <div class="container">
           <LineChart
-            :v-if="data"
+            :v-if="browsingData1"
             :height="450"
             :width="800"
             :chart-data="browsingData1"
             :options="options"
           />
           <LineChart
-            :v-if="data"
+            :v-if="browsingData2"
             :height="450"
             :width="800"
             :chart-data="browsingData2"
@@ -48,8 +48,14 @@ export default {
   },
   async asyncData() {
     const res = await api.get('visialization/envdata')
-    const data1 = res.data[3]
-    const data2 = res.data[2]
+    const temperatureIdx = res.data.findIndex(
+      d => d[0].sensorName === 'PressureSensor'
+    )
+    const temphumIdx = res.data.findIndex(
+      d => d[0].sensorName === 'TempHumSensor'
+    )
+    const data1 = res.data[temperatureIdx]
+    const data2 = res.data[temphumIdx]
     return {
       browsingData1: {
         labels: data1.map(d => d.createdAt),
