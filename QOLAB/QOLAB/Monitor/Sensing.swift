@@ -30,6 +30,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     var startTime = Date()
     let NScenter = NSUserNotificationCenter.default
     var eventMonitor: Any?
+    var observer: Any?
     
     override init() {}
     
@@ -64,7 +65,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
 
         self.eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: handler)
         
-        NSWorkspace.shared.notificationCenter.addObserver(self,selector: #selector(activated(_:)),name: NSWorkspace.didActivateApplicationNotification,object: nil)
+        self.observer = NSWorkspace.shared.notificationCenter.addObserver(self,selector: #selector(activated(_:)),name: NSWorkspace.didActivateApplicationNotification,object: nil)
         
     }
     
@@ -183,6 +184,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
         timerSitting.invalidate()
         timerNormal.invalidate()
         stopWatchTimer.invalidate()
+        NSWorkspace.shared.notificationCenter.removeObserver(self)
         NSEvent.removeMonitor(self.eventMonitor)
         print(wifiDict)
         

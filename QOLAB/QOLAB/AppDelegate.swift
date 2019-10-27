@@ -161,7 +161,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @objc func logout(_ sender: Any) {
-        stop()
+        if self.isSensingStarted {
+            stop()
+        }
         UserDefaults().removeObject(forKey: UserInfoDao.USER_INFO)
         initStatusBar()
     }
