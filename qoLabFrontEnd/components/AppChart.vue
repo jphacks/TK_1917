@@ -15,6 +15,7 @@
 <script>
 import Pie from '@/components/Pie'
 import api from '@/utils/apiClient'
+import 'chartjs-plugin-colorschemes'
 
 export default {
   components: {
@@ -24,9 +25,14 @@ export default {
     return {
       activeAppData: null,
       options: {
+        plugins: {
+          colorschemes: {
+            scheme: 'tableau.ClassicLight10'
+          }
+        },
         legend: {
           // 凡例設定
-          display: false // 表示設定
+          display: true // 表示設定
         },
         title: {
           // タイトル設定
@@ -54,7 +60,7 @@ export default {
       datasets: [
         {
           data,
-          backgroundColor: this.labelColors(activeAppData)
+          borderWidth: 0.5
         }
       ]
     }

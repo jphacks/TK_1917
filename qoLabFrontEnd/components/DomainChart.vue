@@ -26,6 +26,11 @@ export default {
     return {
       browsingData: null,
       options: {
+        plugins: {
+          colorschemes: {
+            scheme: 'tableau.ClassicLight10'
+          }
+        },
         legend: {
           // 凡例設定
           display: false // 表示設定
@@ -55,8 +60,7 @@ export default {
       labels,
       datasets: [
         {
-          data,
-          backgroundColor: this.labelColors(domains)
+          data
         }
       ]
     }

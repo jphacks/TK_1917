@@ -26,6 +26,11 @@ export default {
     return {
       browsingData: null,
       options: {
+        plugins: {
+          colorschemes: {
+            scheme: 'tableau.ClassicLight10'
+          }
+        },
         legend: {
           // 凡例設定
           display: false // 表示設定
@@ -42,7 +47,7 @@ export default {
   async created() {
     const res = await api.get('visialization/key')
     const keys = res.data
-    const labels = keys.map(k => k.createdAt)
+    const labels = keys.map(k => new Date(k.createdAt).toLocaleTimeString('ja'))
     const data = keys.map(k => k.typeCount)
     this.browsingData = {
       labels,
