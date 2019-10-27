@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 import CoreWLAN
 
-class Sensing{
+class Sensing: NSObject, NSUserNotificationCenterDelegate{
     let TIMER_NORMAL_SEC = 60.0
     let TIMER_SITTING_SEC = 10.0
     // 座りすぎアラートが作動する文字数のしきい値
@@ -28,10 +28,10 @@ class Sensing{
     var timerSitting = Timer()
     var stopWatchTimer = Timer()
     var startTime = Date()
+    let NScenter = NSUserNotificationCenter.default
+    var eventMonitor: Any?
     
-    init() {
-
-    }
+    override init() {}
     
     func start() {
         /* タイマー実行 */
@@ -62,13 +62,7 @@ class Sensing{
         
         startTime = Date()
 
-        NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { event in
-            // not called
-            print(event.characters!)
-            Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
-            self.keyCountUp(key: event.characters!)
-            self.keyCountUpForSitting(key: event.characters!)
-        }
+        self.eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: handler)
         
         NSWorkspace.shared.notificationCenter.addObserver(self,selector: #selector(activated(_:)),name: NSWorkspace.didActivateApplicationNotification,object: nil)
         
@@ -83,6 +77,16 @@ class Sensing{
             print(name)
         }
     }
+    
+    func handler(event: NSEvent) {
+            // not called
+            print("handler", event.characters!)
+            Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
+            self.keyCountUp(key: event.characters!)
+            self.keyCountUpForSitting(key: event.characters!)
+        
+    }
+    
 
     
     
@@ -152,6 +156,7 @@ class Sensing{
         if (uniqueValues[0] && uniqueValues.count == 1) {
             
             print("座りすぎです！！！！！！")
+            notification()
         }
         // keyCountForSittingをリセット
         Sensing.keyCountForSitting = 0
@@ -161,13 +166,26 @@ class Sensing{
         print("wifi", CWWiFiClient.init().interface()?.ssid() ?? String())
     }
     
+    @objc func notification() {
+        print("nortify")
+        self.NScenter.delegate = self
+        let notification = NSUserNotification.init()
+        // アプリ名を表示
+        notification.contentImage = NSImage(named: "white")
+        notification.title = (Bundle.main.infoDictionary?[kCFBundleNameKey as String])! as? String
+        notification.subtitle = "座っている時間が長いよ！少し休憩しよう？"
+        self.NScenter.deliver(notification)
+        
+    }
+    
     func stop() {
         self.isStopped = true
         timerSitting.invalidate()
         timerNormal.invalidate()
         stopWatchTimer.invalidate()
-        
+        NSEvent.removeMonitor(self.eventMonitor)
         print(wifiDict)
+        
     }
     
     func quit() {
