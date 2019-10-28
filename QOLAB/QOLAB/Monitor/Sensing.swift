@@ -21,6 +21,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     static var keyCount = 0
     static var keyCountForSitting = 0
     static var appName = ""
+    static var domainName = ""
     var arrayFlag: [Bool] = [false, false, false, false, false]
     var wifiDict:Dictionary<String, String> = [:]
     /* タイマー変数 */
@@ -74,6 +75,9 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
             let app = info[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
             let name = app.localizedName
         {
+
+            Sensing.appName = name
+            print(name)
             // chromeからアクティブタブのURLを取得するAppleScript
             let myAppleScript = "tell application \"Google Chrome\"\n" +
                    "get URL of active tab of first window\n" +
@@ -84,12 +88,12 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
                 let urlString = output.stringValue!
                 // urlからドメイン取得
                 let url = NSURL(string: urlString)
-                print(url?.host)
+                if (name == "Google Chrome") {
+                    Sensing.domainName = "https://" + (url?.host)!
+                }
             } else if (error != nil) {
                 print("error: \(String(describing: error))")
             }
-            Sensing.appName = name
-            print(name)
         }
     }
     
@@ -151,6 +155,10 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     @objc func loggerStart() {
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
         APIClient.postActivity(activity: paramDto) {_ in }
+        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", title: "qoLabFrontEnd", url: Sensing.domainName))
+        if (Sensing.appName == "Google Chrome") {
+            APIClient.postActivity(activity: chromeParamDto) {_ in }
+        }
     }
 
     /* タイマー関数 */

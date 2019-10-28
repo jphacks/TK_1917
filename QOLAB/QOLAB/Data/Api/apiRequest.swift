@@ -134,7 +134,7 @@ struct APIClient {
         task.resume()
     }
     
-    static func postActivity(activity: UserActivityRequest, _ completion: @escaping (UserActivityResponse?) -> Void) {
+    static func postActivity<T:Codable>(activity: T, _ completion: @escaping (T?) -> Void) {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         var request = URLRequest(url: URL(string:APIURL.baseUrl + "/user-activity")!)
@@ -155,8 +155,8 @@ struct APIClient {
         let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
             if (error == nil) {
                 do {
-//                    print(String(data: data!, encoding: .utf8))
-                    let res = try decoder.decode(UserActivityResponse.self, from: data!)
+                    print(String(data: data!, encoding: .utf8))
+                    let res = try decoder.decode(T.self, from: data!)
                     completion(res)
                 } catch {
                     completion(nil)
@@ -167,8 +167,6 @@ struct APIClient {
         })
         task.resume()
     }
-
-    
     
     static func singUp(userInfo: AuthRequest, _ completion: @escaping ([PlaygroundStr]) -> Void) {
         let components = URLComponents(string: APIURL.baseUrl + "/signup")
