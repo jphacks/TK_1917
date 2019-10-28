@@ -23,10 +23,18 @@
 #### 1. 特長 1 豊富な種類のデータを収集
 自分の生産性と, 行動や環境にどのような相関があるか調べることができるよう, パソコンの使用状況や, ブラウジング状況, 部屋の環境情報など, 多くのデータを収集することができます．
 
+<img src=https://user-images.githubusercontent.com/24749358/67661257-12fc7b00-f9a4-11e9-9ed6-9807a632d7b8.png  width=500>
+<img src=https://user-images.githubusercontent.com/24749358/67661263-155ed500-f9a4-11e9-94a1-94831046c9df.png  width=500>
+<img src=https://user-images.githubusercontent.com/24749358/67661268-17c12f00-f9a4-11e9-82e5-258980aef84d.png  width=500>
+
+
 #### 2. 特長 2 行動データからのフィードバック
 
 収集された行動データから，ユーザーのためのフィードバックを提供します.
-例: 長時間座っていたら休憩を勧めてくれる
+例: 長時間座っていたら通知で休憩を勧めてくれる
+
+<img width="600"  src="https://user-images.githubusercontent.com/24749358/67661452-9d44df00-f9a4-11e9-8cc8-1978e039588c.png">
+
 
 #### 3. 特長 3 ユーザは使用中にシステムを意識する必要がない
 
