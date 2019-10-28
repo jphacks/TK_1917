@@ -43,6 +43,5 @@ struct ChromeTabRequest: Codable {
 
 struct ChromeTabData: Codable {
     var status: String
-    var title: String
     var url: String
 }

@@ -77,29 +77,13 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
         {
 
             Sensing.appName = name
-            print(name)
-            // chromeからアクティブタブのURLを取得するAppleScript
-            let myAppleScript = "tell application \"Google Chrome\"\n" +
-                   "get URL of active tab of first window\n" +
-                    "end tell"
-            var error: NSDictionary?
-            let scriptObject = NSAppleScript(source: myAppleScript)
-            if let output: NSAppleEventDescriptor = scriptObject?.executeAndReturnError(&error) {
-                let urlString = output.stringValue!
-                // urlからドメイン取得
-                let url = NSURL(string: urlString)
-                if (name == "Google Chrome") {
-                    Sensing.domainName = "https://" + (url?.host)!
-                }
-            } else if (error != nil) {
-                print("error: \(String(describing: error))")
-            }
+//            print(name)
         }
     }
     
     func handler(event: NSEvent) {
             // not called
-            print("handler", event.characters!)
+//            print("handler", event.characters!)
             Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
             self.keyCountUp(key: event.characters!)
             self.keyCountUpForSitting(key: event.characters!)
@@ -153,10 +137,28 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     }
     
     @objc func loggerStart() {
+        // chromeからアクティブタブのURLを取得するAppleScript
+        let myAppleScript = "tell application \"Google Chrome\"\n" +
+               "get URL of active tab of first window\n" +
+                "end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: myAppleScript)
+        if let output: NSAppleEventDescriptor = scriptObject?.executeAndReturnError(&error) {
+            let urlString = output.stringValue!
+            // urlからドメイン取得
+            let url = NSURL(string: urlString)
+            if (Sensing.appName == "Google Chrome") {
+                Sensing.domainName = (url?.host)!
+                print(Sensing.domainName)
+            }
+        } else if (error != nil) {
+            print("error: \(String(describing: error))")
+        }
+        
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
         APIClient.postActivity(activity: paramDto) {_ in }
-        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", title: "qoLabFrontEnd", url: Sensing.domainName))
-        if (Sensing.appName == "Google Chrome") {
+        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", url: "https://" + Sensing.domainName))
+        if ((Sensing.domainName != "qolab-a0324.web.app" && Sensing.domainName != "qolab-a0324.firebaseapp.com") && Sensing.appName == "Google Chrome") {
             APIClient.postActivity(activity: chromeParamDto) {_ in }
         }
     }
