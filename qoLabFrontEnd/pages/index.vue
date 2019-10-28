@@ -12,7 +12,7 @@
           <KeyChart />
         </div>
         <div v-if="labName">
-        <p class="labname">{{ labName }}の室内環境</p>
+          <p class="labname">{{ labName }}の室内環境</p>
           <div v-if="!!browsingData1" class="container">
             <LineChart
               :height="450"
@@ -36,6 +36,7 @@
               :chart-data="browsingData3"
               :options="options3"
             />
+          </div>
         </div>
       </div>
     </v-flex>
