@@ -11,27 +11,24 @@
         <div class="container">
           <KeyChart />
         </div>
-        <div class="container">
+        <div v-if="!!browsingData1" class="container">
           <LineChart
-            :v-if="browsingData1"
             :height="450"
             :width="800"
             :chart-data="browsingData1"
             :options="options"
           />
         </div>
-        <div class="container">
+        <div v-if="!!browsingData2" class="container">
           <LineChart
-            :v-if="browsingData2"
             :height="450"
             :width="800"
             :chart-data="browsingData2"
             :options="options2"
           />
         </div>
-        <div class="container">
+        <div v-if="browsingData3" class="container">
           <LineChart
-            :v-if="browsingData3"
             :height="450"
             :width="800"
             :chart-data="browsingData3"
@@ -58,42 +55,52 @@ export default {
     KeyChart,
     LineChart
   },
-  async asyncData() {
-    const res = await api.get('visialization/envdata')
-    const temperatureIdx = res.data.findIndex(
-      d => d[0].sensorName === 'PressureSensor'
-    )
-    const temphumIdx = res.data.findIndex(
-      d => d[0].sensorName === 'TempHumSensor'
-    )
-    const data1 = res.data[temperatureIdx]
-    const data2 = res.data[temphumIdx]
+  data() {
     return {
-      browsingData1: {
+      browsingData1: null,
+      browsingData2: null,
+      browsingData3: null,
+      option1: null,
+      option2: null,
+      option3: null
+    }
+  },
+  async created() {
+    try {
+      const res = await api.get('visialization/envdata')
+      const temperatureIdx = res.data.findIndex(
+        d => d[0].sensorName === 'PressureSensor'
+      )
+      const temphumIdx = res.data.findIndex(
+        d => d[0].sensorName === 'TempHumSensor'
+      )
+      const data1 = res.data[temperatureIdx]
+      const data2 = res.data[temphumIdx]
+      this.browsingData1 = {
         labels: data1.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
         datasets: [
           {
             data: data1.map(d => d.data.pressure)
           }
         ]
-      },
-      browsingData2: {
+      }
+      this.browsingData2 = {
         labels: data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
         datasets: [
           {
             data: data2.map(d => d.data.temperature)
           }
         ]
-      },
-      browsingData3: {
+      }
+      this.browsingData3 = {
         labels: data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
         datasets: [
           {
             data: data2.map(d => d.data.humidity)
           }
         ]
-      },
-      options: {
+      }
+      this.options1 = {
         plugins: {
           colorschemes: {
             scheme: 'brewer.PastelOne3'
@@ -109,8 +116,8 @@ export default {
           fontSize: 18, // フォントサイズ
           text: '気圧(hPa)' // ラベル
         }
-      },
-      options2: {
+      }
+      this.options2 = {
         plugins: {
           colorschemes: {
             scheme: 'office.YellowOrange6'
@@ -126,8 +133,8 @@ export default {
           fontSize: 18, // フォントサイズ
           text: '気温(℃)' // ラベル
         }
-      },
-      options3: {
+      }
+      this.options3 = {
         plugins: {
           colorschemes: {
             scheme: 'brewer.Paired12'
@@ -144,6 +151,8 @@ export default {
           text: '湿度(%)' // ラベル
         }
       }
+    } catch (e) {
+      console.error(e)
     }
   }
 }
