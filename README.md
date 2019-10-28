@@ -1,6 +1,8 @@
 # QuoLab
 
-[![Product Name](image.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
+## QoLabデモ動画
+
+[![QoLab](https://user-images.githubusercontent.com/24749358/67645955-fc87fc80-f96e-11e9-8cae-3edc36f44a66.png)](https://www.youtube.com/watch?v=fjX5L1rCczo&feature=youtu.be)
 
 ## 製品概要
 
@@ -82,9 +84,20 @@
 
 ### 独自開発技術（Hack Day で開発したもの）
 
-なし
-
 #### 2 日間に開発した独自の機能・技術
-
-- 独自で開発したものの内容をこちらに記載してください
-- 特に力を入れた部分をファイルリンク、または commit_id を記載してください（任意）
+- Web フロントエンド(Nuxt.js) グラフの描画にはChart.jsを使用
+  - ドメイン別滞在時間をグラフ表示する
+  - 過去6時間のキーボードタイプ数をグラフ表示する
+  - Macアプリの使用時間割合をグラフ表示する
+  - デバイスが登録されていれば温度・湿度・気圧のデータを表示する
+- Web バックエンド(Nest.js)
+- MacOS用ネイティブアプリ(Swift)
+  - アクティブウィンドウのアプリケーション名を取得する
+  - 一定時間のキーボードのタイピング数を取得する
+  - バックグラウンドで↑の情報を定期的に取得する（ON・OFF可）
+- GoogleChrome 拡張機能 (Vue.js)
+  - 閲覧したページのドメイン名を取得する
+- Android Things (Java)
+  - センサから温度・湿度・気圧のデータを取得する
+  - ディスプレイにセンサデータを表示する
+  

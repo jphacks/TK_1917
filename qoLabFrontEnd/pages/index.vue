@@ -11,29 +11,31 @@
         <div class="container">
           <KeyChart />
         </div>
-        <div v-if="!!browsingData1" class="container">
-          <LineChart
-            :height="450"
-            :width="800"
-            :chart-data="browsingData1"
-            :options="options"
-          />
-        </div>
-        <div v-if="!!browsingData2" class="container">
-          <LineChart
-            :height="450"
-            :width="800"
-            :chart-data="browsingData2"
-            :options="options2"
-          />
-        </div>
-        <div v-if="browsingData3" class="container">
-          <LineChart
-            :height="450"
-            :width="800"
-            :chart-data="browsingData3"
-            :options="options3"
-          />
+        <div v-if="labName">
+        <p class="labname">{{ labName }}の室内環境</p>
+          <div v-if="!!browsingData1" class="container">
+            <LineChart
+              :height="450"
+              :width="800"
+              :chart-data="browsingData1"
+              :options="options"
+            />
+          </div>
+          <div v-if="!!browsingData2" class="container">
+            <LineChart
+              :height="450"
+              :width="800"
+              :chart-data="browsingData2"
+              :options="options2"
+            />
+          </div>
+          <div v-if="browsingData3" class="container">
+            <LineChart
+              :height="450"
+              :width="800"
+              :chart-data="browsingData3"
+              :options="options3"
+            />
         </div>
       </div>
     </v-flex>
@@ -131,7 +133,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '気温(℃)' // ラベル
+          text: '湿度(%)' // ラベル
         }
       }
       this.options3 = {
@@ -148,7 +150,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '湿度(%)' // ラベル
+          text: '気温(℃)' // ラベル
         }
       }
     } catch (e) {
@@ -161,5 +163,9 @@ export default {
 <style>
 .container {
   margin: 30px auto;
+}
+.labname {
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
