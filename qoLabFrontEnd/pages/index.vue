@@ -13,27 +13,24 @@
         </div>
         <div v-if="labName">
           <p class="labname">{{ labName }}の室内環境</p>
-          <div class="container">
+          <div v-if="!!browsingData1" class="container">
             <LineChart
-              :v-if="browsingData1"
               :height="450"
               :width="800"
               :chart-data="browsingData1"
               :options="options"
             />
           </div>
-          <div class="container">
+          <div v-if="!!browsingData2" class="container">
             <LineChart
-              :v-if="browsingData2"
               :height="450"
               :width="800"
               :chart-data="browsingData2"
               :options="options2"
             />
           </div>
-          <div class="container">
+          <div v-if="browsingData3" class="container">
             <LineChart
-              :v-if="browsingData3"
               :height="450"
               :width="800"
               :chart-data="browsingData3"
@@ -61,64 +58,52 @@ export default {
     KeyChart,
     LineChart
   },
-  async asyncData() {
-    const lab = await api.get('lab').catch(e => {
-      throw e
-    })
-    let data1
-    let data2
-    if (lab.data !== '') {
-      const res = await api.get('visialization/envdata').catch(e => {
-        throw e
-      })
+  data() {
+    return {
+      browsingData1: null,
+      browsingData2: null,
+      browsingData3: null,
+      option1: null,
+      option2: null,
+      option3: null
+    }
+  },
+  async created() {
+    try {
+      const res = await api.get('visialization/envdata')
       const temperatureIdx = res.data.findIndex(
         d => d[0].sensorName === 'PressureSensor'
       )
       const temphumIdx = res.data.findIndex(
         d => d[0].sensorName === 'TempHumSensor'
       )
-      data1 = res.data[temperatureIdx]
-      data2 = res.data[temphumIdx]
-    }
-    return {
-      labName: lab.data && lab.data.name,
-      browsingData1: {
-        labels: data1
-          ? data1.map(d => new Date(d.createdAt).toLocaleTimeString('ja'))
-          : '',
-        datasets: data1
-          ? [
-              {
-                data: data1.map(d => d.data.pressure)
-              }
-            ]
-          : []
-      },
-      browsingData2: {
-        labels: data2
-          ? data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja'))
-          : '',
-        datasets: data2
-          ? [
-              {
-                data: data2.map(d => d.data.temperature)
-              }
-            ]
-          : []
-      },
-      browsingData3: {
-        labels: data2
-          ? data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja'))
-          : '',
-        datasets: data2
-          ? [
-              {
-                data: data2.map(d => d.data.humidity)
-              }
-            ]
-          : []
-      },
-      options: {
+      const data1 = res.data[temperatureIdx]
+      const data2 = res.data[temphumIdx]
+      this.browsingData1 = {
+        labels: data1.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
+        datasets: [
+          {
+            data: data1.map(d => d.data.pressure)
+          }
+        ]
+      }
+      this.browsingData2 = {
+        labels: data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
+        datasets: [
+          {
+            data: data2.map(d => d.data.temperature)
+          }
+        ]
+      }
+      this.browsingData3 = {
+        labels: data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
+        datasets: [
+          {
+            data: data2.map(d => d.data.humidity)
+          }
+        ]
+      }
+      this.options1 = {
         plugins: {
           colorschemes: {
             scheme: 'brewer.PastelOne3'
@@ -134,8 +119,8 @@ export default {
           fontSize: 18, // フォントサイズ
           text: '気圧(hPa)' // ラベル
         }
-      },
-      options2: {
+      }
+      this.options2 = {
         plugins: {
           colorschemes: {
             scheme: 'office.YellowOrange6'
@@ -151,8 +136,8 @@ export default {
           fontSize: 18, // フォントサイズ
           text: '湿度(%)' // ラベル
         }
-      },
-      options3: {
+      }
+      this.options3 = {
         plugins: {
           colorschemes: {
             scheme: 'brewer.Paired12'
@@ -169,6 +154,8 @@ export default {
           text: '気温(℃)' // ラベル
         }
       }
+    } catch (e) {
+      console.error(e)
     }
   }
 }
