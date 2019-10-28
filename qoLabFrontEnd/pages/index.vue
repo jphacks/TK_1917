@@ -69,16 +69,16 @@ export default {
     let data2
     if (lab.data !== '') {
       const res = await api.get('visialization/envdata').catch(e => {
-        throw e
+        console.debug(e)
+        return e
       })
-      const temperatureIdx = res.data.findIndex(
-        d => d[0].sensorName === 'PressureSensor'
-      )
-      const temphumIdx = res.data.findIndex(
-        d => d[0].sensorName === 'TempHumSensor'
-      )
-      data1 = res.data[temperatureIdx]
-      data2 = res.data[temphumIdx]
+      const temperatureIdx =
+        res.data &&
+        res.data.findIndex(d => d[0].sensorName === 'PressureSensor')
+      const temphumIdx =
+        res.data && res.data.findIndex(d => d[0].sensorName === 'TempHumSensor')
+      data1 = res.data && res.data[temperatureIdx]
+      data2 = res.data && res.data[temphumIdx]
     }
     return {
       labName: lab.data && lab.data.name,
