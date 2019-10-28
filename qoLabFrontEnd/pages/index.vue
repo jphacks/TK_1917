@@ -11,32 +11,35 @@
         <div class="container">
           <KeyChart />
         </div>
-        <div class="container">
-          <LineChart
-            :v-if="browsingData1"
-            :height="450"
-            :width="800"
-            :chart-data="browsingData1"
-            :options="options"
-          />
-        </div>
-        <div class="container">
-          <LineChart
-            :v-if="browsingData2"
-            :height="450"
-            :width="800"
-            :chart-data="browsingData2"
-            :options="options2"
-          />
-        </div>
-        <div class="container">
-          <LineChart
-            :v-if="browsingData3"
-            :height="450"
-            :width="800"
-            :chart-data="browsingData3"
-            :options="options3"
-          />
+        <div v-if="labName">
+          <p class="labname">{{ labName }}の室内環境</p>
+          <div class="container">
+            <LineChart
+              :v-if="browsingData1"
+              :height="450"
+              :width="800"
+              :chart-data="browsingData1"
+              :options="options"
+            />
+          </div>
+          <div class="container">
+            <LineChart
+              :v-if="browsingData2"
+              :height="450"
+              :width="800"
+              :chart-data="browsingData2"
+              :options="options2"
+            />
+          </div>
+          <div class="container">
+            <LineChart
+              :v-if="browsingData3"
+              :height="450"
+              :width="800"
+              :chart-data="browsingData3"
+              :options="options3"
+            />
+          </div>
         </div>
       </div>
     </v-flex>
@@ -59,39 +62,61 @@ export default {
     LineChart
   },
   async asyncData() {
-    const res = await api.get('visialization/envdata')
-    const temperatureIdx = res.data.findIndex(
-      d => d[0].sensorName === 'PressureSensor'
-    )
-    const temphumIdx = res.data.findIndex(
-      d => d[0].sensorName === 'TempHumSensor'
-    )
-    const data1 = res.data[temperatureIdx]
-    const data2 = res.data[temphumIdx]
+    const lab = await api.get('lab').catch(e => {
+      throw e
+    })
+    let data1
+    let data2
+    if (lab.data !== '') {
+      const res = await api.get('visialization/envdata').catch(e => {
+        throw e
+      })
+      const temperatureIdx = res.data.findIndex(
+        d => d[0].sensorName === 'PressureSensor'
+      )
+      const temphumIdx = res.data.findIndex(
+        d => d[0].sensorName === 'TempHumSensor'
+      )
+      data1 = res.data[temperatureIdx]
+      data2 = res.data[temphumIdx]
+    }
     return {
+      labName: lab.data && lab.data.name,
       browsingData1: {
-        labels: data1.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
-        datasets: [
-          {
-            data: data1.map(d => d.data.pressure)
-          }
-        ]
+        labels: data1
+          ? data1.map(d => new Date(d.createdAt).toLocaleTimeString('ja'))
+          : '',
+        datasets: data1
+          ? [
+              {
+                data: data1.map(d => d.data.pressure)
+              }
+            ]
+          : []
       },
       browsingData2: {
-        labels: data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
-        datasets: [
-          {
-            data: data2.map(d => d.data.temperature)
-          }
-        ]
+        labels: data2
+          ? data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja'))
+          : '',
+        datasets: data2
+          ? [
+              {
+                data: data2.map(d => d.data.temperature)
+              }
+            ]
+          : []
       },
       browsingData3: {
-        labels: data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja')),
-        datasets: [
-          {
-            data: data2.map(d => d.data.humidity)
-          }
-        ]
+        labels: data2
+          ? data2.map(d => new Date(d.createdAt).toLocaleTimeString('ja'))
+          : '',
+        datasets: data2
+          ? [
+              {
+                data: data2.map(d => d.data.humidity)
+              }
+            ]
+          : []
       },
       options: {
         plugins: {
@@ -124,7 +149,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '気温(℃)' // ラベル
+          text: '湿度(%)' // ラベル
         }
       },
       options3: {
@@ -141,7 +166,7 @@ export default {
           // タイトル設定
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
-          text: '湿度(%)' // ラベル
+          text: '気温(℃)' // ラベル
         }
       }
     }
@@ -152,5 +177,9 @@ export default {
 <style>
 .container {
   margin: 30px auto;
+}
+.labname {
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
