@@ -1,6 +1,6 @@
 # QuoLab
 
-[![Product Name](image.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
+[![QoLab](https://user-images.githubusercontent.com/24749358/67645955-fc87fc80-f96e-11e9-8cae-3edc36f44a66.png)](https://www.youtube.com/watch?v=fjX5L1rCczo&feature=youtu.be)
 
 ## 製品概要
 
