@@ -11,8 +11,8 @@ import Cocoa
 import CoreWLAN
 
 class Sensing: NSObject, NSUserNotificationCenterDelegate{
-    let TIMER_NORMAL_SEC = 60.0
-    let TIMER_SITTING_SEC = 10.0
+    let TIMER_NORMAL_SEC = 2.0
+    let TIMER_SITTING_SEC = 2.0
     // 座りすぎアラートが作動する文字数のしきい値
     let KEYNUM_THRESHOLD = 5
     
@@ -74,6 +74,20 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
             let app = info[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
             let name = app.localizedName
         {
+            // chromeからアクティブタブのURLを取得するAppleScript
+            let myAppleScript = "tell application \"Google Chrome\"\n" +
+                   "get URL of active tab of first window\n" +
+                    "end tell"
+            var error: NSDictionary?
+            let scriptObject = NSAppleScript(source: myAppleScript)
+            if let output: NSAppleEventDescriptor = scriptObject?.executeAndReturnError(&error) {
+                let urlString = output.stringValue!
+                // urlからドメイン取得
+                let url = NSURL(string: urlString)
+                print(url?.host)
+            } else if (error != nil) {
+                print("error: \(String(describing: error))")
+            }
             Sensing.appName = name
             print(name)
         }
@@ -113,7 +127,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     /* タイマー関数 */
     @objc func CountDown() {
         self.count += 1
-        print("count:", count)
+//        print("count:", count)
         self.loggerStart()
         // keyCountをリセット
         Sensing.keyCount = 0
@@ -126,7 +140,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     }
     
     @objc func keyCountUp(key: String) {
-        print("keyCountUp:", key, Sensing.keyCount)
+//        print("keyCountUp:", key, Sensing.keyCount)
         Sensing.keyCount += 1
     }
     
@@ -141,7 +155,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
 
     /* タイマー関数 */
     @objc func checkLongSitting() {
-        print("checkLongSitting: ", Sensing.keyCountForSitting)
+//        print("checkLongSitting: ", Sensing.keyCountForSitting)
         if (Sensing.keyCountForSitting > KEYNUM_THRESHOLD) {
             print("detect: threshold over")
             arrayFlag.removeLast()
