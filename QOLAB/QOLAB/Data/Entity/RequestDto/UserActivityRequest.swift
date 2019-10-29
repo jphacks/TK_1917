@@ -35,3 +35,13 @@ struct NetworkActivityData: Codable {
     var ssid: String
     var stayTime: Int
 }
+
+struct ChromeTabRequest: Codable {
+    var activityName: String
+    var data: ChromeTabData
+}
+
+struct ChromeTabData: Codable {
+    var status: String
+    var url: String
+}

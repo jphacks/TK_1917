@@ -21,6 +21,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     static var keyCount = 0
     static var keyCountForSitting = 0
     static var appName = ""
+    static var domainName = ""
     var arrayFlag: [Bool] = [false, false, false, false, false]
     var wifiDict:Dictionary<String, String> = [:]
     /* タイマー変数 */
@@ -74,28 +75,15 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
             let app = info[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
             let name = app.localizedName
         {
-            // chromeからアクティブタブのURLを取得するAppleScript
-            let myAppleScript = "tell application \"Google Chrome\"\n" +
-                   "get URL of active tab of first window\n" +
-                    "end tell"
-            var error: NSDictionary?
-            let scriptObject = NSAppleScript(source: myAppleScript)
-            if let output: NSAppleEventDescriptor = scriptObject?.executeAndReturnError(&error) {
-                let urlString = output.stringValue!
-                // urlからドメイン取得
-                let url = NSURL(string: urlString)
-                print(url?.host)
-            } else if (error != nil) {
-                print("error: \(String(describing: error))")
-            }
+
             Sensing.appName = name
-            print(name)
+//            print(name)
         }
     }
     
     func handler(event: NSEvent) {
             // not called
-            print("handler", event.characters!)
+//            print("handler", event.characters!)
             Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
             self.keyCountUp(key: event.characters!)
             self.keyCountUpForSitting(key: event.characters!)
@@ -149,8 +137,36 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     }
     
     @objc func loggerStart() {
+        Sensing.domainName = getChromeURL()
+        print(Sensing.domainName)
+        Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
+
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
         APIClient.postActivity(activity: paramDto) {_ in }
+        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", url: "https://" + Sensing.domainName))
+        if ((Sensing.domainName != "qolab-a0324.web.app" && Sensing.domainName != "qolab-a0324.firebaseapp.com") && Sensing.appName == "Google Chrome") {
+            APIClient.postActivity(activity: chromeParamDto) {_ in }
+        }
+    }
+    
+    func getChromeURL() -> String {
+        // chromeからアクティブタブのURLを取得するAppleScript
+        let myAppleScript = "tell application \"Google Chrome\"\n" +
+               "get URL of active tab of first window\n" +
+                "end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: myAppleScript)
+        if let output: NSAppleEventDescriptor = scriptObject?.executeAndReturnError(&error) {
+            let urlString = output.stringValue!
+            // urlからドメイン取得
+            let url = NSURL(string: urlString)
+            if (Sensing.appName == "Google Chrome") {
+                return (url?.host)!
+            }
+        } else if (error != nil) {
+            print("error: \(String(describing: error))")
+        }
+        return ""
     }
 
     /* タイマー関数 */
