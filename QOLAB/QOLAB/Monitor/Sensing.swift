@@ -11,8 +11,8 @@ import Cocoa
 import CoreWLAN
 
 class Sensing: NSObject, NSUserNotificationCenterDelegate{
-    let TIMER_NORMAL_SEC = 2.0
-    let TIMER_SITTING_SEC = 2.0
+    let TIMER_NORMAL_SEC = 60.0
+    let TIMER_SITTING_SEC = 10.0
     // 座りすぎアラートが作動する文字数のしきい値
     let KEYNUM_THRESHOLD = 5
     
