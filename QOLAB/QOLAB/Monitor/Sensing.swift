@@ -137,6 +137,19 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
     }
     
     @objc func loggerStart() {
+        Sensing.domainName = getChromeURL()
+        print(Sensing.domainName)
+        Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
+
+        let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
+        APIClient.postActivity(activity: paramDto) {_ in }
+        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", url: "https://" + Sensing.domainName))
+        if ((Sensing.domainName != "qolab-a0324.web.app" && Sensing.domainName != "qolab-a0324.firebaseapp.com") && Sensing.appName == "Google Chrome") {
+            APIClient.postActivity(activity: chromeParamDto) {_ in }
+        }
+    }
+    
+    func getChromeURL() -> String {
         // chromeからアクティブタブのURLを取得するAppleScript
         let myAppleScript = "tell application \"Google Chrome\"\n" +
                "get URL of active tab of first window\n" +
@@ -148,19 +161,12 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate{
             // urlからドメイン取得
             let url = NSURL(string: urlString)
             if (Sensing.appName == "Google Chrome") {
-                Sensing.domainName = (url?.host)!
-                print(Sensing.domainName)
+                return (url?.host)!
             }
         } else if (error != nil) {
             print("error: \(String(describing: error))")
         }
-        
-        let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
-        APIClient.postActivity(activity: paramDto) {_ in }
-        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", url: "https://" + Sensing.domainName))
-        if ((Sensing.domainName != "qolab-a0324.web.app" && Sensing.domainName != "qolab-a0324.firebaseapp.com") && Sensing.appName == "Google Chrome") {
-            APIClient.postActivity(activity: chromeParamDto) {_ in }
-        }
+        return ""
     }
 
     /* タイマー関数 */
