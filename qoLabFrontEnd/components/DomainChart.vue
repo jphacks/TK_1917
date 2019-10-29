@@ -40,6 +40,18 @@ export default {
           display: true, // 表示設定
           fontSize: 18, // フォントサイズ
           text: '過去6時間のドメイン別滞在時間（推定）' // ラベル
+        },
+        scales: {
+          //軸設定
+          yAxes: [
+            {
+              //y軸設定
+              ticks: {
+                //最大値最小値設定
+                min: 0 //最小値
+              }
+            }
+          ]
         }
       }
     }
