@@ -8,4 +8,5 @@ target 'QOLAB' do
   pod 'JWTDecode', '~> 2.2'
   pod 'RxSwift'
   pod 'SwiftFormat/CLI'
+  pod 'SwiftLint'
 end
