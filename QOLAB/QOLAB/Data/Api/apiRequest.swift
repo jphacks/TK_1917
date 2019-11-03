@@ -9,7 +9,6 @@
 import Foundation
 import SwiftyJSON
 struct APIClient {
-    
     static func fetchUserInfo(_ completion: @escaping (FetchUserInfoResponse?) -> Void) {
         let decoder = JSONDecoder()
         let components = URLComponents(string: APIURL.baseUrl + "/me")
@@ -19,10 +18,9 @@ struct APIClient {
         
         var request = URLRequest(url: (components?.url)!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
-                
+        request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            if error == nil {
                 do {
                     let res = try decoder.decode(FetchUserInfoResponse.self, from: data!)
                     UserInfoDao().setUserInfo(user: res)
@@ -46,16 +44,14 @@ struct APIClient {
         
         var request = URLRequest(url: (components?.url)!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
-                
+        request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            if error == nil {
                 do {
                     let res = try decoder.decode(JoinLabResponse.self, from: data!)
                     UserInfoDao().setLabName(lab: res)
                     completion(res)
                 } catch {
-                    
                     UserDefaults().removeObject(forKey: UserInfoDao.LAB_NAME)
                     completion(nil)
                 }
@@ -69,23 +65,21 @@ struct APIClient {
     static func singIn(userInfo: AuthRequest, _ completion: @escaping (LoginResponse?) -> Void) {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        var request = URLRequest(url: URL(string:APIURL.baseUrl + "/signin")!)
+        var request = URLRequest(url: URL(string: APIURL.baseUrl + "/signin")!)
         
-
         // set the method(HTTP-POST)
         request.httpMethod = "POST"
         // set the header(s)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-   
-
-        do{
+        
+        do {
             request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(userInfo)), options: [])
-        }catch{
+        } catch {
             print(error.localizedDescription)
         }
         // use NSURLSessionDataTask
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            if error == nil {
                 do {
                     let res = try decoder.decode(LoginResponse.self, from: data!)
                     AccessTokenDao().setAccessToken(accessToken: res.access_token)
@@ -103,23 +97,22 @@ struct APIClient {
     static func joinLab(joinInfo: JoinLabRequest, _ completion: @escaping (JoinLabResponse?) -> Void) {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        var request = URLRequest(url: URL(string:APIURL.baseUrl + "/lab")!)
+        var request = URLRequest(url: URL(string: APIURL.baseUrl + "/lab")!)
         
-
         // set the method(HTTP-POST)
         request.httpMethod = "POST"
         // set the header(s)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
-
-        do{
+        request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
+        
+        do {
             request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(joinInfo)), options: [])
-        }catch{
+        } catch {
             print(error.localizedDescription)
         }
         // use NSURLSessionDataTask
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            if error == nil {
                 do {
                     let res = try decoder.decode(JoinLabResponse.self, from: data!)
                     UserInfoDao().setLabName(lab: res)
@@ -134,26 +127,25 @@ struct APIClient {
         task.resume()
     }
     
-    static func postActivity<T:Codable>(activity: T, _ completion: @escaping (T?) -> Void) {
+    static func postActivity<T: Codable>(activity: T, _ completion: @escaping (T?) -> Void) {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        var request = URLRequest(url: URL(string:APIURL.baseUrl + "/user-activity")!)
+        var request = URLRequest(url: URL(string: APIURL.baseUrl + "/user-activity")!)
         
-
         // set the method(HTTP-POST)
         request.httpMethod = "POST"
         // set the header(s)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(("Bearer " + AccessTokenDao().getAccessToken()!) , forHTTPHeaderField: "Authorization")
-
-        do{
+        request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
+        
+        do {
             request.httpBody = try JSONSerialization.data(withJSONObject: JSONSerialization.jsonObject(with: encoder.encode(activity)), options: [])
-        }catch{
+        } catch {
             print(error.localizedDescription)
         }
         // use NSURLSessionDataTask
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            if error == nil {
                 do {
                     print(String(data: data!, encoding: .utf8))
                     let res = try decoder.decode(T.self, from: data!)
@@ -173,7 +165,7 @@ struct APIClient {
         guard let url = components?.url else {
             return
         }
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let data = data {
                 let decorder = JSONDecoder()
                 do {

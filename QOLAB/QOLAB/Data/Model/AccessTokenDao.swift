@@ -7,17 +7,16 @@
 //
 
 import Foundation
-import RxSwift
 import JWTDecode
+import RxSwift
 
 class AccessTokenDao {
-    
     static let ACCESS_TOKEN = "accessToken"
     
     func getAccessToken() -> String? {
         return UserDefaults.standard.string(forKey: AccessTokenDao.ACCESS_TOKEN)
     }
-
+    
     func setAccessToken(accessToken: String) {
         UserDefaults.standard.set(accessToken, forKey: AccessTokenDao.ACCESS_TOKEN)
     }

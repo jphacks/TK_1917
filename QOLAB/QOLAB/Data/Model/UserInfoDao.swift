@@ -9,7 +9,6 @@
 import Foundation
 
 class UserInfoDao {
-    
     static let USER_INFO = "userInfo"
     static let LAB_NAME = "labName"
     
@@ -20,7 +19,7 @@ class UserInfoDao {
         let user = try? JSONDecoder().decode(FetchUserInfoResponse.self, from: data)
         return user
     }
-
+    
     func setUserInfo(user: FetchUserInfoResponse) {
         do {
             let data = try? JSONEncoder().encode(user)
