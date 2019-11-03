@@ -6,11 +6,10 @@
 //  Copyright © 2019 Takuto Mori. All rights reserved.
 //
 
-import Foundation
 import Cocoa
+import Foundation
 
 class LoginViewController: NSViewController {
-
     var articles: [PlaygroundStr] = []
     @IBOutlet var emailTextField: NSTextField!
     @IBOutlet var passTextField: NSSecureTextField!
@@ -21,7 +20,7 @@ class LoginViewController: NSViewController {
     @IBOutlet var passText: NSTextField!
     @IBOutlet var successText: NSTextField!
     @IBOutlet var successButton: NSButton!
-    var appDelegate:AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    var appDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +29,10 @@ class LoginViewController: NSViewController {
         error.isHidden = true
         successText.isHidden = true
         successButton.isHidden = true
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func viewDidAppear() {
         passText.isHidden = false
         emailText.isHidden = false
@@ -48,7 +47,7 @@ class LoginViewController: NSViewController {
     
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     
@@ -60,22 +59,21 @@ class LoginViewController: NSViewController {
         
         let paramDto = AuthRequest(email: emailTextField.stringValue, password: passTextField.stringValue)
         APIClient.singIn(userInfo: paramDto) {
-            (result) in
+            result in
             DispatchQueue.main.sync {
-
                 if result != nil {
 //                    self.showLoginSuccess()
-                    APIClient.fetchUserInfo() {
-                            (res) in
-                            DispatchQueue.main.sync {
-                                APIClient.fetchLabInfo() {
-                                    (res) in
-                                    DispatchQueue.main.sync {
-                                        self.showLoginSuccess()
-                                    }
+                    APIClient.fetchUserInfo {
+                        _ in
+                        DispatchQueue.main.sync {
+                            APIClient.fetchLabInfo {
+                                _ in
+                                DispatchQueue.main.sync {
+                                    self.showLoginSuccess()
                                 }
                             }
                         }
+                    }
                 } else {
                     self.error.isHidden = false
                     self.loadingCircle.isHidden = true
@@ -84,7 +82,6 @@ class LoginViewController: NSViewController {
 //                print(result)
             }
         }
-        
     }
     
     func showLoginSuccess() {
@@ -100,9 +97,7 @@ class LoginViewController: NSViewController {
     }
     
     @IBAction func closePopover(_ sender: Any) {
-        self.appDelegate.closeLoginPopover(sender)
-        self.appDelegate.initStatusBar()
+        appDelegate.closeLoginPopover(sender)
+        appDelegate.initStatusBar()
     }
-
-
 }
