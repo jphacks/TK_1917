@@ -63,10 +63,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         switch NSApp.effectiveAppearance.name {
         case NSAppearance.Name.darkAqua: // light mode
             statusBarItem.button?.title = "停止中"
-            statusBarItem.button?.image = NSImage(named: "iconW")
+            statusBarItem.button?.image = NSImage(named: "iconWW")
             statusBarItem.button?.imagePosition = NSControl.ImagePosition.imageLeft
         case NSAppearance.Name.aqua: // dark mode
-            statusBarItem.button?.image = NSImage(named: "iconB")
+            statusBarItem.button?.image = NSImage(named: "iconBB")
         default: break //the user interface style is not specified
         }
         statusBarItem.menu = statusBarMenu
