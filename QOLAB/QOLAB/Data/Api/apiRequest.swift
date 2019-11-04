@@ -147,7 +147,7 @@ struct APIClient {
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
             if error == nil {
                 do {
-                    print(String(data: data!, encoding: .utf8))
+//                    print(String(data: data!, encoding: .utf8))
                     let res = try decoder.decode(T.self, from: data!)
                     completion(res)
                 } catch {
@@ -178,6 +178,31 @@ struct APIClient {
                 print(error ?? "Error")
             }
         }
+        task.resume()
+    }
+    
+    static func fetchMemberActivities(_ completion: @escaping (MemberActivityResponse?) -> Void) {
+        let decoder = JSONDecoder()
+        let components = URLComponents(string: "http://www.mocky.io/v2/5dc07de13100002e03be416f")
+        guard let url = components?.url else {
+            return
+        }
+        
+        var request = URLRequest(url: (components?.url)!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            if error == nil {
+                do {
+                    let res = try decoder.decode(MemberActivityResponse.self, from: data!)
+                    completion(res)
+                } catch {
+                    completion(nil)
+                }
+            } else {
+                print("error")
+            }
+        })
         task.resume()
     }
 }

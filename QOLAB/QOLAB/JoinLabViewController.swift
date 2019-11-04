@@ -69,6 +69,9 @@ class JoinLabViewController: NSViewController {
     }
     
     func showJoinSuccess() {
+//        if UserInfoDao().getLabName() != nil {
+        appDelegate.observer.start()
+//        }
         joinText.isHidden = true
         joinButton.isHidden = true
         labCode.isHidden = true

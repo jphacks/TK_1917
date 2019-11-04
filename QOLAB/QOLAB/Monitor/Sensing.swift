@@ -129,7 +129,6 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     
     @objc func loggerStart() {
         Sensing.domainName = getChromeURL()
-        print(Sensing.domainName)
         Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
         
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))

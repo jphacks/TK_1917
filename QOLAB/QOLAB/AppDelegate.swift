@@ -16,9 +16,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     let joinLabPopOver = NSPopover()
     let configPopOver = NSPopover()
     let sensing = Sensing()
+    let observer = MemberObserver()
     var isSensingStarted = false
     let NScenter = NSUserNotificationCenter.default
-    
+    var statusBar = NSStatusBar.system
+    var statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
     override init() {
         print("Appdelegete init!!")
     }
@@ -32,11 +34,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         AXIsProcessTrustedWithOptions(options)
         
         // Insert code here to initialize your application
+        defaultStatusBar()
         initStatusBar()
         
         let authStoryboard = NSStoryboard(name: "Auth", bundle: nil)
         let loginViewController = authStoryboard.instantiateController(withIdentifier: "login")
         let joinLabViewController = authStoryboard.instantiateController(withIdentifier: "joinLab")
+        
         loginPopOver.contentViewController = (loginViewController as! NSViewController)
         loginPopOver.behavior = NSPopover.Behavior.transient
         joinLabPopOver.contentViewController = (joinLabViewController as! NSViewController)
@@ -49,16 +53,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         configPopOver.behavior = NSPopover.Behavior.transient
     }
     
-    func initStatusBar() {
-        let statusBar = NSStatusBar.system
+    func defaultStatusBar() {
+        statusBar = NSStatusBar.system
+        statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
         statusBarItem = statusBar.statusItem(
             withLength: NSStatusItem.squareLength
         )
-        statusBarItem.button?.image = NSImage(named: "iconW")
-        let statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
         
+        switch NSApp.effectiveAppearance.name {
+        case NSAppearance.Name.darkAqua: // light mode
+            statusBarItem.button?.image = NSImage(named: "iconW")
+        case NSAppearance.Name.aqua: // dark mode
+            statusBarItem.button?.image = NSImage(named: "iconB")
+        default: break //the user interface style is not specified
+        }
         statusBarItem.menu = statusBarMenu
-        
+    }
+    
+    func initStatusBar() {
+        statusBarMenu.removeAllItems()
         let userInfo = UserInfoDao().getUserInfo()
         let labInfo = UserInfoDao().getLabName()
         
@@ -74,13 +87,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 action: #selector(AppDelegate.toggleLoginPopover(_:)),
                 keyEquivalent: "l"
             )
+            statusBarMenu.addItem(
+                withTitle: "終了",
+                action: #selector(AppDelegate.quit),
+                keyEquivalent: "q"
+            )
         } else {
             if isSensingStarted == true {
-                statusBarMenu.addItem(
-                    withTitle: "🔵 計測中...",
-                    action: nil,
-                    keyEquivalent: ""
-                )
+                let item: NSMenuItem = NSMenuItem()
+                item.title = " 計測中..."
+                item.image = NSImage(named: "blue")
+                item.action = nil
+                statusBarMenu.addItem(item)
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
                     withTitle: "計測停止",
@@ -88,11 +106,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     keyEquivalent: "t"
                 )
             } else {
-                statusBarMenu.addItem(
-                    withTitle: "🔴 停止中",
-                    action: nil,
-                    keyEquivalent: ""
-                )
+                let item: NSMenuItem = NSMenuItem()
+                item.title = " 停止中"
+                item.action = nil
+                item.image = NSImage(named: "red")
+                statusBarMenu.addItem(item)
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
                     withTitle: "計測開始",
@@ -221,12 +239,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         isSensingStarted = true
         initStatusBar()
         sensing.start()
+        if UserInfoDao().getLabName() != nil {
+            observer.start()
+        }
         start_notification()
     }
     
     @objc func stop() {
         isSensingStarted = false
         initStatusBar()
+        if UserInfoDao().getLabName() != nil {
+            observer.quit()
+        }
         sensing.stop()
     }
     
@@ -251,6 +275,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    func addMemberActivity(name: String, activity: String) {
+        let item: NSMenuItem = NSMenuItem()
+        if activity == "break" {
+            item.title = name + ": " + "お休み中"
+            item.image = NSImage(named: "red")
+            item.identifier = NSUserInterfaceItemIdentifier(name)
+            statusBarMenu.addItem(item)
+        } else {
+            item.title = name + ": " + activity
+            item.image = NSImage(named: "blue")
+            item.identifier = NSUserInterfaceItemIdentifier(name)
+            statusBarMenu.addItem(item)
+        }
     }
 }
 
