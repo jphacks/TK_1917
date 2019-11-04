@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		060B614BB66D914759077ACB /* Pods_QOLAB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */; };
 		B1631D312364D04B00816EA0 /* Sensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1631D302364D04B00816EA0 /* Sensing.swift */; };
+		B18B483F23707A720066265F /* Config.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B18B483E23707A720066265F /* Config.storyboard */; };
+		B18B4843237084A40066265F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B4842237084A40066265F /* ConfigViewController.swift */; };
 		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
 		EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */; };
@@ -36,6 +38,8 @@
 		53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QOLAB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		856ADE87C7B7A04A95B17913 /* Pods-QOLAB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.debug.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.debug.xcconfig"; sourceTree = "<group>"; };
 		B1631D302364D04B00816EA0 /* Sensing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensing.swift; sourceTree = "<group>"; };
+		B18B483E23707A720066265F /* Config.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Config.storyboard; sourceTree = "<group>"; };
+		B18B4842237084A40066265F /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.release.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.release.xcconfig"; sourceTree = "<group>"; };
 		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 				EF156F192363E85D00ABAC9E /* LoginViewController.swift */,
 				EFC6921023641B0700EBDA44 /* Auth.storyboard */,
 				EFF084B723647CF6006C4F5A /* JoinLabViewController.swift */,
+				B18B483E23707A720066265F /* Config.storyboard */,
+				B18B4842237084A40066265F /* ConfigViewController.swift */,
 			);
 			path = QOLAB;
 			sourceTree = "<group>";
@@ -260,6 +266,7 @@
 			files = (
 				EFC6921123641B0700EBDA44 /* Auth.storyboard in Resources */,
 				EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */,
+				B18B483F23707A720066265F /* Config.storyboard in Resources */,
 				EF52D7BB2363DA4500892586 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +355,7 @@
 				EF52D7B42363DA4200892586 /* AppDelegate.swift in Sources */,
 				EFF084B623647581006C4F5A /* AuthRequest.swift in Sources */,
 				EF43A63723640E9300992283 /* apiRequest.swift in Sources */,
+				B18B4843237084A40066265F /* ConfigViewController.swift in Sources */,
 				EF43A63123640BCF00992283 /* playgroundResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
