@@ -183,7 +183,7 @@ struct APIClient {
     
     static func fetchMemberActivities(_ completion: @escaping (MemberActivityResponse?) -> Void) {
         let decoder = JSONDecoder()
-        let components = URLComponents(string: "https://www.mocky.io/v2/5dc07917310000b200be415f")
+        let components = URLComponents(string: "http://www.mocky.io/v2/5dc07de13100002e03be416f")
         guard let url = components?.url else {
             return
         }

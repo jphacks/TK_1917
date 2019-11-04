@@ -11,10 +11,10 @@ import CoreWLAN
 import Foundation
 
 class Sensing: NSObject, NSUserNotificationCenterDelegate {
-    let TIMER_NORMAL_SEC = 2.0
-    let TIMER_SITTING_SEC = 2.0
+    let TIMER_NORMAL_SEC = UserDefaults.standard.double(forKey: "normalTimer")
+    let TIMER_SITTING_SEC = UserDefaults.standard.double(forKey: "sittingTimer")
     // 座りすぎアラートが作動する文字数のしきい値
-    let KEYNUM_THRESHOLD = 5
+    let KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "sittingThreshold")
     
     var isStopped = false
     var count = 1
@@ -120,7 +120,6 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @objc func keyCountUp(key: String) {
-//        print("keyCountUp:", key, Sensing.keyCount)
         Sensing.keyCount += 1
     }
     
@@ -130,7 +129,6 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     
     @objc func loggerStart() {
         Sensing.domainName = getChromeURL()
-        print(Sensing.domainName)
         Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
         
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))

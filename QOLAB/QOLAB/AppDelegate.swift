@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var statusBarItem: NSStatusItem!
     let loginPopOver = NSPopover()
     let joinLabPopOver = NSPopover()
+    let configPopOver = NSPopover()
     let sensing = Sensing()
     let observer = MemberObserver()
     var isSensingStarted = false
@@ -35,20 +36,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Insert code here to initialize your application
         defaultStatusBar()
         initStatusBar()
-        let storyboard = NSStoryboard(name: "Auth", bundle: nil)
-        let loginViewController = storyboard.instantiateController(withIdentifier: "login")
-        let joinLabViewController = storyboard.instantiateController(withIdentifier: "joinLab")
+        
+        let authStoryboard = NSStoryboard(name: "Auth", bundle: nil)
+        let loginViewController = authStoryboard.instantiateController(withIdentifier: "login")
+        let joinLabViewController = authStoryboard.instantiateController(withIdentifier: "joinLab")
+        
         loginPopOver.contentViewController = (loginViewController as! NSViewController)
         loginPopOver.behavior = NSPopover.Behavior.transient
         joinLabPopOver.contentViewController = (joinLabViewController as! NSViewController)
         joinLabPopOver.behavior = NSPopover.Behavior.transient
+        
+        // 設定画面
+        let configStoryboard = NSStoryboard(name: "Config", bundle: nil)
+        let configViewController = configStoryboard.instantiateController(withIdentifier: "config")
+        configPopOver.contentViewController = (configViewController as! NSViewController)
+        configPopOver.behavior = NSPopover.Behavior.transient
     }
     
     func defaultStatusBar() {
         statusBar = NSStatusBar.system
         statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
-        //
-        
         statusBarItem = statusBar.statusItem(
             withLength: NSStatusItem.squareLength
         )
@@ -143,6 +150,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 )
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
+                    withTitle: "設定",
+                    action: #selector(AppDelegate.toggleConfigPopover(_:)),
+                    keyEquivalent: "e"
+                )
+                
+                statusBarMenu.addItem(NSMenuItem.separator())
+                statusBarMenu.addItem(
                     withTitle: labInfo!.name + "研究室に参加中",
                     action: nil,
                     keyEquivalent: ""
@@ -169,6 +183,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
     }
     
+    @objc func toggleConfigPopover(_ sender: Any) {
+        if configPopOver.isShown {
+            closeConfigPopover(sender)
+        } else {
+            showConfigPopover(sender)
+        }
+    }
+    
     @objc func openRegisterPage(_ sender: Any) {
         NSWorkspace.shared.open(URL(string: "https://qolab-a0324.web.app/signup/")!)
     }
@@ -182,6 +204,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     func showJoinPopover(_ sender: Any) {
         if let button = statusBarItem.button {
             joinLabPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        }
+    }
+    
+    func showConfigPopover(_ sender: Any) {
+        if let button = statusBarItem.button {
+            configPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
     
@@ -199,6 +227,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     public func closeJoinPopover(_ sender: Any) {
         joinLabPopOver.performClose(sender)
+    }
+    
+    public func closeConfigPopover(_ sender: Any) {
+        configPopOver.performClose(sender)
     }
     
     @objc func register() {}
