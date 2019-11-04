@@ -97,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 let item: NSMenuItem = NSMenuItem()
                 item.title = " 計測中..."
                 item.image = NSImage(named: "blue")
-                item.action = nil
+                item.isEnabled = false
                 statusBarMenu.addItem(item)
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
@@ -108,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             } else {
                 let item: NSMenuItem = NSMenuItem()
                 item.title = " 停止中"
-                item.action = nil
+                item.isEnabled = false
                 item.image = NSImage(named: "red")
                 statusBarMenu.addItem(item)
                 statusBarMenu.addItem(NSMenuItem.separator())
@@ -156,11 +156,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 )
                 
                 statusBarMenu.addItem(NSMenuItem.separator())
-                statusBarMenu.addItem(
-                    withTitle: labInfo!.name + "研究室に参加中",
-                    action: nil,
-                    keyEquivalent: ""
-                )
+                let item: NSMenuItem = NSMenuItem()
+                item.title = labInfo!.name + "研究室に参加中"
+                item.isEnabled = false
+                statusBarMenu.addItem(item)
             }
         }
     }
@@ -282,12 +281,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         if activity == "break" {
             item.title = name + ": " + "お休み中"
             item.image = NSImage(named: "red")
+            item.isEnabled = false
             item.identifier = NSUserInterfaceItemIdentifier(name)
             statusBarMenu.addItem(item)
         } else {
             item.title = name + ": " + activity
             item.image = NSImage(named: "blue")
             item.identifier = NSUserInterfaceItemIdentifier(name)
+            item.isEnabled = false
             statusBarMenu.addItem(item)
         }
     }
