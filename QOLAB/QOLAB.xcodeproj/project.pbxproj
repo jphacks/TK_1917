@@ -11,6 +11,8 @@
 		B1631D312364D04B00816EA0 /* Sensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1631D302364D04B00816EA0 /* Sensing.swift */; };
 		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
+		EF15D9B623707FB800073C82 /* MemberObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15D9B523707FB800073C82 /* MemberObserver.swift */; };
+		EF15D9B823708C6B00073C82 /* MemberActivityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15D9B723708C6B00073C82 /* MemberActivityResponse.swift */; };
 		EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */; };
 		EF1E29672364890A00C26B06 /* UserInfoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29662364890A00C26B06 /* UserInfoDao.swift */; };
 		EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */; };
@@ -39,6 +41,8 @@
 		E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.release.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.release.xcconfig"; sourceTree = "<group>"; };
 		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EF15D9B523707FB800073C82 /* MemberObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberObserver.swift; sourceTree = "<group>"; };
+		EF15D9B723708C6B00073C82 /* MemberActivityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberActivityResponse.swift; sourceTree = "<group>"; };
 		EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserInfoResponse.swift; sourceTree = "<group>"; };
 		EF1E29662364890A00C26B06 /* UserInfoDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDao.swift; sourceTree = "<group>"; };
 		EF1E29682364A8C400C26B06 /* JoinLabRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLabRequest.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				B1631D302364D04B00816EA0 /* Sensing.swift */,
+				EF15D9B523707FB800073C82 /* MemberObserver.swift */,
 			);
 			path = Monitor;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 				EF1E2964236488CD00C26B06 /* FetchUserInfoResponse.swift */,
 				EF1E296A2364A93300C26B06 /* JoinLabResponse.swift */,
 				EF1E29702364E48B00C26B06 /* UserActivityResponse.swift */,
+				EF15D9B723708C6B00073C82 /* MemberActivityResponse.swift */,
 			);
 			path = ReponseDto;
 			sourceTree = "<group>";
@@ -337,10 +343,12 @@
 				EFF084B823647CF6006C4F5A /* JoinLabViewController.swift in Sources */,
 				EF1E296F2364E47C00C26B06 /* UserActivityRequest.swift in Sources */,
 				EF43A62F23640BC400992283 /* playgroundRequest.swift in Sources */,
+				EF15D9B623707FB800073C82 /* MemberObserver.swift in Sources */,
 				B1631D312364D04B00816EA0 /* Sensing.swift in Sources */,
 				EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */,
 				EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */,
 				EF1E29712364E48B00C26B06 /* UserActivityResponse.swift in Sources */,
+				EF15D9B823708C6B00073C82 /* MemberActivityResponse.swift in Sources */,
 				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,
 				EF52D7B62363DA4200892586 /* ViewController.swift in Sources */,
 				EF1E29692364A8C400C26B06 /* JoinLabRequest.swift in Sources */,
@@ -488,7 +496,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 8WYZU24YBL;
+				DEVELOPMENT_TEAM = U3Q2WH7L9L;
 				INFOPLIST_FILE = QOLAB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -511,7 +519,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 8WYZU24YBL;
+				DEVELOPMENT_TEAM = U3Q2WH7L9L;
 				INFOPLIST_FILE = QOLAB/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
