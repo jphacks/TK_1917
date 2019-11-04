@@ -57,12 +57,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         statusBar = NSStatusBar.system
         statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
         statusBarItem = statusBar.statusItem(
-            withLength: NSStatusItem.squareLength
+            withLength: 65
         )
         
         switch NSApp.effectiveAppearance.name {
         case NSAppearance.Name.darkAqua: // light mode
+            statusBarItem.button?.title = "停止中"
             statusBarItem.button?.image = NSImage(named: "iconW")
+            statusBarItem.button?.imagePosition = NSControl.ImagePosition.imageLeft
         case NSAppearance.Name.aqua: // dark mode
             statusBarItem.button?.image = NSImage(named: "iconB")
         default: break //the user interface style is not specified
@@ -238,6 +240,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         isSensingStarted = true
         initStatusBar()
         sensing.start()
+        statusBarItem.button?.title = "計測中"
         if UserInfoDao().getLabName() != nil {
             observer.start()
         }
@@ -247,6 +250,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @objc func stop() {
         isSensingStarted = false
         initStatusBar()
+        statusBarItem.button?.title = "停止中"
         if UserInfoDao().getLabName() != nil {
             observer.quit()
         }
