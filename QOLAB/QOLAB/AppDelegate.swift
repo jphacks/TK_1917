@@ -56,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     func defaultStatusBar() {
         statusBar = NSStatusBar.system
         statusBarMenu = NSMenu(title: "Cap Status Bar Menu")
+        statusBarMenu.delegate = self
         statusBarItem = statusBar.statusItem(
             withLength: NSStatusItem.squareLength
         )
@@ -298,4 +299,10 @@ struct PlaygroundStr: Codable {
     let name: String
     let createdAt: String
     let __v: Int
+}
+
+extension AppDelegate: NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+        print("here")
+    }
 }
