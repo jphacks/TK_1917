@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct MemberActivityResponse: Codable {
+    var members: [MemberActivity]
+    struct MemberActivity: Codable {
+        var name: String
+        var activity: String
+    }
+}
