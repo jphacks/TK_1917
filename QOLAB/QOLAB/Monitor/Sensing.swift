@@ -16,12 +16,18 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     // 座りすぎアラートが作動する文字数のしきい値
     let KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "sittingThreshold")
     
+    // アプリケーションログの最大記録数
+    let MAX_APPLOG = 5
+    
     var isStopped = false
     var count = 1
     static var keyCount = 0
     static var keyCountForSitting = 0
     static var appName = ""
     static var domainName = ""
+    static var appLogList: [String] = []
+    static var categoryLogList: [String] = []
+    
     var arrayFlag: [Bool] = [false, false, false, false, false]
     var wifiDict: [String: String] = [:]
     /* タイマー変数 */
@@ -32,6 +38,9 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     let NScenter = NSUserNotificationCenter.default
     var eventMonitor: Any?
     var observer: Any?
+    
+    var categoryData: Data?
+    var categories: Category?
     
     override init() {}
     
@@ -64,9 +73,17 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         
         startTime = Date()
         
-        eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: handler)
+        eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: sensingHandler)
         
         observer = NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(activated(_:)), name: NSWorkspace.didActivateApplicationNotification, object: nil)
+        
+        categoryData = try? getJSONData()
+        categories = try? JSONDecoder().decode(Category.self, from: categoryData!)
+        print(categories?.app)
+        
+        categories?.app.forEach { category in
+            print("category:", category.key, category.value)
+        }
     }
     
     @objc func activated(_ notification: NSNotification) {
@@ -76,26 +93,37 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             Sensing.appName = name
 //            print(name)
         }
+        let domainName = getDomainNameOfChrome()
+        applicationLog(app: Sensing.appName, domain: domainName)
     }
     
-    func handler(event: NSEvent) {
+    func sensingHandler(event: NSEvent) {
         // not called
-//            print("handler", event.characters!)
         Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
         keyCountUp(key: event.characters!)
         keyCountUpForSitting(key: event.characters!)
     }
     
+    func getJSONData() throws -> Data? {
+        guard let path = Bundle.main.path(forResource: "defaultCategory", ofType: "json") else { return nil }
+        let url = URL(fileURLWithPath: path)
+        
+        return try? Data(contentsOf: url)
+    }
+    
+    func applicationLog(app: String, domain: String) {
+        if Sensing.appLogList.count > MAX_APPLOG {
+            Sensing.appLogList.removeFirst()
+        }
+        Sensing.appLogList.append(app)
+        print("applicationLog: ", app, domain, Sensing.appLogList)
+    }
+    
+    func categorySplit(app: String, domain: String) {}
+    
     @objc func timerCounter() {
         // タイマー開始からのインターバル時間 単位は秒
         let currentTime = Date().timeIntervalSince(startTime)
-        
-        // fmod() 余りを計算
-        let minute = (Int)(fmod(currentTime / 60, 60))
-        // currentTime/60 の余り
-        let second = (Int)(fmod(currentTime, 60))
-        // floor 切り捨て、小数点以下を取り出して *100
-        let msec = (Int)((currentTime - floor(currentTime)) * 100)
         
 //        print(currentTime, minute, second, msec)
         let ssid = CWWiFiClient().interface()?.ssid() ?? String()
@@ -128,7 +156,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @objc func loggerStart() {
-        Sensing.domainName = getChromeURL()
+        Sensing.domainName = getDomainNameOfChrome()
         Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
         
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
@@ -139,7 +167,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         }
     }
     
-    func getChromeURL() -> String {
+    func getDomainNameOfChrome() -> String {
         // chromeからアクティブタブのURLを取得するAppleScript
         let myAppleScript = "tell application \"Google Chrome\"\n" +
             "get URL of active tab of first window\n" +
