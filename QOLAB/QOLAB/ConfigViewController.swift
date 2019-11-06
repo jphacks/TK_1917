@@ -16,6 +16,15 @@ class ConfigViewController: NSViewController {
     @IBOutlet weak var sittingTimer: NSTextField!
     @IBOutlet weak var normalTimer: NSTextField!
     @IBOutlet weak var sittingThreshold: NSTextField!
+    @IBAction func logButtonClicked(_ sender: Any) {
+        let storyboardName = NSStoryboard.Name(stringLiteral: "Config")
+        let storyboard = NSStoryboard(name: storyboardName, bundle: nil)
+        let storyboardID = NSStoryboard.SceneIdentifier(stringLiteral: "logStoryboardID")
+        
+        if let logWindowController = storyboard.instantiateController(withIdentifier: storyboardID) as? NSWindowController {
+            logWindowController.showWindow(nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
