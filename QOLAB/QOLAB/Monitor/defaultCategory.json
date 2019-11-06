@@ -1,0 +1,14 @@
+{
+  "app": {
+    "writing": ["Power Point", "Boostnote"],
+    "survey": ["PDFViewer"],
+    "implementation": ["Xcode", "Code"],
+    "break": [""]
+  },
+  "domain": {
+    "writing": ["docs.google.com"],
+    "survey": ["arxiv.org", "ieeexplore.ieee.org", "qiita.com"],
+    "implementation": [""],
+    "break": ["youtube.com", "amazon.co.jp"]
+  }
+}
