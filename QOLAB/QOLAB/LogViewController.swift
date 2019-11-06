@@ -9,9 +9,6 @@
 import Cocoa
 
 class LogViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
-    let programs = ["Swift", "C", "Java", "JavaScript", "PHP", "Python"]
-    let categories = ["Work", "Hobby", "Work", "Hobby", "Work", "Hobby"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -24,7 +21,7 @@ class LogViewController: NSViewController, NSTableViewDataSource, NSTableViewDel
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return programs.count
+        return Sensing.appLogList.count
     }
     
 //    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
@@ -48,9 +45,9 @@ class LogViewController: NSViewController, NSTableViewDataSource, NSTableViewDel
 //            print("view:" + view.identifier!.rawValue + " row:" + String(row))
             if let column = tableColumn {
                 if column.identifier.rawValue == "applicationNameColumn" {
-                    view.stringValue = programs[row]
+                    view.stringValue = Sensing.appLogList[row]
                 } else if column.identifier.rawValue == "categoryColumn" {
-                    view.stringValue = categories[row]
+                    view.stringValue = Sensing.categoryLogList[row]
                 }
             }
         }

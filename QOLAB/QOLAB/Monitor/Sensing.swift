@@ -17,7 +17,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     let KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "sittingThreshold")
     
     // アプリケーションログの最大記録数
-    let MAX_APPLOG = 5
+    static let MAX_APPLOG = 30
     
     var isStopped = false
     var count = 1
@@ -79,11 +79,6 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         
         categoryData = try? getJSONData()
         categories = try? JSONDecoder().decode(Category.self, from: categoryData!)
-        print(categories?.app)
-        
-        categories?.app.forEach { category in
-            print("category:", category.key, category.value)
-        }
     }
     
     @objc func activated(_ notification: NSNotification) {
@@ -94,7 +89,10 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
 //            print(name)
         }
         let domainName = getDomainNameOfChrome()
-        applicationLog(app: Sensing.appName, domain: domainName)
+        
+        let category = categorySplit(app: Sensing.appName, domain: domainName)
+        print("category", category)
+        applicationLog(app: Sensing.appName, domain: domainName, category: category)
     }
     
     func sensingHandler(event: NSEvent) {
@@ -111,15 +109,48 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         return try? Data(contentsOf: url)
     }
     
-    func applicationLog(app: String, domain: String) {
-        if Sensing.appLogList.count > MAX_APPLOG {
+    func applicationLog(app: String, domain: String, category: String) {
+        if Sensing.appLogList.count >= Sensing.MAX_APPLOG {
             Sensing.appLogList.removeFirst()
+            Sensing.categoryLogList.removeFirst()
         }
         Sensing.appLogList.append(app)
+        Sensing.categoryLogList.append(category)
         print("applicationLog: ", app, domain, Sensing.appLogList)
     }
     
-    func categorySplit(app: String, domain: String) {}
+    func categorySplit(app: String, domain: String) -> String {
+        var isSurvey = false
+        var isImplementation = false
+        var isBreak = false
+        var isWriting = false
+        categories?.app.forEach { category in
+            print("category:", category.key, category.value)
+            let key = category.key
+            switch key {
+            case CategoryName.survey.rawValue:
+                isSurvey = category.value.contains(app)
+            case CategoryName.implementation.rawValue:
+                isImplementation = category.value.contains(app)
+            case CategoryName.writing.rawValue:
+                isWriting = category.value.contains(app)
+            case CategoryName.breakTime.rawValue:
+                isBreak = category.value.contains(app)
+            default:
+                print("default")
+            }
+        }
+        // MEMO:どれにも当てはまらなったらbreakTimeってことにしちゃってる
+        if isSurvey {
+            return CategoryName.survey.rawValue
+        } else if isImplementation {
+            return CategoryName.implementation.rawValue
+        } else if isWriting {
+            return CategoryName.writing.rawValue
+        } else {
+            return CategoryName.breakTime.rawValue
+        }
+    }
     
     @objc func timerCounter() {
         // タイマー開始からのインターバル時間 単位は秒

@@ -3,12 +3,12 @@
     "writing": ["Power Point", "Boostnote"],
     "survey": ["PDFViewer"],
     "implementation": ["Xcode", "Code"],
-    "break": [""]
+    "break": ["unknown"]
   },
   "domain": {
     "writing": ["docs.google.com"],
     "survey": ["arxiv.org", "ieeexplore.ieee.org", "qiita.com"],
-    "implementation": [""],
+    "implementation": ["unknown"],
     "break": ["youtube.com", "amazon.co.jp"]
   }
 }
