@@ -116,40 +116,32 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         }
         Sensing.appLogList.append(app)
         Sensing.categoryLogList.append(category)
-        print("applicationLog: ", app, domain, Sensing.appLogList)
+//        print("applicationLog: ", app, domain, Sensing.appLogList)
     }
     
     func categorySplit(app: String, domain: String) -> String {
-        var isSurvey = false
-        var isImplementation = false
-        var isBreak = false
-        var isWriting = false
-        categories?.app.forEach { category in
-            print("category:", category.key, category.value)
+        guard let categoryDict = categories?.app else { return "" }
+        var categoryName = ""
+        for category in categoryDict {
             let key = category.key
             switch key {
             case CategoryName.survey.rawValue:
-                isSurvey = category.value.contains(app)
+                categoryName = category.value.contains(app) ? CategoryName.survey.rawValue : ""
             case CategoryName.implementation.rawValue:
-                isImplementation = category.value.contains(app)
+                categoryName = category.value.contains(app) ? CategoryName.implementation.rawValue : ""
             case CategoryName.writing.rawValue:
-                isWriting = category.value.contains(app)
+                categoryName = category.value.contains(app) ? CategoryName.writing.rawValue : ""
             case CategoryName.breakTime.rawValue:
-                isBreak = category.value.contains(app)
+                categoryName = category.value.contains(app) ? CategoryName.breakTime.rawValue : ""
             default:
                 print("default")
             }
+            
+            if categoryName != "" {
+                return categoryName
+            }
         }
-        // MEMO:どれにも当てはまらなったらbreakTimeってことにしちゃってる
-        if isSurvey {
-            return CategoryName.survey.rawValue
-        } else if isImplementation {
-            return CategoryName.implementation.rawValue
-        } else if isWriting {
-            return CategoryName.writing.rawValue
-        } else {
-            return CategoryName.breakTime.rawValue
-        }
+        return categoryName
     }
     
     @objc func timerCounter() {
