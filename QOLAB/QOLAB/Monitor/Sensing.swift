@@ -120,7 +120,11 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             Sensing.appLogList.removeFirst()
             Sensing.categoryLogList.removeFirst()
         }
-        Sensing.appLogList.append(app)
+        if app == "Google Chrome" {
+            Sensing.appLogList.append(domain)
+        } else {
+            Sensing.appLogList.append(app)
+        }
         Sensing.categoryLogList.append(category)
 //        print("applicationLog: ", app, domain, Sensing.appLogList)
     }
