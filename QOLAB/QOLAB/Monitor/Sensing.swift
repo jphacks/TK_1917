@@ -90,9 +90,15 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         }
         let domainName = getDomainNameOfChrome()
         
-        let category = categorySplit(app: Sensing.appName, domain: domainName)
+        var category = ""
+        if Sensing.appName == "Google Chrome" {
+            print("before split: ", domainName)
+            category = categorySplitDomain(domain: domainName)
+        } else {
+            category = categorySplitApp(app: Sensing.appName)
+        }
         print("category", category)
-        applicationLog(app: Sensing.appName, domain: domainName, category: category)
+        addActivityLog(app: Sensing.appName, domain: domainName, category: category)
     }
     
     func sensingHandler(event: NSEvent) {
@@ -109,7 +115,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         return try? Data(contentsOf: url)
     }
     
-    func applicationLog(app: String, domain: String, category: String) {
+    func addActivityLog(app: String, domain: String, category: String) {
         if Sensing.appLogList.count >= Sensing.MAX_APPLOG {
             Sensing.appLogList.removeFirst()
             Sensing.categoryLogList.removeFirst()
@@ -119,7 +125,32 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
 //        print("applicationLog: ", app, domain, Sensing.appLogList)
     }
     
-    func categorySplit(app: String, domain: String) -> String {
+    func categorySplitDomain(domain: String) -> String {
+        guard let categoryDict = categories?.domain else { return "" }
+        var categoryName = ""
+        for category in categoryDict {
+            let key = category.key
+            switch key {
+            case CategoryName.survey.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.survey.rawValue : ""
+            case CategoryName.implementation.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.implementation.rawValue : ""
+            case CategoryName.writing.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.writing.rawValue : ""
+            case CategoryName.breakTime.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.breakTime.rawValue : ""
+            default:
+                print("default")
+            }
+            
+            if categoryName != "" {
+                return categoryName
+            }
+        }
+        return categoryName
+    }
+    
+    func categorySplitApp(app: String) -> String {
         guard let categoryDict = categories?.app else { return "" }
         var categoryName = ""
         for category in categoryDict {
