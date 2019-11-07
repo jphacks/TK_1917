@@ -9,6 +9,10 @@
 import Cocoa
 
 class LogViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+    @IBAction func closeButtonClicked(_ sender: Any) {
+        view.window?.close()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
