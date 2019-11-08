@@ -13,7 +13,5 @@ struct MemberActivity: Codable {
     var email: String
     var activity: String
     var labId: String
-    var _id: String
     var createdAt: String
-    var __v: Int
 }

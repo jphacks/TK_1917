@@ -196,7 +196,6 @@ struct APIClient {
             if error == nil {
                 do {
                     let res = try decoder.decode([MemberActivity].self, from: data!)
-                    print("fetchMember: ", res)
                     completion(res)
                 } catch {
                     completion(nil)
