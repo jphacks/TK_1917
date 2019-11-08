@@ -16,7 +16,7 @@
       ></v-text-field>
       <div class="submitButton">
         <v-btn
-          v-if="!this.isLoading"
+          v-if="!isLoading"
           :disabled="!valid"
           type="submit"
           class="button"
@@ -24,8 +24,8 @@
           >設定</v-btn
         >
         <v-btn
-          v-if="this.isLoading"
-          :disabled="!valid || this.isLoading"
+          v-if="isLoading"
+          :disabled="!valid || isLoading"
           type="submit"
           class="button"
           color="primary"

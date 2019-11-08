@@ -23,7 +23,7 @@
       ></v-text-field>
       <div class="registerButton">
         <v-btn
-          v-if="!this.isLoading"
+          v-if="!isLoading"
           :disabled="!valid"
           type="submit"
           class="button"
@@ -31,8 +31,8 @@
           >登録</v-btn
         >
         <v-btn
-          v-if="this.isLoading"
-          :disabled="!valid || this.isLoading"
+          v-if="isLoading"
+          :disabled="!valid || isLoading"
           type="submit"
           class="button"
           color="primary"

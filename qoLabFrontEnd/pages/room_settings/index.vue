@@ -9,7 +9,7 @@
       ></v-text-field>
       <div>
         <v-btn
-          :disabled="this.roomName == null || this.roomName.length <= 0"
+          :disabled="roomName == null || roomName.length <= 0"
           type="submit"
           class="button"
           color="primary"

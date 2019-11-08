@@ -7,7 +7,7 @@
       <template v-slot="data">
         <h1 class="font-weight-black display-1 mb-2">WeeklyReport</h1>
         <p class="font-weight-light pa-1">1週間分の捗り具合を出すよ！</p>
-        <Pie :chart-data="data.chartData" class="ma-1" />
+        <ChartPie :chart-data="data.chartData" class="ma-1" />
         <v-tabs v-model="tab">
           <v-tab
             v-for="label in data.comments.labels"
@@ -35,12 +35,12 @@
 
 <script>
 import { Promised } from 'vue-promised'
-import Pie from '@/components/Pie'
+import ChartPie from '@/components/ChartPie'
 import api from '@/utils/apiClient'
 
 export default {
   middleware: 'auth',
-  components: { Promised, Pie },
+  components: { Promised, ChartPie },
   data() {
     return {
       chartDatas: this.fetchWeeklyData(),
