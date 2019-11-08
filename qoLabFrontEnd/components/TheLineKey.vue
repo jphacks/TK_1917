@@ -59,9 +59,7 @@ export default {
     async fetch() {
       const res = await api.get('visialization/key')
       const keys = res.data
-      const labels = keys.map(k =>
-        new Date(k.createdAt).toLocaleTimeString('ja')
-      )
+      const labels = keys.map(k => new Date(k.createdAt))
       const data = keys.map(k => k.typeCount)
       return {
         labels,
@@ -76,20 +74,6 @@ export default {
     },
     unique(l) {
       return l.filter((x, i, self) => self.indexOf(x) === i)
-    },
-    labelColors(size) {
-      const colors = []
-      const templateColor = [
-        '#FF4444',
-        '#4444FF',
-        '#44BB44',
-        '#FFFF44',
-        '#FF44FF'
-      ]
-      for (const i in size) {
-        colors.push(templateColor[i % templateColor.length])
-      }
-      return colors
     }
   }
 }
