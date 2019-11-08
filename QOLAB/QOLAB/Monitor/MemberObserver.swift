@@ -42,8 +42,8 @@ class MemberObserver: NSObject, NSApplicationDelegate, NSUserNotificationCenterD
                 self.appDelegate = NSApplication.shared.delegate as? AppDelegate
                 self.appDelegate?.initStatusBar()
                 self.appDelegate?.statusBarMenu.addItem(NSMenuItem.separator())
-                result?.members.forEach { member in
-                    self.appDelegate?.addMemberActivity(name: member.name, activity: member.activity)
+                result?.forEach { arr in
+                    self.appDelegate?.addMemberActivity(name: arr.name, activity: arr.activity)
                 }
             }
         }
