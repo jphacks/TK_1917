@@ -13,8 +13,10 @@ import Foundation
 class Sensing: NSObject, NSUserNotificationCenterDelegate {
     static var TIMER_NORMAL_SEC = 30.0
     static var TIMER_SITTING_SEC = 30.0
-    // 座りすぎアラートが作動する文字数のしきい値
+    // 座りすぎアラートで使う文字数のしきい値
     static var KEYNUM_THRESHOLD = 10
+    // この回数以上連続でしきい値を超えたらアラートを出す
+    static var ITERATION_NUM = 5
     
     // アプリケーションログの最大記録数
     static let MAX_APPLOG = 30
@@ -29,7 +31,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     static var categoryLogList: [String] = []
     static var dateList: [Date] = []
     
-    var arrayFlag: [Bool] = [false, false, false, false, false]
+    var arrayFlag: [Bool] = []
     var wifiDict: [String: String] = [:]
     /* タイマー変数 */
     var timerNormal = Timer()
@@ -258,22 +260,27 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
 //        print("checkLongSitting: ", Sensing.keyCountForSitting)
         if Sensing.keyCountForSitting > Sensing.KEYNUM_THRESHOLD {
             print("detect: threshold over")
-            arrayFlag.removeLast()
             arrayFlag.insert(true, at: 0)
+            
         } else {
-            arrayFlag.removeLast()
             arrayFlag.insert(false, at: 0)
         }
+        
+        if arrayFlag.count > Sensing.ITERATION_NUM {
+            arrayFlag.removeLast()
+        }
+        
         let orderedSet = NSOrderedSet(array: arrayFlag)
         let uniqueValues = orderedSet.array as! [Bool]
         
         // 全てtrueだった場合 座りすぎ
-        if uniqueValues[0], uniqueValues.count == 1 {
+        if uniqueValues[0], uniqueValues.count == 1, arrayFlag.count == Sensing.ITERATION_NUM {
             print("座りすぎです！！！！！！")
             notification()
             // flagを初期化
-            arrayFlag = [false, false, false, false, false]
+            arrayFlag = []
         }
+        
         // keyCountForSittingをリセット
         Sensing.keyCountForSitting = 0
     }
