@@ -11,4 +11,5 @@ import Foundation
 struct UserActivityResponse: Codable {
     var activityName: String
     var data: ActivityData
+    var category: String
 }

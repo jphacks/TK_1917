@@ -11,6 +11,7 @@ import Foundation
 struct UserActivityRequest: Codable {
     var activityName: String
     var data: ActivityData
+    var category: String
 }
 
 struct ActivityData: Codable {
@@ -39,6 +40,7 @@ struct NetworkActivityData: Codable {
 struct ChromeTabRequest: Codable {
     var activityName: String
     var data: ChromeTabData
+    var category: String
 }
 
 struct ChromeTabData: Codable {

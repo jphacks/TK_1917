@@ -9,8 +9,8 @@
 import Foundation
 
 struct Category: Codable {
-    let app: [String: [String]]
-    let domain: [String: [String]]
+    var app: [String: [String]]
+    var domain: [String: [String]]
 }
 
 enum CategoryName: String {
