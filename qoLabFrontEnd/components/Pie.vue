@@ -1,6 +1,6 @@
 <script>
 import { Pie, mixins } from 'vue-chartjs'
-
+import 'chartjs-plugin-colorschemes'
 const { reactiveProp } = mixins
 
 export default {
@@ -9,7 +9,15 @@ export default {
   props: {
     options: {
       type: Object,
-      default: null
+      default() {
+        return {
+          plugins: {
+            colorschemes: {
+              scheme: 'tableau.ClassicLight10'
+            }
+          }
+        }
+      }
     }
   },
   mounted() {
