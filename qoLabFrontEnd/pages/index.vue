@@ -1,18 +1,27 @@
 <template>
   <v-layout column justify-center align-center>
-    <div class="name" v-if="user.name != null">{{ user.name }}のログデータ</div>
+    <div v-if="user.name != null" class="name">{{ user.name }}のログデータ</div>
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
         <div class="container">
-          <DomainChart />
+          <TheBarDomain />
         </div>
         <div class="container">
-          <AppChart />
+          <ThePieUseAppRate />
         </div>
         <div class="container">
-          <KeyChart />
+          <TheLineKey />
         </div>
-        <div v-if="labName">
+        <div class="container">
+          <TheBarEnv sensor-name="pressure" />
+        </div>
+        <div class="container">
+          <TheBarEnv sensor-name="temperature" />
+        </div>
+        <div class="container">
+          <TheBarEnv sensor-name="humidity" />
+        </div>
+        <!-- <div v-if="labName">
           <p class="labname">{{ labName }}の室内環境</p>
           <div v-if="!!browsingData1" class="container">
             <LineChart
@@ -38,26 +47,27 @@
               :options="options3"
             />
           </div>
-        </div>
+        </div> -->
       </div>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import DomainChart from '@/components/DomainChart'
-import AppChart from '@/components/AppChart'
-import KeyChart from '@/components/KeyChart'
+import TheBarDomain from '@/components/TheBarDomain'
+import ThePieUseAppRate from '@/components/ThePieUseAppRate'
+import TheLineKey from '@/components/TheLineKey'
 import api from '@/utils/apiClient'
-import LineChart from '@/components/LineChart'
+
+import TheBarEnv from '@/components/TheBarEnv'
 
 export default {
   middleware: 'auth',
   components: {
-    DomainChart,
-    AppChart,
-    KeyChart,
-    LineChart
+    TheBarDomain,
+    ThePieUseAppRate,
+    TheLineKey,
+    TheBarEnv
   },
   data() {
     return {
