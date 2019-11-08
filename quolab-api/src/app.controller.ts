@@ -7,6 +7,7 @@ import {
   Request,
   HttpException,
   HttpStatus,
+  Put,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 
@@ -54,5 +55,11 @@ export class AppController {
     const user = await this.userService.findOne(req.user.email);
 
     return user;
+  }
+
+  @UseGuards(AuthGuard("jwt"))
+  @Put("me")
+  async updateProfile(@Body() userDto: Partial<UserDto>, @Request() req: any) {
+    return await this.userService.updateUser(req.user.id, userDto);
   }
 }

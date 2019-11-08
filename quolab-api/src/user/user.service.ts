@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, HttpStatus, HttpException } from "@nestjs/common";
 import { Model } from "mongoose";
 import { User } from "../types/entities/user.interface";
 import { UserDto } from "../types/dto/user.dto";
@@ -36,5 +36,20 @@ export class UserService {
     user.labId = null;
     await user.save();
     return user;
+  }
+
+  async getUsersByLabId(labId: string) {
+    const users = await this.userModel.find({ labId });
+    return users;
+  }
+
+  async updateUser(userId: string, userDto: Partial<UserDto>) {
+    const user = await this.userModel.findOne({ _id: userId });
+    if (!user) {
+      throw new HttpException(`bad request`, HttpStatus.BAD_REQUEST);
+    }
+
+    user.name = userDto.name;
+    return await user.save();
   }
 }

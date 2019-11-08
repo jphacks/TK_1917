@@ -48,7 +48,7 @@ export class VisializationController {
       createdAt: Date;
     }[] = (await this.visializationService.getVisiEnvData(
       room[0].monipiId,
-    )).map(s => ({
+    )).map((s: any) => ({
       sensorName: s.sensorName,
       data: s.data,
       createdAt: addHours(s.createdAt, 9),

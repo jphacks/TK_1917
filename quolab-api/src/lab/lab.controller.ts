@@ -15,6 +15,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "../user/user.service";
 import { User } from "src/types/entities/user.interface";
 import { LabService } from "./lab.service";
+import { GetLabMembersService } from "./get-lab-members/get-lab-members.service";
 
 @Controller("lab")
 export class LabController {
@@ -22,6 +23,7 @@ export class LabController {
     private readonly createLabService: CreateLabService,
     private readonly labService: LabService,
     private readonly userService: UserService,
+    private readonly getLabMembersService: GetLabMembersService,
   ) {}
 
   @UseGuards(AuthGuard("jwt"))
@@ -62,5 +64,11 @@ export class LabController {
   async delete(@Request() res: any) {
     const userParams: User = res.user;
     return await this.userService.leaveLab(userParams.email);
+  }
+
+  @UseGuards(AuthGuard("jwt"))
+  @Get("members")
+  async getLabMembers(@Request() res: any) {
+    return await this.getLabMembersService.get(res.user.labId);
   }
 }
