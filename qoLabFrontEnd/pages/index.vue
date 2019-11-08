@@ -1,5 +1,6 @@
 <template>
   <v-layout column justify-center align-center>
+    <div class="name" v-if="user.name != null">{{ user.name }}のログデータ</div>
     <v-flex xs12 sm8 md6>
       <div class="text-xs-center">
         <div class="container">
@@ -66,6 +67,11 @@ export default {
       option1: null,
       option2: null,
       option3: null
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
     }
   },
   async created() {
@@ -168,5 +174,10 @@ export default {
 .labname {
   font-size: 18px;
   font-weight: bold;
+}
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
 }
 </style>
