@@ -2,7 +2,7 @@ export const state = () => ({})
 
 export const mutations = {
   updateUser(state, user) {
-    state = user
+    Object.assign(state, { ...user })
   }
 }
 
