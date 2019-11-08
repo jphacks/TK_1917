@@ -8,13 +8,15 @@
 
 import Cocoa
 
-class LogViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class LogViewController: NSViewController {
+    @IBOutlet weak var tableView: NSTableView!
     @IBAction func closeButtonClicked(_ sender: Any) {
         view.window?.close()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do view setup here.
     }
     
@@ -24,37 +26,56 @@ class LogViewController: NSViewController, NSTableViewDataSource, NSTableViewDel
         }
     }
     
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return Sensing.appLogList.count
-    }
-    
 //    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
 //        print("tableView: ", row)
 //        return programs[row]
 //    }
+}
+
+extension LogViewController: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return Sensing.appLogList.count
+    }
+}
+
+extension LogViewController: NSTableViewDelegate {
+    fileprivate enum CellIdentifiers {
+        static let ApplicationNameCell = "ApplicationNameCellID"
+        static let DateCell = "DateCellID"
+        static let CategoryCell = "CategoryCellID"
+    }
     
-    func tableView(_ tableView: NSTableView, viewFor
-        tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//        print(#function + " column:" +
-//            tableColumn!.identifier.rawValue + " row:" + String(row))
-        var result: NSTextField? =
-            tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue:
-                "MyView"), owner: self) as? NSTextField
-        if result == nil {
-            result = NSTextField(frame: NSZeroRect)
-            result?.identifier =
-                NSUserInterfaceItemIdentifier(rawValue: "MyView")
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+//    var image: NSImage?
+        var text: String = ""
+        var cellIdentifier: String = ""
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMMHms", options: 0, locale: Locale(identifier: "ja_JP"))
+        
+        // 1
+//    guard let item = directoryItems?[row] else {
+//      return nil
+//    }
+        
+        // 2
+        if tableColumn == tableView.tableColumns[0] {
+            text = dateFormatter.string(from: Sensing.dateList[row])
+            cellIdentifier = CellIdentifiers.DateCell
+        } else if tableColumn == tableView.tableColumns[1] {
+            text = Sensing.appLogList[row]
+            cellIdentifier = CellIdentifiers.ApplicationNameCell
+        } else if tableColumn == tableView.tableColumns[2] {
+            text = Sensing.categoryLogList[row]
+            cellIdentifier = CellIdentifiers.CategoryCell
         }
-        if let view = result {
-//            print("view:" + view.identifier!.rawValue + " row:" + String(row))
-            if let column = tableColumn {
-                if column.identifier.rawValue == "applicationNameColumn" {
-                    view.stringValue = Sensing.appLogList[row]
-                } else if column.identifier.rawValue == "categoryColumn" {
-                    view.stringValue = Sensing.categoryLogList[row]
-                }
-            }
+        
+        // 3
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: nil) as? NSTableCellView {
+            cell.textField?.stringValue = text
+//      cell.imageView?.image = image ?? nil
+            return cell
         }
-        return result
+        return nil
     }
 }

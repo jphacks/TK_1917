@@ -27,6 +27,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     static var domainName = ""
     static var appLogList: [String] = []
     static var categoryLogList: [String] = []
+    static var dateList: [Date] = []
     
     var arrayFlag: [Bool] = [false, false, false, false, false]
     var wifiDict: [String: String] = [:]
@@ -119,6 +120,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         if Sensing.appLogList.count >= Sensing.MAX_APPLOG {
             Sensing.appLogList.removeFirst()
             Sensing.categoryLogList.removeFirst()
+            Sensing.dateList.removeFirst()
         }
         if app == "Google Chrome" {
             Sensing.appLogList.append(domain)
@@ -126,6 +128,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             Sensing.appLogList.append(app)
         }
         Sensing.categoryLogList.append(category)
+        Sensing.dateList.append(Date())
 //        print("applicationLog: ", app, domain, Sensing.appLogList)
     }
     
