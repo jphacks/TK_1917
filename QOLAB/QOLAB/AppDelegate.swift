@@ -45,12 +45,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         loginPopOver.behavior = NSPopover.Behavior.transient
         joinLabPopOver.contentViewController = (joinLabViewController as! NSViewController)
         joinLabPopOver.behavior = NSPopover.Behavior.transient
-        
-        // 設定画面
-        let configStoryboard = NSStoryboard(name: "Config", bundle: nil)
-        let configViewController = configStoryboard.instantiateController(withIdentifier: "config")
-        configPopOver.contentViewController = (configViewController as! NSViewController)
-        configPopOver.behavior = NSPopover.Behavior.transient
     }
     
     func defaultStatusBar() {
@@ -125,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
                     withTitle: "ラボに参加",
-                    action: #selector(AppDelegate.toggleJoinPopover(_:)),
+                    action: #selector(AppDelegate.toggleConfigWindow(_:)),
                     keyEquivalent: "j"
                 )
                 statusBarMenu.addItem(
@@ -153,7 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
                     withTitle: "設定",
-                    action: #selector(AppDelegate.toggleConfigPopover(_:)),
+                    action: #selector(AppDelegate.toggleConfigWindow(_:)),
                     keyEquivalent: "e"
                 )
                 
@@ -184,11 +178,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
     }
     
-    @objc func toggleConfigPopover(_ sender: Any) {
-        if configPopOver.isShown {
-            closeConfigPopover(sender)
-        } else {
-            showConfigPopover(sender)
+    @objc func toggleConfigWindow(_ sender: Any) {
+        // 設定画面
+        let storyboardName = NSStoryboard.Name(stringLiteral: "Config")
+        let storyboard = NSStoryboard(name: storyboardName, bundle: nil)
+        
+        let storyboardID = NSStoryboard.SceneIdentifier(stringLiteral: "ConfigStoryboardID")
+        if let fontsDisplayWindowController = storyboard.instantiateController(withIdentifier: storyboardID) as? NSWindowController {
+            fontsDisplayWindowController.showWindow(nil)
         }
     }
     
@@ -208,12 +205,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
     }
     
-    func showConfigPopover(_ sender: Any) {
-        if let button = statusBarItem.button {
-            configPopOver.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-        }
-    }
-    
     @objc func logout(_ sender: Any) {
         if isSensingStarted {
             stop()
@@ -228,10 +219,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     public func closeJoinPopover(_ sender: Any) {
         joinLabPopOver.performClose(sender)
-    }
-    
-    public func closeConfigPopover(_ sender: Any) {
-        configPopOver.performClose(sender)
     }
     
     @objc func register() {}
