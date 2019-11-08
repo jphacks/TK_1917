@@ -147,10 +147,11 @@ struct APIClient {
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
             if error == nil {
                 do {
-//                    print(String(data: data!, encoding: .utf8))
+                    print(String(data: data!, encoding: .utf8))
                     let res = try decoder.decode(T.self, from: data!)
                     completion(res)
                 } catch {
+                    print("errr")
                     completion(nil)
                 }
             } else {
@@ -183,7 +184,7 @@ struct APIClient {
     
     static func fetchMemberActivities(_ completion: @escaping (MemberActivityResponse?) -> Void) {
         let decoder = JSONDecoder()
-        let components = URLComponents(string: "http://www.mocky.io/v2/5dc07de13100002e03be416f")
+        let components = URLComponents(string: "http://www.mocky.io/v2/5dc5cdde32000033ec769d0c")
         guard let url = components?.url else {
             return
         }

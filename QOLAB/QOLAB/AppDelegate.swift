@@ -271,7 +271,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     func addMemberActivity(name: String, activity: String) {
         let item: NSMenuItem = NSMenuItem()
-        if activity == "break" {
+        if activity == "YouTube" {
             item.title = name + ": " + "お休み中"
             item.image = NSImage(named: "red")
             item.isEnabled = false
