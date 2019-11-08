@@ -25,7 +25,9 @@
 
 <script>
 import { Promised } from 'vue-promised'
+import { format } from 'date-fns'
 import ChartLine from '@/components/ChartLine'
+
 import api from '@/utils/apiClient'
 
 export default {
@@ -59,7 +61,7 @@ export default {
     async fetch() {
       const res = await api.get('visialization/key')
       const keys = res.data
-      const labels = keys.map(k => new Date(k.createdAt))
+      const labels = keys.map(k => this.formatDate(k.createdAt))
       const data = keys.map(k => k.typeCount)
       return {
         labels,
@@ -74,6 +76,9 @@ export default {
     },
     unique(l) {
       return l.filter((x, i, self) => self.indexOf(x) === i)
+    },
+    formatDate(s) {
+      return format(new Date(s), 'HH時mm分ss秒')
     }
   }
 }
