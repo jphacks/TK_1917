@@ -4,7 +4,7 @@
       <v-progress-circular :size="50" color="primary" indeterminate />
     </template>
     <template v-slot="chartData">
-      <LineChart :chart-data="chartData" :heigth="450" :width="800" />
+      <ChartLine :chart-data="chartData" :heigth="450" :width="800" />
     </template>
     <template v-slot:rejected="error">
       <span class="headline">😢ばぐっちゃった🙇‍</span>
@@ -14,18 +14,30 @@
 
 <script>
 import { Promised } from 'vue-promised'
-import LineChart from '@/components/LineChart'
+import ChartLine from '@/components/ChartLine'
 
 import api from '@/utils/apiClient'
 export default {
   components: {
     Promised,
-    LineChart
+    ChartLine
   },
   props: {
     sensorName: {
       required: true,
       type: String
+    },
+    options: {
+      type: Object,
+      default() {
+        return {
+          plugins: {
+            colorschemes: {
+              scheme: 'tableau.ClassicLight10'
+            }
+          }
+        }
+      }
     }
   },
   data() {

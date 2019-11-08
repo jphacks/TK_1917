@@ -7,7 +7,7 @@
       <v-layout column justify-center align-center>
         <v-flex xs12 sm8 md6>
           <div class="text-xs-center">
-            <LineChart
+            <ChartLine
               :height="450"
               :width="800"
               :chart-data="chartData"
@@ -25,12 +25,12 @@
 
 <script>
 import { Promised } from 'vue-promised'
-import LineChart from '@/components/LineChart'
+import ChartLine from '@/components/ChartLine'
 import api from '@/utils/apiClient'
 
 export default {
   components: {
-    LineChart,
+    ChartLine,
     Promised
   },
   data() {

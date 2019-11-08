@@ -7,7 +7,7 @@
       <v-layout column justify-center align-center>
         <v-flex xs12 sm8 md6>
           <div class="text-xs-center">
-            <Bar
+            <ChartBar
               :height="450"
               :width="800"
               :chart-data="chartData"
@@ -24,12 +24,12 @@
 
 <script>
 import { Promised } from 'vue-promised'
-import Bar from '@/components/Bar'
+import ChartBar from '@/components/ChartBar'
 import api from '@/utils/apiClient'
 
 export default {
   components: {
-    Bar,
+    ChartBar,
     Promised
   },
   data() {

@@ -7,7 +7,7 @@
       <v-layout column justify-center align-center>
         <v-flex xs12 sm8 md6>
           <div class="text-xs-center">
-            <Pie :chart-data="chartData" :options="options" />
+            <ChartPie :chart-data="chartData" :options="options" />
           </div>
         </v-flex>
       </v-layout>
@@ -20,13 +20,13 @@
 
 <script>
 import { Promised } from 'vue-promised'
-import Pie from '@/components/Pie'
+import ChartPie from '@/components/ChartPie'
 import api from '@/utils/apiClient'
 import 'chartjs-plugin-colorschemes'
 
 export default {
   components: {
-    Pie,
+    ChartPie,
     Promised
   },
   data() {
