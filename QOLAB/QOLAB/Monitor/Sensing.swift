@@ -16,12 +16,19 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     // 座りすぎアラートが作動する文字数のしきい値
     let KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "sittingThreshold")
     
+    // アプリケーションログの最大記録数
+    static let MAX_APPLOG = 30
+    
     var isStopped = false
     var count = 1
     static var keyCount = 0
     static var keyCountForSitting = 0
     static var appName = ""
     static var domainName = ""
+    static var appLogList: [String] = []
+    static var categoryLogList: [String] = []
+    static var dateList: [Date] = []
+    
     var arrayFlag: [Bool] = [false, false, false, false, false]
     var wifiDict: [String: String] = [:]
     /* タイマー変数 */
@@ -32,6 +39,9 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     let NScenter = NSUserNotificationCenter.default
     var eventMonitor: Any?
     var observer: Any?
+    
+    var categoryData: Data?
+    var categories: Category?
     
     override init() {}
     
@@ -64,9 +74,12 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         
         startTime = Date()
         
-        eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: handler)
+        eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: sensingHandler)
         
         observer = NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(activated(_:)), name: NSWorkspace.didActivateApplicationNotification, object: nil)
+        
+        categoryData = try? getJSONData()
+        categories = try? JSONDecoder().decode(Category.self, from: categoryData!)
     }
     
     @objc func activated(_ notification: NSNotification) {
@@ -76,26 +89,102 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             Sensing.appName = name
 //            print(name)
         }
+        let domainName = getDomainNameOfChrome()
+        
+        var category = ""
+        if Sensing.appName == "Google Chrome" {
+            print("before split: ", domainName)
+            category = categorySplitDomain(domain: domainName)
+        } else {
+            category = categorySplitApp(app: Sensing.appName)
+        }
+        print("category", category)
+        addActivityLog(app: Sensing.appName, domain: domainName, category: category)
     }
     
-    func handler(event: NSEvent) {
+    func sensingHandler(event: NSEvent) {
         // not called
-//            print("handler", event.characters!)
         Sensing.appName = NSWorkspace().frontmostApplication!.localizedName ?? ""
         keyCountUp(key: event.characters!)
         keyCountUpForSitting(key: event.characters!)
     }
     
+    func getJSONData() throws -> Data? {
+        guard let path = Bundle.main.path(forResource: "defaultCategory", ofType: "json") else { return nil }
+        let url = URL(fileURLWithPath: path)
+        
+        return try? Data(contentsOf: url)
+    }
+    
+    func addActivityLog(app: String, domain: String, category: String) {
+        if Sensing.appLogList.count >= Sensing.MAX_APPLOG {
+            Sensing.appLogList.removeFirst()
+            Sensing.categoryLogList.removeFirst()
+            Sensing.dateList.removeFirst()
+        }
+        if app == "Google Chrome" {
+            Sensing.appLogList.append(domain)
+        } else {
+            Sensing.appLogList.append(app)
+        }
+        Sensing.categoryLogList.append(category)
+        Sensing.dateList.append(Date())
+//        print("applicationLog: ", app, domain, Sensing.appLogList)
+    }
+    
+    func categorySplitDomain(domain: String) -> String {
+        guard let categoryDict = categories?.domain else { return "" }
+        var categoryName = ""
+        for category in categoryDict {
+            let key = category.key
+            switch key {
+            case CategoryName.survey.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.survey.rawValue : ""
+            case CategoryName.implementation.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.implementation.rawValue : ""
+            case CategoryName.writing.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.writing.rawValue : ""
+            case CategoryName.breakTime.rawValue:
+                categoryName = category.value.contains(domain) ? CategoryName.breakTime.rawValue : ""
+            default:
+                print("default")
+            }
+            
+            if categoryName != "" {
+                return categoryName
+            }
+        }
+        return categoryName
+    }
+    
+    func categorySplitApp(app: String) -> String {
+        guard let categoryDict = categories?.app else { return "" }
+        var categoryName = ""
+        for category in categoryDict {
+            let key = category.key
+            switch key {
+            case CategoryName.survey.rawValue:
+                categoryName = category.value.contains(app) ? CategoryName.survey.rawValue : ""
+            case CategoryName.implementation.rawValue:
+                categoryName = category.value.contains(app) ? CategoryName.implementation.rawValue : ""
+            case CategoryName.writing.rawValue:
+                categoryName = category.value.contains(app) ? CategoryName.writing.rawValue : ""
+            case CategoryName.breakTime.rawValue:
+                categoryName = category.value.contains(app) ? CategoryName.breakTime.rawValue : ""
+            default:
+                print("default")
+            }
+            
+            if categoryName != "" {
+                return categoryName
+            }
+        }
+        return categoryName
+    }
+    
     @objc func timerCounter() {
         // タイマー開始からのインターバル時間 単位は秒
         let currentTime = Date().timeIntervalSince(startTime)
-        
-        // fmod() 余りを計算
-        let minute = (Int)(fmod(currentTime / 60, 60))
-        // currentTime/60 の余り
-        let second = (Int)(fmod(currentTime, 60))
-        // floor 切り捨て、小数点以下を取り出して *100
-        let msec = (Int)((currentTime - floor(currentTime)) * 100)
         
 //        print(currentTime, minute, second, msec)
         let ssid = CWWiFiClient().interface()?.ssid() ?? String()
@@ -128,7 +217,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @objc func loggerStart() {
-        Sensing.domainName = getChromeURL()
+        Sensing.domainName = getDomainNameOfChrome()
         Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
         
         let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
@@ -139,7 +228,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         }
     }
     
-    func getChromeURL() -> String {
+    func getDomainNameOfChrome() -> String {
         // chromeからアクティブタブのURLを取得するAppleScript
         let myAppleScript = "tell application \"Google Chrome\"\n" +
             "get URL of active tab of first window\n" +
