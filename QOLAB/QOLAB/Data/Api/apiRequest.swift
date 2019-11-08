@@ -183,7 +183,7 @@ struct APIClient {
     
     static func fetchMemberActivities(_ completion: @escaping (MemberActivityResponse?) -> Void) {
         let decoder = JSONDecoder()
-        let components = URLComponents(string: "http://www.mocky.io/v2/5dc07de13100002e03be416f")
+        let components = URLComponents(string: APIURL.baseUrl + "/lab/members")
         guard let url = components?.url else {
             return
         }
@@ -191,6 +191,7 @@ struct APIClient {
         var request = URLRequest(url: (components?.url)!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
+        print("Bearer ", AccessTokenDao().getAccessToken()!)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
             if error == nil {
                 do {
