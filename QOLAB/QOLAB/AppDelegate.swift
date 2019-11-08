@@ -184,8 +184,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let storyboard = NSStoryboard(name: storyboardName, bundle: nil)
         
         let storyboardID = NSStoryboard.SceneIdentifier(stringLiteral: "ConfigStoryboardID")
-        if let fontsDisplayWindowController = storyboard.instantiateController(withIdentifier: storyboardID) as? NSWindowController {
-            fontsDisplayWindowController.showWindow(nil)
+        if let configWindowController = storyboard.instantiateController(withIdentifier: storyboardID) as? NSWindowController {
+            configWindowController.showWindow(nil)
         }
     }
     

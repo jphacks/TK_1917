@@ -11,10 +11,10 @@ import CoreWLAN
 import Foundation
 
 class Sensing: NSObject, NSUserNotificationCenterDelegate {
-    let TIMER_NORMAL_SEC = UserDefaults.standard.double(forKey: "normalTimer")
-    let TIMER_SITTING_SEC = UserDefaults.standard.double(forKey: "sittingTimer")
+    static var TIMER_NORMAL_SEC = 30.0
+    static var TIMER_SITTING_SEC = 30.0
     // 座りすぎアラートが作動する文字数のしきい値
-    let KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "sittingThreshold")
+    static var KEYNUM_THRESHOLD = 10
     
     // アプリケーションログの最大記録数
     static let MAX_APPLOG = 30
@@ -46,9 +46,14 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     override init() {}
     
     func start() {
+        Sensing.TIMER_NORMAL_SEC = UserDefaults.standard.double(forKey: "normalTimer")
+        Sensing.TIMER_SITTING_SEC = UserDefaults.standard.double(forKey: "sittingTimer")
+        Sensing.KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "keyNumThreshold")
+        
+        print("timer", Sensing.TIMER_NORMAL_SEC, Sensing.TIMER_SITTING_SEC)
         /* タイマー実行 */
         timerNormal = Timer.scheduledTimer(
-            timeInterval: TIMER_NORMAL_SEC, // 実行する時間
+            timeInterval: Sensing.TIMER_NORMAL_SEC, // 実行する時間
             target: self,
             selector: #selector(CountDown), // 実行関数
             userInfo: nil,
@@ -57,7 +62,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         
         /* タイマー実行 */
         timerSitting = Timer.scheduledTimer(
-            timeInterval: TIMER_SITTING_SEC, // 実行する時間
+            timeInterval: Sensing.TIMER_SITTING_SEC, // 実行する時間
             target: self,
             selector: #selector(checkLongSitting), // 実行関数
             userInfo: nil,
@@ -251,7 +256,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     /* タイマー関数 */
     @objc func checkLongSitting() {
 //        print("checkLongSitting: ", Sensing.keyCountForSitting)
-        if Sensing.keyCountForSitting > KEYNUM_THRESHOLD {
+        if Sensing.keyCountForSitting > Sensing.KEYNUM_THRESHOLD {
             print("detect: threshold over")
             arrayFlag.removeLast()
             arrayFlag.insert(true, at: 0)
