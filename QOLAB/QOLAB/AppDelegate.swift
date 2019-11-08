@@ -60,7 +60,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             statusBarItem.button?.image = NSImage(named: "iconWW")
             statusBarItem.button?.imagePosition = NSControl.ImagePosition.imageLeft
         case NSAppearance.Name.aqua: // dark mode
+            statusBarItem.button?.title = "停止中"
             statusBarItem.button?.image = NSImage(named: "iconBB")
+            statusBarItem.button?.imagePosition = NSControl.ImagePosition.imageLeft
         default: break //the user interface style is not specified
         }
         statusBarItem.menu = statusBarMenu

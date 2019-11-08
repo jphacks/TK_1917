@@ -132,6 +132,19 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
 //        print("applicationLog: ", app, domain, Sensing.appLogList)
     }
     
+    func getActivityCategory() -> String {
+        let domainName = getDomainNameOfChrome()
+        
+        var category = ""
+        if Sensing.appName == "Google Chrome" {
+            print("before split: ", domainName)
+            category = categorySplitDomain(domain: domainName)
+        } else {
+            category = categorySplitApp(app: Sensing.appName)
+        }
+        return category
+    }
+    
     func categorySplitDomain(domain: String) -> String {
         guard let categoryDict = categories?.domain else { return "" }
         var categoryName = ""
@@ -220,9 +233,11 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         Sensing.domainName = getDomainNameOfChrome()
         Sensing.domainName = Sensing.domainName == "" ? "Error" : Sensing.domainName
         
-        let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount))
+        let category = getActivityCategory()
+        
+        let paramDto = UserActivityRequest(activityName: "KeyCountAndAppName", data: ActivityData(appName: Sensing.appName, typeCount: Sensing.keyCount), category: category)
         APIClient.postActivity(activity: paramDto) { _ in }
-        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", url: "https://" + Sensing.domainName))
+        let chromeParamDto = ChromeTabRequest(activityName: "browsing", data: ChromeTabData(status: "complete", url: "https://" + Sensing.domainName), category: category)
         if Sensing.domainName != "qolab-a0324.web.app", Sensing.domainName != "qolab-a0324.firebaseapp.com", Sensing.appName == "Google Chrome" {
             APIClient.postActivity(activity: chromeParamDto) { _ in }
         }
