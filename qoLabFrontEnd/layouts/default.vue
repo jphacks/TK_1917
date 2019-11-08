@@ -38,6 +38,14 @@
             <v-list-tile-title>Room Settings</v-list-tile-title>
           </v-list-tile>
         </nuxt-link>
+        <nuxt-link to="/user_settings" tag="div" class="menu-icon">
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon light>compare_arrows</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>User Settings</v-list-tile-title>
+          </v-list-tile>
+        </nuxt-link>
         <v-list-tile @click="logout">
           <v-list-tile-action>
             <v-icon light>compare_arrows</v-icon>
