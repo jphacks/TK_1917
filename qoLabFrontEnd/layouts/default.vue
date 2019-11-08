@@ -45,7 +45,7 @@
             </v-list-tile-action>
             <v-list-tile-title>User Settings</v-list-tile-title>
           </v-list-tile>
-        </nuxt-link>      
+        </nuxt-link>
         <nuxt-link to="/weekly_reports" tag="div" class="menu-icon">
           <v-list-tile>
             <v-list-tile-action>
