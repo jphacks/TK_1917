@@ -13,6 +13,7 @@
 		B18560BA2373621200D3927F /* defaultCategoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18560B92373621200D3927F /* defaultCategoryDataModel.swift */; };
 		B18B483F23707A720066265F /* Config.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B18B483E23707A720066265F /* Config.storyboard */; };
 		B18B4843237084A40066265F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B4842237084A40066265F /* ConfigViewController.swift */; };
+		EF1502BF2375D1D10056B7BF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1502BE2375D1D10056B7BF /* SettingViewController.swift */; };
 		EF156F182363E71600ABAC9E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F172363E71600ABAC9E /* RegisterViewController.swift */; };
 		EF156F1A2363E85D00ABAC9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF156F192363E85D00ABAC9E /* LoginViewController.swift */; };
 		EF15D9B623707FB800073C82 /* MemberObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF15D9B523707FB800073C82 /* MemberObserver.swift */; };
@@ -47,6 +48,7 @@
 		B18B483E23707A720066265F /* Config.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Config.storyboard; sourceTree = "<group>"; };
 		B18B4842237084A40066265F /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		E89593E61C5AD0561C7EE7A7 /* Pods-QOLAB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.release.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.release.xcconfig"; sourceTree = "<group>"; };
+		EF1502BE2375D1D10056B7BF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		EF156F172363E71600ABAC9E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EF156F192363E85D00ABAC9E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EF15D9B523707FB800073C82 /* MemberObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberObserver.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				EFF084B723647CF6006C4F5A /* JoinLabViewController.swift */,
 				B18B483E23707A720066265F /* Config.storyboard */,
 				B18B4842237084A40066265F /* ConfigViewController.swift */,
+				EF1502BE2375D1D10056B7BF /* SettingViewController.swift */,
 			);
 			path = QOLAB;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				B1631D312364D04B00816EA0 /* Sensing.swift in Sources */,
 				EF1E2965236488CD00C26B06 /* FetchUserInfoResponse.swift in Sources */,
 				EF1E296B2364A93300C26B06 /* JoinLabResponse.swift in Sources */,
+				EF1502BF2375D1D10056B7BF /* SettingViewController.swift in Sources */,
 				EF1E29712364E48B00C26B06 /* UserActivityResponse.swift in Sources */,
 				EF15D9B823708C6B00073C82 /* MemberActivityResponse.swift in Sources */,
 				EF23F4A22364704F0049B544 /* AccessTokenDao.swift in Sources */,

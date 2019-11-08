@@ -41,7 +41,8 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     var observer: Any?
     
     var categoryData: Data?
-    var categories: Category?
+    
+    static var categories: Category!
     
     override init() {}
     
@@ -78,8 +79,19 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         
         observer = NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(activated(_:)), name: NSWorkspace.didActivateApplicationNotification, object: nil)
         
-        categoryData = try? getJSONData()
-        categories = try? JSONDecoder().decode(Category.self, from: categoryData!)
+//        categoryData = try? Sensing.getJSONData()
+//        categories = try? JSONDecoder().decode(Category.self, from: categoryData!)
+        let decoder = JSONDecoder()
+        do {
+            let d = UserDefaults.standard.data(forKey: "cat")
+            if d != nil {
+                let data = try decoder.decode(Category.self, from: d!)
+                Sensing.categories = data
+            } else {
+                Sensing.categories = Category(app: ["writing": ["QOLAB"], "survey": [], "break": [], "implementation": []], domain: ["writing": [], "survey": [], "break": [], "implementation": []])
+            }
+            
+        } catch {}
     }
     
     @objc func activated(_ notification: NSNotification) {
@@ -109,8 +121,9 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         keyCountUpForSitting(key: event.characters!)
     }
     
-    func getJSONData() throws -> Data? {
+    public static func getJSONData() throws -> Data? {
         guard let path = Bundle.main.path(forResource: "defaultCategory", ofType: "json") else { return nil }
+        print(path)
         let url = URL(fileURLWithPath: path)
         
         return try? Data(contentsOf: url)
@@ -123,13 +136,18 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             Sensing.dateList.removeFirst()
         }
         if app == "Google Chrome" {
-            Sensing.appLogList.append(domain)
+            if !Sensing.appLogList.contains(domain) {
+                Sensing.appLogList.append(domain)
+            }
         } else {
-            Sensing.appLogList.append(app)
+            if !Sensing.appLogList.contains(app) {
+                Sensing.appLogList.append(app)
+            }
         }
-        Sensing.categoryLogList.append(category)
-        Sensing.dateList.append(Date())
-//        print("applicationLog: ", app, domain, Sensing.appLogList)
+        
+        if !Sensing.appLogList.contains(app) || !Sensing.appLogList.contains(domain) {
+            Sensing.categoryLogList.append(category)
+        }
     }
     
     func getActivityCategory() -> String {
@@ -146,24 +164,24 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     }
     
     func categorySplitDomain(domain: String) -> String {
-        guard let categoryDict = categories?.domain else { return "" }
+        let categoryDict = Sensing.categories.domain
         var categoryName = ""
         for category in categoryDict {
             let key = category.key
             switch key {
             case CategoryName.survey.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.survey.rawValue : ""
+                categoryName = category.value.contains(domain) ? CategoryName.survey.rawValue : "未設定"
             case CategoryName.implementation.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.implementation.rawValue : ""
+                categoryName = category.value.contains(domain) ? CategoryName.implementation.rawValue : "未設定"
             case CategoryName.writing.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.writing.rawValue : ""
+                categoryName = category.value.contains(domain) ? CategoryName.writing.rawValue : "未設定"
             case CategoryName.breakTime.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.breakTime.rawValue : ""
+                categoryName = category.value.contains(domain) ? CategoryName.breakTime.rawValue : "未設定"
             default:
                 print("default")
             }
             
-            if categoryName != "" {
+            if categoryName != "未設定" {
                 return categoryName
             }
         }
@@ -171,24 +189,24 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     }
     
     func categorySplitApp(app: String) -> String {
-        guard let categoryDict = categories?.app else { return "" }
+        let categoryDict = Sensing.categories.app
         var categoryName = ""
         for category in categoryDict {
             let key = category.key
             switch key {
             case CategoryName.survey.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.survey.rawValue : ""
+                categoryName = category.value.contains(app) ? CategoryName.survey.rawValue : "未設定"
             case CategoryName.implementation.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.implementation.rawValue : ""
+                categoryName = category.value.contains(app) ? CategoryName.implementation.rawValue : "未設定"
             case CategoryName.writing.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.writing.rawValue : ""
+                categoryName = category.value.contains(app) ? CategoryName.writing.rawValue : "未設定"
             case CategoryName.breakTime.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.breakTime.rawValue : ""
+                categoryName = category.value.contains(app) ? CategoryName.breakTime.rawValue : "未設定"
             default:
                 print("default")
             }
             
-            if categoryName != "" {
+            if categoryName != "未設定" {
                 return categoryName
             }
         }
