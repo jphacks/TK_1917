@@ -121,7 +121,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 statusBarMenu.addItem(NSMenuItem.separator())
                 statusBarMenu.addItem(
                     withTitle: "ラボに参加",
-                    action: #selector(AppDelegate.toggleConfigWindow(_:)),
+                    action: #selector(AppDelegate.toggleJoinPopover(_:)),
                     keyEquivalent: "j"
                 )
                 statusBarMenu.addItem(
