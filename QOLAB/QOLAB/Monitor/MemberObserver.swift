@@ -42,8 +42,14 @@ class MemberObserver: NSObject, NSApplicationDelegate, NSUserNotificationCenterD
                 self.appDelegate = NSApplication.shared.delegate as? AppDelegate
                 self.appDelegate?.initStatusBar()
                 self.appDelegate?.statusBarMenu.addItem(NSMenuItem.separator())
-                result?.members.forEach { member in
-                    self.appDelegate?.addMemberActivity(name: member.name, activity: member.activity)
+                result?.forEach { arr in
+                    var name = "名称未設定"
+                    if arr.name == nil {
+                        name = arr.email
+                    } else {
+                        name = arr.name
+                    }
+                    self.appDelegate?.addMemberActivity(name: name, activity: arr.activity)
                 }
             }
         }

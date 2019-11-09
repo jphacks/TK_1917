@@ -181,7 +181,7 @@ struct APIClient {
         task.resume()
     }
     
-    static func fetchMemberActivities(_ completion: @escaping (MemberActivityResponse?) -> Void) {
+    static func fetchMemberActivities(_ completion: @escaping ([MemberActivity]?) -> Void) {
         let decoder = JSONDecoder()
         let components = URLComponents(string: APIURL.baseUrl + "/lab/members")
         guard let url = components?.url else {
@@ -191,11 +191,11 @@ struct APIClient {
         var request = URLRequest(url: (components?.url)!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer " + AccessTokenDao().getAccessToken()!, forHTTPHeaderField: "Authorization")
-        print("Bearer ", AccessTokenDao().getAccessToken()!)
+//        print("Bearer ", AccessTokenDao().getAccessToken()!)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
             if error == nil {
                 do {
-                    let res = try decoder.decode(MemberActivityResponse.self, from: data!)
+                    let res = try decoder.decode([MemberActivity].self, from: data!)
                     completion(res)
                 } catch {
                     completion(nil)
