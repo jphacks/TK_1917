@@ -3,8 +3,15 @@
     <template v-slot:pending>
       <v-progress-circular :size="50" color="primary" indeterminate />
     </template>
-    <template v-slot="chartData">
-      <ChartLine :chart-data="chartData" :heigth="450" :width="800" />
+    <template v-slot="payloads">
+      <ChartLine
+        v-for="payload in payloads"
+        :key="payload._id"
+        :chart-data="convertChartData(payload)"
+        :heigth="450"
+        :width="800"
+        :options="options"
+      />
     </template>
     <template v-slot:rejected="error">
       <span class="headline">😢ばぐっちゃった🙇‍</span>
@@ -14,6 +21,7 @@
 
 <script>
 import { Promised } from 'vue-promised'
+import { format } from 'date-fns'
 import ChartLine from '@/components/ChartLine'
 
 import api from '@/utils/apiClient'
@@ -42,21 +50,28 @@ export default {
   },
   data() {
     return {
-      asyncChartData: this.fetch()
+      asyncChartData: null
+    }
+  },
+  watch: {
+    sensorName(val) {
+      this.asyncChartData = this.fetch()
     }
   },
   methods: {
     async fetch() {
-      const res = await api.get('visialization/envdata')
-      const idx = res.data.findIndex(d =>
-        d[0].sensorName.includes(this.sensorName)
+      const res = await api.get(
+        `http://localhost:3000/visialization/envdata/${this.sensorName}`
       )
-      const data = res.data[idx]
+      const data = res.data
+      return data.sensorData
+    },
+    convertChartData(payload) {
       return {
-        labels: data.map(d => new Date(d.createdat)),
+        labels: payload.map(d => format(new Date(d.createdAt), 'HH時mm分ss秒')),
         datasets: [
           {
-            data: data.map(d => d.data[this.sensorName])
+            data: payload.map(d => d.data)
           }
         ]
       }

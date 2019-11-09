@@ -13,41 +13,9 @@
           <TheLineKey />
         </div>
         <div class="container">
-          <TheBarEnv sensor-name="pressure" :option="pressureChartOption" />
+          <TheSelectSensorName @change="change" />
+          <TheBarEnv :sensor-name="sensorName" :options="pressureChartOption" />
         </div>
-        <div class="container">
-          <TheBarEnv sensor-name="temperature" :options="tempChartOption" />
-        </div>
-        <div class="container">
-          <TheBarEnv sensor-name="humidity" :options="humiChartOption" />
-        </div>
-        <!-- <div v-if="labName">
-          <p class="labname">{{ labName }}の室内環境</p>
-          <div v-if="!!browsingData1" class="container">
-            <LineChart
-              :height="450"
-              :width="800"
-              :chart-data="browsingData1"
-              :options="options"
-            />
-          </div>
-          <div v-if="!!browsingData2" class="container">
-            <LineChart
-              :height="450"
-              :width="800"
-              :chart-data="browsingData2"
-              :options="options2"
-            />
-          </div>
-          <div v-if="browsingData3" class="container">
-            <LineChart
-              :height="450"
-              :width="800"
-              :chart-data="browsingData3"
-              :options="options3"
-            />
-          </div>
-        </div> -->
       </div>
     </v-flex>
   </v-layout>
@@ -58,6 +26,7 @@ import TheBarDomain from '@/components/TheBarDomain'
 import ThePieUseAppRate from '@/components/ThePieUseAppRate'
 import TheLineKey from '@/components/TheLineKey'
 import TheBarEnv from '@/components/TheBarEnv'
+import TheSelectSensorName from '@/components/TheSelectSensorName'
 
 const pressureChartOption = {
   plugins: {
@@ -117,18 +86,25 @@ export default {
     TheBarDomain,
     ThePieUseAppRate,
     TheLineKey,
-    TheBarEnv
+    TheBarEnv,
+    TheSelectSensorName
   },
   data() {
     return {
       pressureChartOption,
       tempChartOption,
-      humiChartOption
+      humiChartOption,
+      sensorName: null
     }
   },
   computed: {
     user() {
       return this.$store.state.user
+    }
+  },
+  methods: {
+    change(s) {
+      this.sensorName = s
     }
   }
 }
