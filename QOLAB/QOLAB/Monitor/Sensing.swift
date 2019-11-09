@@ -177,18 +177,18 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             let key = category.key
             switch key {
             case CategoryName.survey.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.survey.rawValue : "未設定"
+                categoryName = category.value.contains(domain) ? CategoryName.survey.rawValue : "other"
             case CategoryName.implementation.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.implementation.rawValue : "未設定"
+                categoryName = category.value.contains(domain) ? CategoryName.implementation.rawValue : "other"
             case CategoryName.writing.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.writing.rawValue : "未設定"
+                categoryName = category.value.contains(domain) ? CategoryName.writing.rawValue : "other"
             case CategoryName.breakTime.rawValue:
-                categoryName = category.value.contains(domain) ? CategoryName.breakTime.rawValue : "未設定"
+                categoryName = category.value.contains(domain) ? CategoryName.breakTime.rawValue : "other"
             default:
                 print("default")
             }
             
-            if categoryName != "未設定" {
+            if categoryName != "other" {
                 return categoryName
             }
         }
@@ -202,18 +202,18 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
             let key = category.key
             switch key {
             case CategoryName.survey.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.survey.rawValue : "未設定"
+                categoryName = category.value.contains(app) ? CategoryName.survey.rawValue : "other"
             case CategoryName.implementation.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.implementation.rawValue : "未設定"
+                categoryName = category.value.contains(app) ? CategoryName.implementation.rawValue : "other"
             case CategoryName.writing.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.writing.rawValue : "未設定"
+                categoryName = category.value.contains(app) ? CategoryName.writing.rawValue : "other"
             case CategoryName.breakTime.rawValue:
-                categoryName = category.value.contains(app) ? CategoryName.breakTime.rawValue : "未設定"
+                categoryName = category.value.contains(app) ? CategoryName.breakTime.rawValue : "other"
             default:
                 print("default")
             }
             
-            if categoryName != "未設定" {
+            if categoryName != "other" {
                 return categoryName
             }
         }

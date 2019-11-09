@@ -147,10 +147,11 @@ struct APIClient {
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
             if error == nil {
                 do {
-//                    print(String(data: data!, encoding: .utf8))
+                    print(String(data: data!, encoding: .utf8))
                     let res = try decoder.decode(T.self, from: data!)
                     completion(res)
                 } catch {
+                    print("errr")
                     completion(nil)
                 }
             } else {
