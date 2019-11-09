@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		060B614BB66D914759077ACB /* Pods_QOLAB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */; };
 		B1631D312364D04B00816EA0 /* Sensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1631D302364D04B00816EA0 /* Sensing.swift */; };
-		B18560B823735B7B00D3927F /* defaultCategory.json in Resources */ = {isa = PBXBuildFile; fileRef = B18560B723735B7B00D3927F /* defaultCategory.json */; };
 		B18560BA2373621200D3927F /* defaultCategoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18560B92373621200D3927F /* defaultCategoryDataModel.swift */; };
 		B18B483F23707A720066265F /* Config.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B18B483E23707A720066265F /* Config.storyboard */; };
 		B18B4843237084A40066265F /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B4842237084A40066265F /* ConfigViewController.swift */; };
@@ -43,7 +42,6 @@
 		53B0823498E3AED5B3F03F61 /* Pods_QOLAB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QOLAB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		856ADE87C7B7A04A95B17913 /* Pods-QOLAB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QOLAB.debug.xcconfig"; path = "Target Support Files/Pods-QOLAB/Pods-QOLAB.debug.xcconfig"; sourceTree = "<group>"; };
 		B1631D302364D04B00816EA0 /* Sensing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensing.swift; sourceTree = "<group>"; };
-		B18560B723735B7B00D3927F /* defaultCategory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaultCategory.json; sourceTree = "<group>"; };
 		B18560B92373621200D3927F /* defaultCategoryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = defaultCategoryDataModel.swift; sourceTree = "<group>"; };
 		B18B483E23707A720066265F /* Config.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Config.storyboard; sourceTree = "<group>"; };
 		B18B4842237084A40066265F /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 		B1631D2F2364CFD000816EA0 /* Monitor */ = {
 			isa = PBXGroup;
 			children = (
-				B18560B723735B7B00D3927F /* defaultCategory.json */,
 				B1631D302364D04B00816EA0 /* Sensing.swift */,
 				EF15D9B523707FB800073C82 /* MemberObserver.swift */,
 				B18560B92373621200D3927F /* defaultCategoryDataModel.swift */,
@@ -279,7 +276,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B18560B823735B7B00D3927F /* defaultCategory.json in Resources */,
 				EFC6921123641B0700EBDA44 /* Auth.storyboard in Resources */,
 				EF52D7B82363DA4500892586 /* Assets.xcassets in Resources */,
 				B18B483F23707A720066265F /* Config.storyboard in Resources */,

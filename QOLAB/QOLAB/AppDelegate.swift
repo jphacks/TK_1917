@@ -271,9 +271,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Insert code here to tear down your application
     }
     
-    func addMemberActivity(name: String, activity: String) {
+    func addMemberActivity(name: String, activity: String, isYasumi: Bool) {
         let item: NSMenuItem = NSMenuItem()
-        if activity == "YouTube" {
+        if isYasumi {
             item.title = name + ": " + "お休み中"
             item.image = NSImage(named: "red")
             item.isEnabled = false

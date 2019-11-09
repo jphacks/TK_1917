@@ -49,7 +49,23 @@ class MemberObserver: NSObject, NSApplicationDelegate, NSUserNotificationCenterD
                     } else {
                         name = arr.name
                     }
-                    self.appDelegate?.addMemberActivity(name: name, activity: arr.activity)
+                    print("createdAt", arr.createdAt)
+                    var activityDateString = arr.createdAt
+                    let formatter = DateFormatter()
+                    
+                    let split = activityDateString.components(separatedBy: ".")
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                    formatter.locale = Locale(identifier: "ja_JP")
+                    let date1 = formatter.date(from: split[0])
+                    let date2 = Date()
+                    let minute = Calendar.current.dateComponents([.minute], from: date1 ?? Date(), to: date2)
+                    let minuteInt = minute.minute ?? 5530
+                    print("fetchMember: ", minuteInt, date1, date2)
+                    if minuteInt < 570 {
+                        self.appDelegate?.addMemberActivity(name: name, activity: arr.activity, isYasumi: false)
+                    } else {
+                        self.appDelegate?.addMemberActivity(name: name, activity: arr.activity, isYasumi: true)
+                    }
                 }
             }
         }
