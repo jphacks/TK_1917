@@ -81,7 +81,7 @@ export default {
           password: this.password
         })
         localStorage.setItem('access_token', resp.data.access_token)
-        this.$router.push('/signin')
+        this.$router.push('/')
       } catch (e) {
         this.isLoading = false
         console.debug('error')
