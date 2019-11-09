@@ -11,7 +11,7 @@ export class PlaygroundService {
   ) {}
 
   async findAll() {
-    return this.userModel.find();
+    return this.userModel.find().batchSize(10);
   }
   async findOne(name: string) {
     return this.userModel.find().where({ name });

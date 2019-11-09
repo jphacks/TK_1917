@@ -1,7 +1,6 @@
 import { Module, MiddlewareConsumer } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { MongooseModule } from "@nestjs/mongoose";
 import { PlaygroundModule } from "./playground/playground.module";
 import { LabModule } from "./lab/lab.module";
 import { UserModule } from "./user/user.module";
@@ -13,15 +12,14 @@ import { UserActivityModule } from "./user-activity/user-activity.module";
 import { MonipiModule } from "./monipi/monipi.module";
 import { VisializationModule } from "./visialization/visialization.module";
 import { SlackConfigModule } from "./slack-config/slack-config.module";
+import { ConfigModule } from "./config/config.module";
+import { DatabaseModule } from "./database/database.module";
+import { WeeklyReportModule } from "./weekly-report/weekly-report.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://MONGO_DB_PATH", {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      user: "USERNAME",
-      pass: "PASSWORD",
-    }),
+    ConfigModule,
+    DatabaseModule,
     PlaygroundModule,
     LabModule,
     UserModule,
@@ -32,6 +30,7 @@ import { SlackConfigModule } from "./slack-config/slack-config.module";
     MonipiModule,
     VisializationModule,
     SlackConfigModule,
+    WeeklyReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],

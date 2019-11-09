@@ -1,5 +1,9 @@
 import axios from "axios";
+import { isFriday } from "date-fns";
 async function main() {
+  if (!isFriday(new Date())) {
+    return;
+  }
   try {
     // const resp = await axios.get('http://localhost:3000/slack-config')
 
@@ -9,7 +13,7 @@ async function main() {
     resp.data.forEach(slackConf => {
       axios.post(slackConf.url, {
         text:
-          "今日一日の活動を振り返ってみよう！\nhttps://qolab-a0324.firebaseapp.com",
+          "今週の活動を振り返ってみよう！\nhttps://qolab-a0324.firebaseapp.com/weekly_reports",
         channel: slackConf.channel,
       });
     });

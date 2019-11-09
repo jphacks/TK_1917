@@ -17,7 +17,7 @@ export class SlackConfigService {
   }
   async update(slackConfigDto: Partial<SlackConfigDto>, labId: string) {
     const slackConfig = await this.findOneByLabId(labId);
-    if (!slackConfigDto) {
+    if (!slackConfig) {
       // register
       slackConfigDto.labId = labId;
       return await new this.slackConfigModel(slackConfigDto).save();
@@ -29,7 +29,7 @@ export class SlackConfigService {
   }
 
   async get() {
-    var query = {
+    const query = {
       $and: [
         { url: { $exists: true } }, //nameフィールドがn0bisuke以外
         { channel: { $exists: true } }, //nameフィールドがotukutun以外

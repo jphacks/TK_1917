@@ -21,5 +21,6 @@ import { UserModule } from "../user/user.module";
   ],
   controllers: [MonipiController],
   providers: [CreateMonipiService, MonipiService],
+  exports: [MonipiService],
 })
 export class MonipiModule {}

@@ -11,10 +11,12 @@ import CoreWLAN
 import Foundation
 
 class Sensing: NSObject, NSUserNotificationCenterDelegate {
-    let TIMER_NORMAL_SEC = UserDefaults.standard.double(forKey: "normalTimer")
-    let TIMER_SITTING_SEC = UserDefaults.standard.double(forKey: "sittingTimer")
-    // 座りすぎアラートが作動する文字数のしきい値
-    let KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "sittingThreshold")
+    static var TIMER_NORMAL_SEC = 30.0
+    static var TIMER_SITTING_SEC = 30.0
+    // 座りすぎアラートで使う文字数のしきい値
+    static var KEYNUM_THRESHOLD = 10
+    // この回数以上連続でしきい値を超えたらアラートを出す
+    static var ITERATION_NUM = 5
     
     // アプリケーションログの最大記録数
     static let MAX_APPLOG = 30
@@ -29,7 +31,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     static var categoryLogList: [String] = []
     static var dateList: [Date] = []
     
-    var arrayFlag: [Bool] = [false, false, false, false, false]
+    var arrayFlag: [Bool] = []
     var wifiDict: [String: String] = [:]
     /* タイマー変数 */
     var timerNormal = Timer()
@@ -47,9 +49,14 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     override init() {}
     
     func start() {
+        Sensing.TIMER_NORMAL_SEC = UserDefaults.standard.double(forKey: "normalTimer")
+        Sensing.TIMER_SITTING_SEC = UserDefaults.standard.double(forKey: "sittingTimer")
+        Sensing.KEYNUM_THRESHOLD = UserDefaults.standard.integer(forKey: "keyNumThreshold")
+        
+        print("timer", Sensing.TIMER_NORMAL_SEC, Sensing.TIMER_SITTING_SEC)
         /* タイマー実行 */
         timerNormal = Timer.scheduledTimer(
-            timeInterval: TIMER_NORMAL_SEC, // 実行する時間
+            timeInterval: Sensing.TIMER_NORMAL_SEC, // 実行する時間
             target: self,
             selector: #selector(CountDown), // 実行関数
             userInfo: nil,
@@ -58,7 +65,7 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
         
         /* タイマー実行 */
         timerSitting = Timer.scheduledTimer(
-            timeInterval: TIMER_SITTING_SEC, // 実行する時間
+            timeInterval: Sensing.TIMER_SITTING_SEC, // 実行する時間
             target: self,
             selector: #selector(checkLongSitting), // 実行関数
             userInfo: nil,
@@ -284,24 +291,29 @@ class Sensing: NSObject, NSUserNotificationCenterDelegate {
     /* タイマー関数 */
     @objc func checkLongSitting() {
 //        print("checkLongSitting: ", Sensing.keyCountForSitting)
-        if Sensing.keyCountForSitting > KEYNUM_THRESHOLD {
+        if Sensing.keyCountForSitting > Sensing.KEYNUM_THRESHOLD {
             print("detect: threshold over")
-            arrayFlag.removeLast()
             arrayFlag.insert(true, at: 0)
+            
         } else {
-            arrayFlag.removeLast()
             arrayFlag.insert(false, at: 0)
         }
+        
+        if arrayFlag.count > Sensing.ITERATION_NUM {
+            arrayFlag.removeLast()
+        }
+        
         let orderedSet = NSOrderedSet(array: arrayFlag)
         let uniqueValues = orderedSet.array as! [Bool]
         
         // 全てtrueだった場合 座りすぎ
-        if uniqueValues[0], uniqueValues.count == 1 {
+        if uniqueValues[0], uniqueValues.count == 1, arrayFlag.count == Sensing.ITERATION_NUM {
             print("座りすぎです！！！！！！")
             notification()
             // flagを初期化
-            arrayFlag = [false, false, false, false, false]
+            arrayFlag = []
         }
+        
         // keyCountForSittingをリセット
         Sensing.keyCountForSitting = 0
     }

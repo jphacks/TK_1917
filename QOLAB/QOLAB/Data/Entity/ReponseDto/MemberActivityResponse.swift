@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct MemberActivityResponse: Codable {
-    var members: [MemberActivity]
-    struct MemberActivity: Codable {
-        var name: String
-        var activity: String
-    }
+struct MemberActivity: Codable {
+    var name: String
+    var email: String
+    var activity: String
+    var labId: String
+    var createdAt: String
 }

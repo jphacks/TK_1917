@@ -17,5 +17,6 @@ import { UserModule } from "../user/user.module";
   ],
   controllers: [SlackConfigController],
   providers: [SlackConfigService],
+  exports: [SlackConfigService],
 })
 export class SlackConfigModule {}

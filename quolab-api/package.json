@@ -17,7 +17,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "notify": "ts-node src/batch/slack_notifier.ts"
+    "notify": "ts-node src/batch/slack_notifier.ts",
+    "weekly_notify": "ts-node src/batch/weekly_notifier.ts"
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
@@ -29,6 +30,7 @@
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "date-fns": "^2.6.0",
+    "dotenv": "^8.2.0",
     "mongoose": "^5.7.7",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",

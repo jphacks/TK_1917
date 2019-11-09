@@ -3,6 +3,7 @@ export class UserDto {
   readonly email: string;
   readonly password: string;
   labId: string;
+  name: string;
 
   readonly createdAt?: Date;
 }

@@ -6,6 +6,8 @@ import { PlaygroundSchema } from "../types/schemas/playground.schemas";
 import { LabSchema } from "../types/schemas/lab.schemas";
 import { UserModule } from "../user/user.module";
 import { LabService } from "./lab.service";
+import { GetLabMembersService } from "./get-lab-members/get-lab-members.service";
+import { UserActivitySchema } from "../types/schemas/userActibity.schemas";
 
 @Module({
   imports: [
@@ -19,10 +21,14 @@ import { LabService } from "./lab.service";
         name: "playground",
         schema: PlaygroundSchema,
       },
+      {
+        name: "user-activity",
+        schema: UserActivitySchema,
+      },
     ]),
   ],
   controllers: [LabController],
-  providers: [CreateLabService, LabService],
+  providers: [CreateLabService, LabService, GetLabMembersService],
   exports: [LabService],
 })
 export class LabModule {}

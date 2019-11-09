@@ -14,7 +14,7 @@ export class EnvDataService {
     monipiId: string,
     startTime = subHours(new Date(), 6),
     endTime = new Date(),
-  ) {
+  ): Promise<EnvData[]> {
     return this.envDataModel.aggregate([
       {
         $match: {
