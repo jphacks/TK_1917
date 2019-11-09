@@ -60,9 +60,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const res = await api.get(
-        `http://localhost:3000/visialization/envdata/${this.sensorName}`
-      )
+      const res = await api.get(`visialization/envdata/${this.sensorName}`)
       const data = res.data
       return data.sensorData
     },

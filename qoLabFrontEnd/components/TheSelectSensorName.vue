@@ -30,10 +30,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const res = await api.get(
-        'http://localhost:3000/visialization/sensor_category'
-      )
-      console.log(res.data)
+      const res = await api.get('visialization/sensor_category')
       return res.data
     },
     changeEvent(e) {
