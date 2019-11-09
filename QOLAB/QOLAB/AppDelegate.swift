@@ -186,8 +186,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let storyboard = NSStoryboard(name: storyboardName, bundle: nil)
         
         let storyboardID = NSStoryboard.SceneIdentifier(stringLiteral: "ConfigStoryboardID")
-        if let configWindowController = storyboard.instantiateController(withIdentifier: storyboardID) as? NSWindowController {
-            configWindowController.showWindow(nil)
+        if !ConfigViewController.initialized {
+            if let configWindowController = storyboard.instantiateController(withIdentifier: storyboardID) as? NSWindowController {
+                configWindowController.showWindow(nil)
+            }
         }
     }
     
