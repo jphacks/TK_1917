@@ -15,6 +15,7 @@ class ConfigViewController: NSViewController {
     static var appName: String = ""
     static var category: String = ""
     static var idx: Int = -1
+    static var initialized = false
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var sittingTimer: NSTextField!
@@ -24,12 +25,17 @@ class ConfigViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ConfigViewController.initialized = true
         // Do any additional setup after loading the view.
         normalTimer.stringValue = userDefaults.string(forKey: "normalTimer") ?? "60"
         sittingTimer.stringValue = userDefaults.string(forKey: "sittingTimer") ?? "60"
         sittingThreshold.stringValue = userDefaults.string(forKey: "sittingThreshold") ?? "60"
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(update), name: Notification.Name("reload"), object: nil)
+    }
+    
+    override func viewDidDisappear() {
+        ConfigViewController.initialized = false
     }
     
     @objc func update() {
